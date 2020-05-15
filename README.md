@@ -1,4 +1,4 @@
-<p align="center"><img alt="Pergamino" src="assets/logos/CormasLogoBig.png" style="width: 15%; height: 15%">
+<p align="center"><img alt="Pergamino" src="pergamino-logo.png" style="width: 15%; height: 15%">
 <h1 align="center">[PERGAMINO]</h1>
 # project
 Pergamino es un de los productos del proyecto PROCAGICA (el PROgrama CentroAmericano de Gestión Integral de la roya del CAfé).  
