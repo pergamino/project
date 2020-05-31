@@ -1,0 +1,12 @@
+name: pergamino
+title: pergamino
+username:
+account: grupodabia
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2362024
+bundleId: 3193550
+url: https://grupodabia.shinyapps.io/pergamino/
+when: 1590547192.63754
+asMultiple: FALSE
+asStatic: FALSE
