@@ -265,9 +265,9 @@ shinyServer(function(input, output, session) {
                               )
              )
     
-    df$nombres <- c("Probabilidad de aparición de la lesión",
-                    "Probabilidad de aparición de las primeras esporas",
-                    "Pronóstico del incremento del área esporulada")
+    df$nombres <- c("Probabilidad de aparición de la lesión a los 10 días",
+                    "Probabilidad de aparición de las primeras esporas a los 3 días",
+                    "Pronóstico del incremento del área esporulada a los 5 días")
     
     df <- df %>% 
       select(nombres, fecha, colores)
@@ -787,7 +787,7 @@ shinyServer(function(input, output, session) {
     xts(datos_prob3$modelo_intensificacion,
         order.by = datos_prob3$fecha
         ) %>%
-      dygraph(main   = "Probabilidades para el Modelo de Intensificación") %>% 
+      dygraph(main   = "Incremento para el Modelo de Intensificación") %>% 
       dyShading(from  = "0",
                 to    = "0.0333", 
                 axis  = "y",
@@ -815,5 +815,14 @@ shinyServer(function(input, output, session) {
       dyLegend(show   = "always")
     
   })
+  
+  # Descargar documento pdf
+  
+  output$downloadData <- downloadHandler(
+    filename = "manual-de-usuario.pdf",
+    content = function(file) {
+      file.copy("datos/guia.pdf", file)
+    }
+  )
   
 })
