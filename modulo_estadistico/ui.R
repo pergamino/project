@@ -51,6 +51,7 @@ shinyUI(
             tags$style(HTML(".small-box {height: 125px}")),
             tags$style(HTML(".small-box {width: 330px}")),
             tags$style(HTML(".small-box {margin: 5px}")),
+            tags$style(HTML(".box {width: 600px}")),
             useShinyjs(),
             
             # Popovers: Información sobre clasificacion por color de las probabilidades
@@ -220,6 +221,7 @@ shinyUI(
                     # a desplegar (INPUT)
                     
                     fluidRow(
+                        column(width = 7,
                         box(
                             title       = tags$p("Modelo", style = "font-size: 125%"),
                             status      = "primary",
@@ -233,6 +235,18 @@ shinyUI(
                                 ),
                                 selected = "Modelo de infección"
                             )
+                        )
+                        ),
+                        column(
+                            width = 5,
+                            align = "center",
+                            fluidRow(
+                                titlePanel(tags$blockquote("Documento técnico del modelo",
+                                                           style = "font-size: 70%"
+                                )),
+                                downloadButton("downloadData", "Descargar Documento")
+                            )
+                            
                         )
                     ),
                     
