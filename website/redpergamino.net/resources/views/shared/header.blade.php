@@ -19,13 +19,13 @@
                 </ul>
               </li>
               <li><a href="/documentos-cientificos">Documentos cientificos  </a></li>
-              <li><a href="#">Memorias</a></li>
-              <li class="drop-down"><a href="#">Más</a>
+              <li><a href="/memorias">Memorias</a></li>
+             <!--  <li class="drop-down"><a href="#">Más</a>
                 <ul>
                   <li><a href="#">Estudios técnicos</a></li>
                   <li><a href="#">Proyectos vinculados</a></li>
                 </ul>
-              </li>
+              </li> -->
               
             </ul>
          <!--<img src="{{URL::asset('img/header-image.png')}}" style="max-width: 50%; margin-left: 50%;" alt="">-->
