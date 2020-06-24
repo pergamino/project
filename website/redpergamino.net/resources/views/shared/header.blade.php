@@ -12,12 +12,22 @@
       <!-- <img src="{{URL::asset('img/header-image.png')}}" style="max-width: 50%; margin-left: 50%;" alt=""> -->
       <ul>
           <li class="active"><a href="/">Inicio</a></li>
-              <li class="drop-down"><a href="/pergamino">Pergamino</a>
+              <li class="drop-down"><a href="/pergamino">Sobre Pergamino</a>
                 <ul>
                   <li><a href="/plataforma">Plataforma</a></li>
                   <li><a href="/modelos">Modelos</a></li>
                 </ul>
               </li>
+              <li class="drop-down"><a href="#">Herramientas</a>
+                <ul>
+                  <li><a href="#">Módulo IPSIM</a></li>
+                  <li><a href="#">Módulo Socio Económico</a></li>
+                  <li><a href="#">Módulo Estadístico</a></li>
+                  <li><a href="#">Módulo de Mapas</a></li>
+                  <li><a href="#">Módulo de Incidencia</a></li>
+                  <li><a href="#">Aplicación Productor </a></li>
+                </ul>
+                <li><a href="//www.redpergamino.net/_clima/cy_data/login.php">Centro de Datos</a></li>
               <li><a href="/documentos-cientificos">Documentos cientificos  </a></li>
               <li><a href="/memorias">Memorias</a></li>
              <!--  <li class="drop-down"><a href="#">Más</a>
