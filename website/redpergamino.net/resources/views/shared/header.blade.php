@@ -20,10 +20,10 @@
               </li>
               <li class="drop-down"><a href="#">Herramientas</a>
                 <ul>
-                  <li><a href="#">Módulo IPSIM</a></li>
+                  <li><a href="//www.redpergamino.net/ipsim/">Módulo IPSIM</a></li>
                   <li><a href="#">Módulo Socio Económico</a></li>
-                  <li><a href="#">Módulo Estadístico</a></li>
-                  <li><a href="#">Módulo de Mapas</a></li>
+                  <li><a href="//www.redpergamino.net/estadistico/">Módulo Estadístico</a></li>
+                  <li><a href="//redpergamino.net/mapas/">Módulo de Mapas</a></li>
                   <li><a href="#">Módulo de Incidencia</a></li>
                   <li><a href="#">Aplicación Productor </a></li>
                 </ul>
