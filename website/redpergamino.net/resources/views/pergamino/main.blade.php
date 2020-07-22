@@ -9,22 +9,22 @@
             <div class="icon-box icon-box-blue">
               <img src="{{URL::asset('img/Imagen 1.png')}}" alt="" class ="services-img">
               <h4 class="title"><a href="">Aplicativo</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
+              <p class="description">Pergamino ofrece varias herramientas y modelos desarrollados por los investigadores del proyecto.</p>
             </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box icon-box-blue">
               <img src="{{URL::asset('img/Imagen 2.png')}}" alt="" class ="services-img">
-              <h4 class="title"><a href="">Herramienta</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla</p>
+              <h4 class="title"><a href="">Injury Profile Simulator</a></h4>
+              <p class="description">El marco general para la evaluación multiatributo del riesgo de aumento de la incidencia de la roya de la hoja del café</p>
             </div>
           </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box icon-box-blue">
               <img src="{{URL::asset('img/Imagen 3.png')}}" alt="" class ="services-img">
-              <h4 class="title"><a href="">Aplicativo</a></h4>
+              <h4 class="title"><a href="">Mapa de Alerta Regional</a></h4>
               <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim</p>
             </div>
           </div>
@@ -32,8 +32,8 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box icon-box-blue">
               <img src="{{URL::asset('img/Imagen 4.png')}}" alt="" class ="services-img">
-              <h4 class="title"><a href="">Aplicativo</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum</p>
+              <h4 class="title"><a href="">Estadistico</a></h4>
+              <p class="description">Pronóstico estadístico de acuerdo al modelo de infección, inicio de la esporulación o de intensificación de la esporulación</p>
             </div>
           </div>
 
