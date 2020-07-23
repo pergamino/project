@@ -102,7 +102,9 @@
   <script src="{{URL::asset('vendor/venobox/venobox.min.js')}}"></script>
   <script src="{{URL::asset('vendor/owl.carousel/owl.carousel.min.js')}}"></script>
   <script src="{{URL::asset('vendor/aos/aos.js')}}"></script>
-
+ 
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/8877/jquery.flexslider.js" type="text/javascript"></script>
+  <script src="{{URL::asset('js/hero/main.js')}}"></script>
   <!-- Template Main JS File -->
   <script src="{{URL::asset('js/main.js')}}"></script>
 

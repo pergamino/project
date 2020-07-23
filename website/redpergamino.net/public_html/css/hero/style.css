@@ -1,0 +1,88 @@
+@import "bourbon";
+
+@mixin ghost-el( $child, $child-width ) {
+  
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin-right: -.5rem;
+  }
+
+  #{$child} {
+    display: inline-block;
+    width: $child-width;
+    vertical-align: middle;
+  }
+  
+
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.slide-wrap {
+  position: relative;
+  height: 700px;
+  
+  @media all and (min-width: 37.5rem) {
+    height: 400px;
+  }
+  
+  @media all and (min-width: 62.5rem) {
+    height: 500px;
+  }
+}
+.flexslider {
+  @include clearfix();
+  max-height: 100%;
+  overflow: hidden;
+}
+.slides {
+  @include clearfix();
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  margin: 0;
+  padding-left: 0;
+  
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+.caption {
+  @include ghost-el( ".inside-voice", 100% );
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  color: white;
+  z-index: 2;
+}
+.inside-voice {
+  text-align: center;
+  
+  h2 {
+    margin-bottom: 0;
+  }
+  
+}
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  color: tomato;
+  text-transform: uppercase;
+  padding: .5rem .75rem;
+  background-color: bisque;
+  
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: tomato;
+    color: bisque;
+  }
+}

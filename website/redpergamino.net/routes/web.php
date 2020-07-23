@@ -23,3 +23,9 @@ Route::get('/modelos','IndexController@modelos');
 Route::get('/documentos-cientificos','IndexController@documentos');
 
 Route::get('/memorias','IndexController@memorias');
+
+//app
+Route::get('/ipsim','IndexController@ipsim');
+Route::get('/estadistico','IndexController@stadistic');
+Route::get('/mapas','IndexController@maps');
+Route::get('/centro-de-datos','IndexController@data');

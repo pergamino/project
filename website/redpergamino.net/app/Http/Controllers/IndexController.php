@@ -256,4 +256,20 @@ class IndexController extends Controller
        
         return view('memorias', compact('tesis_main','galeria_main'));
     }
+
+    public function ipsim(){
+        return view('apps.ipsim');
+    }
+
+    public function stadistic(){
+        return view('apps.stadistic');
+    }
+
+    public function maps(){
+        return view('apps.maps');
+    }
+
+    public function data(){
+        return view('apps.data');
+    }
 }
