@@ -11,6 +11,7 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#">Contacto técnico</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Contacto Administrativo</a></li>
             </ul>
+            
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
@@ -23,7 +24,7 @@
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <div class="col-lg-4 col-md-6 footer-links">
             <h4></h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Módulo Socio-económico</a></li>
@@ -57,36 +58,11 @@
           </div>
 
         </div>
+        <br>
         
-      </div>
     </div>
     <div class ="footer-white">
-    <div class="container">
-        
-    <h2>Contactos</h2><br>
-    <div class="row">
 
-          <div class="col-lg-8 col-md-6 footer-links">
-            <ul>
-              <li>Jacques Avelino, especialista en roya:</li>
-              <li>Grégoire Leclerc, procesos interinstitucionales y modelación socio-económica:</li>
-              <li>Natacha Motisi, modelación biofísica:</li>
-              <li>Pierre Bommel, modelación socio-ecológica:</li>
-              <li>Edwin Treminio, optimización del monitoreo: </li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <ul>
-              <li><a href="#">jacques.avelino@cirad.fr</a></li>
-              <li><a href="#">gregoire.leclerc@cirad.fr</a></li>
-              <li><a href="#">natacha.motisi@cirad.fr</a></li>
-              <li><a href="#">pierre.bommel@cirad.fr</a></li>
-              <li><a href="#">Edwin.Treminio@catie.ac.cr</a></li>
-            </ul>
-          </div>
-        
-      </div>
       <img src="{{URL::asset('img/header-image.png')}}" style="max-width: 50%;left:0px;" alt="">
       <img src="{{URL::asset('img/gpl.png')}}" style="max-width:8%; float: right; margin-right:50px; margin-top:10px;" alt=""></div>
   </footer><!-- End Footer -->

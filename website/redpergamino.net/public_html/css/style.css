@@ -1591,7 +1591,28 @@ section {
 }
 
 #footer .footer-top .footer-links ul a {
-  color: #ffffff;
+  color: #FFFFFF;
+  transition: 0.3s;
+  display: inline-block;
+  line-height: 1;
+}
+
+#footer .footer-top .footer-links2 ul i {
+  padding-right: 2px;
+  color: #009cea;
+  font-size: 18px;
+  line-height: 1;
+  margin-left: -5px;
+}
+
+#footer .footer-top .footer-links2 ul li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+#footer .footer-top .footer-links2 ul a {
+  color: #627680;
   transition: 0.3s;
   display: inline-block;
   line-height: 1;
@@ -1663,4 +1684,9 @@ section {
 
   width: 100%;
   height: 750px;
+}
+
+#footer-mails{
+  font-size: 12px;
+  color:#627680 !important;
 }

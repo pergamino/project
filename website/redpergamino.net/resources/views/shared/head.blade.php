@@ -23,11 +23,11 @@
   <link href="{{URL::asset('vendor/venobox/venobox.css')}}" rel="stylesheet">
   <link href="{{URL::asset('vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
   <link href="{{URL::asset('vendor/aos/aos.css')}}" rel="stylesheet">
-  <link href="{{URL::asset('css/hero/style.css')}}" rel="stylesheet">
-  <link href="{{URL::asset('css/hero/reset.css')}}" rel="stylesheet">
+  <link href="{{URL::asset('css/hero/style.css?version=3.2')}}" rel="stylesheet">
+  <link href="{{URL::asset('css/hero/reset.css?version=3.2')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="{{URL::asset('css/style.css?v=2')}}" rel="stylesheet">
+  <link href="{{URL::asset('css/style.css?v=3')}}" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
 
 
