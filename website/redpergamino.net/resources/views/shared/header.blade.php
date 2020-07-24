@@ -20,14 +20,14 @@
               </li>
               <li class="drop-down"><a href="#">Herramientas</a>
                 <ul>
-                  <li><a href="/app-ipsim" target="_blank">Módulo IPSIM</a></li>
-                  <li><a href="#" target="_blank">Módulo Socio Económico</a></li>
-                  <li><a href="/app-estadistico" target="_blank">Módulo Estadístico</a></li>
-                  <li><a href="/app-mapas" target="_blank">Módulo de Mapas</a></li>
-                  <li><a href="#" target="_blank">Módulo de Incidencia</a></li>
-                  <li><a href="#" target="_blank">Aplicación Productor </a></li>
+                  <li><a href="/app-ipsim">Módulo IPSIM</a></li>
+                  <li><a href="#">Módulo Socio Económico</a></li>
+                  <li><a href="/app-estadistico" >Módulo Estadístico</a></li>
+                  <li><a href="/app-mapas">Módulo de Mapas</a></li>
+                  <li><a href="#">Módulo de Incidencia</a></li>
+                  <li><a href="#">Aplicación Productor </a></li>
                 </ul>
-                <li><a href="/app-centro-de-datos" target="_blank">Centro de Datos</a></li>
+                <li><a href="/app-centro-de-datos">Centro de Datos</a></li>
               <li><a href="/documentos-cientificos">Documentos cientificos  </a></li>
               <li><a href="/memorias">Memorias</a></li>
              <!--  <li class="drop-down"><a href="#">Más</a>
