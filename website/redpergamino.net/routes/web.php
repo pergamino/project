@@ -29,3 +29,4 @@ Route::get('/app-ipsim','IndexController@ipsim');
 Route::get('/app-estadistico','IndexController@stadistic');
 Route::get('/app-mapas','IndexController@maps');
 Route::get('/app-centro-de-datos','IndexController@data');
+Route::get('/app-modelo-clri','IndexController@clrimodel');

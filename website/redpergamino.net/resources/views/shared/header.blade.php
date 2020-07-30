@@ -25,6 +25,7 @@
                   <li><a href="/app-estadistico" >Módulo Estadístico</a></li>
                   <li><a href="/app-mapas">Módulo de Mapas</a></li>
                   <li><a href="#">Módulo de Incidencia</a></li>
+                  <li><a href="/app-modelo-clri">Modelo CLRI</a></li>
                   <li><a href="#">Aplicación Productor </a></li>
                 </ul>
                 <li><a href="/app-centro-de-datos">Centro de Datos</a></li>
