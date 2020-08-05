@@ -1,0 +1,9 @@
+Categorías de variedades Nicaragua
+Susceptibles: Catuaí, Caturra, Catuaí rojo, Pacas
+Resistentes: Marsellesa y Catimor
+Se elimina Mezcla y robusta tropical
+
+Categorías de variedades de Honduras
+Susceptibles: Catuaí, Caturra, Pacamara, Pacas, Bourbon, Typica
+Resistentes: Parainema
+Medianamente resistentes: Lempira, IHCAFE-90, Obata, Icatu, Catimor, Mezcla, H27
