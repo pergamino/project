@@ -45,26 +45,64 @@ server <- function(input, output, session) {
         value=t(shapScores)
       )
       
-      output$predInstance <- renderText({
-        paste("The predicted CLRI is:", round(predInstance, 2), '%')
+      if (input$feno == 1 | input$feno == 3) {
+        
+        if(predInstance < 5){
+          colorBox = 'aqua'
+        }
+        else if(predInstance >= 5 & predInstance < 15){
+          colorBox = 'green'
+        }
+        else if(predInstance >= 15 & predInstance < 20){
+          colorBox = 'yellow'
+        }
+        else if(predInstance >= 20 & predInstance < 30){
+          colorBox = 'orange'
+        }
+        else {
+          colorBox = 'red'
+        }
+        
+        
+      } else {
+        if(predInstance < 3){
+          colorBox = 'aqua'
+        }
+        else if(predInstance >= 3 & predInstance < 5){
+          colorBox = 'green'
+        }
+        else if(predInstance >= 5 & predInstance < 10){
+          colorBox = 'yellow'
+        }
+        else if(predInstance >= 10 & predInstance < 20){
+          colorBox = 'orange'
+        }
+        else {
+          colorBox = 'red'
+        }
+      }
+      
+      output$clriBox <- renderValueBox({
+        valueBox(
+          paste(round(predInstance, 2),'%', sep=''), "Incidencia prevista para 28 días después de la fecha de vigilancia", icon = icon("viruses", lib = "font-awesome"),
+          color = colorBox
+        )
       })
       
       output$prediction <- renderPlot({
-        shapV$impact <- ifelse(shapV$value < 0, "negative","positive")
+        shapV$impacto <- ifelse(shapV$value < 0, "negativo","positivo")
         ggplot(shapV, aes(x=shapV$name, y=shapV$value)) + 
-          geom_bar(stat = "identity", width=0.5, aes(fill = impact)) + 
-          scale_fill_manual(values=c(positive="firebrick1",negative="steelblue")) + 
-          labs(y = paste("Impact on model output value according to base value = ", round(shap_valuesI$BIAS0,2), "%"), x = "Feature") +
-          coord_flip()
-      }, width = 600)
+          geom_bar(stat = "identity", width=0.5, aes(fill = impacto)) + 
+          scale_fill_manual(values=c(positivo="firebrick1",negativo="steelblue")) + 
+          labs(title = paste("Impacto en la predicción del modelo de acuerdo al valor base = ", round(shap_valuesI$BIAS0,2), "%"), x = "Variable", y = 'Impacto') +
+          coord_flip() +
+          theme(
+            plot.title = element_text(size=14,face="bold"),
+            axis.title=element_text(size=12,face="bold"),
+            axis.text=element_text(size=12),
+          )
+      })
       
-      output$titleTF <- renderText({ "Windows for each weather variable according date of prediction" })
-      
-      output$tframes <- renderImage({
-        list(src = here('shap','www','timeframesModCorr.png'),
-             contentType = 'image/png',
-             width = '600 px')
-      }, deleteFile = FALSE)
       
     }
     
