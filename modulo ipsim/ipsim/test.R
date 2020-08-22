@@ -1,5 +1,4 @@
 # Test
-
 source("0.1-archivo_epidemio.R")
 source("0.2-moulinette_inoculum.R")
 source("1-moulinette_meteo.R")
@@ -10,6 +9,7 @@ source("4.2-plot_moulinette_meteo.R")
 source("4.3-infoBox_alerta.R")
 
 df_epid <- read.csv("honduras_2017_alt_media_suscept.csv")
+
 df_meteo <- read.csv("clim_honduras_alt_media.csv")
 
 df_epid_new <- fichier_epid_new(df_epid)
