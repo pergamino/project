@@ -17,7 +17,7 @@
           <h2>Optimización</h2>
           <div class="row">
             <div class="col-sm-6">
-            <img src="{{URL::asset('img/rfo.jpg')}}" alt="" style="width:60%;">
+            <img src="{{URL::asset('img/rfo.png')}}" alt="" style="width:60%;">
             
             </div>
             <div class="col-sm-6">
