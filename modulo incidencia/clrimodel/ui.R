@@ -7,10 +7,11 @@ library(shinyBS)
 
 
 # header
-header <- dashboardHeader(title = "Pronóstico de incidencia de roya",titleWidth = 310)
+header <- dashboardHeader(title = "Pronóstico de incidencia de roya",titleWidth = 350)
 
 # Sidebar --------------
 sidebar<-dashboardSidebar(
+  width = 350,
   sidebarMenu(id='sidebar',
     menuItem("Incidencia", tabName = "clri", icon = icon("viruses")),
     menuItem("Información", tabName = "info", icon = icon("info"))

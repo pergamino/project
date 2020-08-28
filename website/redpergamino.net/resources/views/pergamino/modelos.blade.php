@@ -9,8 +9,27 @@
 
       </div>
 </section><!-- End MODELOS Section -->
+<!-- ======= OPTIMIZACION Section ======= -->
+<section class="pricing ">
+      <div class="container">
 
-<!-- ======= IPSIM Section ======= -->
+        <div class="section-title" data-aos="fade-up">
+          <h2>Optimización</h2>
+          <div class="row">
+            <div class="col-sm-6">
+            <img src="{{URL::asset('img/rfo.png')}}" alt="" style="width:60%;">
+            
+            </div>
+            <div class="col-sm-6">
+            <p class="left-text">El modelo de optimización se basa en un método territorial costo-eficiente para la estimación apropiada del número de parcelas (tamaño de muestra) necesarias para la vigilancia de la roya anaranjada (Hemileia vastatrix). La correcta estimación del tamaño de muestra bajo esta estrategia depende en primer lugar de una correcta estratificación de los sistemas de producción considerando las dos variables que más influyen en el desarrollo del hongo, y en un segundo plano depende del umbral de detección de la enfermedad y el grado de variabilidad de la incidencia registrada en periodos anteriores.</p>
+            </div>
+        </div>
+          
+        </div>
+
+      </div>
+</section>
+<!-- End OPTIMIZACION Section -->
 <section class="pricing section-bg">
       <div class="container">
 

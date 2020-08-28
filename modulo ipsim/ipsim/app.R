@@ -10,6 +10,8 @@ library(shiny)
 library(shinydashboard)
 library(shinyBS)
 library(bsplus)
+library(leaflet)
+library(RPostgreSQL)
 
 source("0.1-archivo_epidemio.R")
 source("0.2-moulinette_inoculum.R")
@@ -73,7 +75,10 @@ ui <- dashboardPage(
           accept = c("text/csv",
                      "text/comma-separated-values,text/plain",
                      ".csv")
-        )
+        ),
+        
+        actionButton("show", "Obtener datos de modelo climático")
+        
       ),
       
       menuItem(
@@ -409,9 +414,7 @@ ui <- dashboardPage(
       
       if (is.null(inFile_epid))
         return(NULL)
-      
       read.csv(inFile_epid$datapath, header = T)
-      
     })
     
     output$table_epid <- renderTable({
@@ -431,10 +434,8 @@ ui <- dashboardPage(
       inFile_meteo <- input$file_meteo
       
       if (is.null(inFile_meteo))
-        return(NULL)
-      
+          return(NULL)
       read.csv(inFile_meteo$datapath, header = T)
-      
     })
     
     
@@ -672,6 +673,55 @@ ui <- dashboardPage(
     #   }
     # )
     
+    # EM
+    dataModal <- function(failed = FALSE) {
+      modalDialog(
+        title = "Obtener datos de modelo climático",
+        size = "l",
+        fluidRow(
+          column(width=7,
+                 leafletOutput(outputId = "selection", height = 400),
+                 ),
+          column(width=5,
+                 div(style='height:400px; overflow-y: scroll',
+                  tableOutput("table_clima")
+                 )
+          )
+        ),
+        footer = tagList(
+          downloadButton("downloadData", "Download"),
+          modalButton("Cerrar")
+        )
+      )
+    }
+    observeEvent(input$show, {
+      showModal(dataModal())
+      output$selection <- renderLeaflet({
+        leaflet() %>% # the full data frame will be used
+          addProviderTiles("Esri.WorldStreetMap") %>%
+          setView(lng=-83.5,lat=13.1,zoom=5)
+      })
+    })
+    
+    observeEvent(input$selection_click, { 
+      p <- input$selection_click  # typo was on this line
+      con <- dbConnect(PostgreSQL(), dbname = "pergamino", user = "admin",
+                       host = "localhost",
+                       password = "%Rsecret#")
+      sql <- paste("select cast(fecha as varchar) as fecha, precipitacion, temperatura from datosmodeloclima where gid in (select gid from climasamplingpoints order by st_distance(st_geogfromtext('POINT(",p$lng[1]," ",p$lat[1],")'),geom) limit 1)",sep="")
+      rs <- dbGetQuery(con,sql)
+      mydata <<- shiny::reactive(rs)
+      dbDisconnect(con)
+      output$table_clima <- renderTable(mydata())
+      output$downloadData <- downloadHandler(
+        filename = function() {
+          paste("datosclimaticos.csv")
+        },
+        content = function(file) {
+          write.csv(mydata(), file, row.names = TRUE)
+        }
+      )
+    })
   }
   
   shinyApp(ui, server)

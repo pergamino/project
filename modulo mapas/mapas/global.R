@@ -5,6 +5,7 @@ library(RPostgreSQL)
 library(gdata)
 library(plotly)
 library(ggplot2)
+library(gridExtra)
 con <- dbConnect(PostgreSQL(), dbname = "pergamino", user = "admin",
                  host = "localhost",
                  password = "%Rsecret#")

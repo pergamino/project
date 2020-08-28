@@ -37,8 +37,8 @@ body <- dashboardBody(
   
   valueBoxOutput("approvalBox", width=12),
   fluidRow(
-    box(width=8,leafletOutput(outputId = "outbreakMap", height = 660)),
-    box(width=4, title="Síntesis de Alertas", status = "primary", solidHeader = TRUE,
+    box(width=7,leafletOutput(outputId = "outbreakMap", height = 660)),
+    box(width=5, title="Síntesis de Alertas", status = "primary", solidHeader = TRUE,
       plotOutput('areasplot2')
     )
   )

@@ -276,4 +276,8 @@ class IndexController extends Controller
     public function clrimodel(){
         return view('apps.clrimodel');
     }
+
+    public function optimizacion(){
+        return view('apps.optimizacion');
+    }
 }
