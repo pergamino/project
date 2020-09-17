@@ -4,14 +4,13 @@ library(bsplus)
 library(leaflet)
 library(RPostgreSQL)
 
+setwd("/srv/project/modulo ipsim/ipsim")
+
 source("archivo_epidemio_app.R")
 source("0.2-moulinette_inoculum.R")
 source("1-moulinette_meteo.R")
 source("2-ipsim.R")
-source("3-pronostico.R")
-source("4.1-plot_pronostico.R")
-source("4.2-plot_moulinette_meteo.R")
-source("4.3-infoBox_alerta.R")
+
 
 func_ipsim_app <- function() {
 
@@ -25,7 +24,7 @@ func_ipsim_app <- function() {
   
   #---------------------Querys a la base de datos -----------------------------------### 
   result <- dbGetQuery(con, paste(paste("SELECT * from argumentos_ipsim_app where cod_lote=", args[1], sep=""), "order by fecha desc limit 1;"))
-  #result <- dbGetQuery(con, "SELECT * from argumentos_ipsim_app where cod_lote=36 order by fecha desc limit 1;") #consulta de prueba 
+  #result <- dbGetQuery(con, "SELECT * from argumentos_ipsim_app where cod_lote=42 order by fecha desc limit 1;") #consulta de prueba 
   
 
   #cadena para hacer la consulta del clima segun la coordenada de lote
@@ -76,7 +75,4 @@ if (length(args)==0) {
 } else if (length(args)==1) {
   print(func_ipsim_app()) #llamar ipsim function definida arriba
 }
-
-
-
 
