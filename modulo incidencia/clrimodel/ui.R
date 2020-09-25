@@ -99,7 +99,7 @@ body <- dashboardBody(
             
             hr(),
             h3("Investigación"),
-            HTML('<p>Este modelo corresponde al resultado de trabajo de investigación conjunto entre la <b>Universidad del Cauca, CIRAD y CATIE.</b></p>'),
+            HTML('<p>Este modelo corresponde al resultado de trabajo de investigación conjunto entre el <b>Grupo de Ingeniería Telemática (GIT) de la Universidad del Cauca (Colombia), CIRAD y CATIE.</b></p>'),
             p('El proceso para la construcción del modelo está publicado en el siguiente artículo:'),
               
               
