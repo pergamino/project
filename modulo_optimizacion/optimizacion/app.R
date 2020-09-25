@@ -15,10 +15,20 @@ source("7_plot_TME_all.R")
 ui <- dashboardPage(
 
   
-header <- dashboardHeader(title = "Optimizacion del monitoreo de la Roya"), # ne tient pas en entier
+header <- dashboardHeader( 
+                                  tags$li(class = "dropdown",
+                                   tags$style(".main-header {max-height: 85px}"),
+                                   tags$style(".main-header .logo {height: 85px}")
+  ),
+  
+  title = "Optimizacion del monitoreo de la Roya"), # ne tient pas en entier
 
   
 sidebar <- dashboardSidebar(
+  
+  # Adjust the sidebar
+  tags$style(".left-side, .main-sidebar {padding-top: 100px}"),
+  
   sidebarMenu(
     menuItem("Con Datos", tabName = "ConDatos1", icon = icon("dashboard"),
              
