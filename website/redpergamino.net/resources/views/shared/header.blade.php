@@ -22,9 +22,9 @@
                 <ul>
                   <li><a href="/app-experoya">EXPEROYA</a></li>
                   <li><a href="#">SEROYA</a></li>
-                  <li><a href="/app-stadnic" >STADINC</a></li>
+                  <li><a href="/app-stadman" >STADMAN</a></li>
                   <li><a href="/app-mapas">Módulo de Mapas</a></li>
-                  <li><a href="/app-clri">CLRI</a></li>
+                  <li><a href="/app-stadnic">STADINC</a></li>
                   <li><a href="/app-optiroya" >OPTIROYA</a></li>
                   <li><a href="#">Aplicación Productor </a></li>
                 </ul>

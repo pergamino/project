@@ -26,8 +26,8 @@ Route::get('/memorias','IndexController@memorias');
 
 //app
 Route::get('/app-experoya','IndexController@ipsim');
-Route::get('/app-stadnic','IndexController@stadistic');
+Route::get('/app-stadman','IndexController@stadistic');
 Route::get('/app-mapas','IndexController@maps');
 Route::get('/app-centro-de-datos','IndexController@data');
-Route::get('/app-clri','IndexController@clrimodel');
+Route::get('/app-stadnic','IndexController@clrimodel');
 Route::get('/app-optiroya','IndexController@optimizacion');
