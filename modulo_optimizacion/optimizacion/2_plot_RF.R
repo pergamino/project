@@ -25,6 +25,6 @@ ggplot() +
     panel.grid.minor = element_blank(),
     axis.ticks.y=element_blank(),
     strip.background = element_blank())+
-  xlab("") + ylab("Importance de las variables")
+  xlab("") + ylab("Importancia de las variables")
 
 }

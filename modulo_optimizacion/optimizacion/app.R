@@ -2,6 +2,7 @@ library(shiny)
 library(shinydashboard)
 library(shinycssloaders)
 library(tableHTML)
+library(dplyr)
 
 source("1_analyse_RF.R")
 source("2_plot_RF.R")
@@ -22,7 +23,7 @@ ui <- fluidPage(dashboardPage(
             tags$style(".main-header .logo {height: 85px}")
     ),
     
-    title = "Optimización del monitoreo de la Roya"), # ne tient pas en entier
+    title = "Optimización del Monitoreo de la Roya"), 
   
   
   sidebar <- dashboardSidebar(
@@ -33,10 +34,10 @@ ui <- fluidPage(dashboardPage(
     sidebarMenu(
       menuItem("Con Datos", tabName = "ConDatos1", icon = icon("dashboard"),
                
-               menuSubItem('Analis Random Forest',
+               menuSubItem('Variables más importantes',
                            tabName = "App1",
                            icon = icon('line-chart')),
-               menuSubItem('Numero de parcelas',
+               menuSubItem('Número de parcelas',
                            tabName = "App2",
                            icon = icon('line-chart'))
       ),
@@ -53,21 +54,19 @@ ui <- fluidPage(dashboardPage(
       tabItems(
         # First tab content
         tabItem(tabName = "App1",
-                h3("Análisis Random Forest"),
+                h3("Análisis de variables más importantes"),
                 fluidRow(column(10,
                                 
                                 box(h4("Datos de monitoreo"),color = "light-blue",background = "light-blue",width = 4,
-                                    fileInput("file_epid", label=h5("Elija un archivo CSV"),
+                                    fileInput("file_epid", label=h5("Ingrese un archivo CSV"),
                                               accept = c(
                                                 "text/csv",
                                                 "text/comma-separated-values,text/plain",
                                                 ".csv")
                                     ),
-                                    
                                     numericInput("ano_actual",
                                                  h5("Año actual"),
                                                  value=2019),
-                                    
                                     selectInput("select_col",
                                                 h5("Seleccione las columnas"),
                                                 choices= names(data()), multiple= TRUE),
