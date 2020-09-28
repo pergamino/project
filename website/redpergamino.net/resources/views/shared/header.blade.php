@@ -20,12 +20,12 @@
               </li>
               <li class="drop-down"><a href="#">Herramientas</a>
                 <ul>
-                  <li><a href="/app-ipsim">Módulo IPSIM</a></li>
-                  <li><a href="#">Módulo Socio Económico</a></li>
-                  <li><a href="/app-estadistico" >Módulo Estadístico</a></li>
+                  <li><a href="/app-experoya">EXPEROYA</a></li>
+                  <li><a href="#">SEROYA</a></li>
+                  <li><a href="/app-stadman" >STADMAN</a></li>
                   <li><a href="/app-mapas">Módulo de Mapas</a></li>
-                  <li><a href="/app-modelo-clri">Modelo CLRI</a></li>
-                  <li><a href="/app-optimizacion" >Módulo Optimización</a></li>
+                  <li><a href="/app-stadnic">STADINC</a></li>
+                  <li><a href="/app-optiroya" >OPTIROYA</a></li>
                   <li><a href="#">Aplicación Productor </a></li>
                 </ul>
                 <li><a href="/app-centro-de-datos">Centro de Datos</a></li>
