@@ -58,8 +58,13 @@ porcentaje
 from alertas_porcentaje_areas order by periodo,catvariedad,mes,anio,color"
 
 areas <- dbGetQuery(con,sqlareas)
-  
+
+sql2 <- "select * from evaluacion_regional_roya order by anio, mes"
+cabeceras <- dbGetQuery(con,sql2)
+print(cabeceras)
+
 dbDisconnect(con)
+
 #epid <- read.xlsx("dataEpid/allData.xlsx")
 
 epid$alerta[epid$alertares!=""] <- epid$alertares[epid$alertares!=""]

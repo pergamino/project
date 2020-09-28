@@ -66,6 +66,10 @@ server <- function(input, output) {
     )
   })
   
+  output$comentario <- renderText({
+    filter(cabeceras,anio==input$selAnio & mes==input$selMes)$comentario
+  })
+  
   output$areasplot2 <- renderPlot({
     areaespecifica1 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==1 & catvariedad==1)
     areaespecifica2 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==1 & catvariedad==2)
@@ -80,7 +84,7 @@ server <- function(input, output) {
     if(nrow(areaespecifica1)>0)
     {
       plot1 <- ggplot(data=areaespecifica1) + geom_col(aes(x=factor(1), y=porcentaje, fill=color), width=1)
-      plot1 <- plot1 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank(), plot.title = element_text(hjust = 0.5)) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
+      plot1 <- plot1 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
     } else {
       plot1 <- ggplot() + theme_void()
     }
@@ -88,7 +92,7 @@ server <- function(input, output) {
     if(nrow(areaespecifica2)>0)
     {
       plot2 <- ggplot(data=areaespecifica2) + geom_col(aes(x=factor(1), y=porcentaje, fill=color), width=1)
-      plot2 <- plot2 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank(), plot.title = element_text(hjust = 0.5)) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
+      plot2 <- plot2 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
     } else {
       plot2 <- ggplot() + theme_void()
     }
@@ -96,7 +100,7 @@ server <- function(input, output) {
     if(nrow(areaespecifica3)>0)
     {
       plot3 <- ggplot(data=areaespecifica3) + geom_col(aes(x=factor(1), y=porcentaje, fill=color), width=1)
-      plot3 <- plot3 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank(), plot.title = element_text(hjust = 0.5)) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
+      plot3 <- plot3 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
       
     } else {
       plot3 <- ggplot() + theme_void()
@@ -122,7 +126,7 @@ server <- function(input, output) {
     if(nrow(areaespecifica6)>0)
     {
       plot6 <- ggplot(data=areaespecifica6) + geom_col(aes(x=factor(1), y=porcentaje, fill=color), width=1)
-      plot6 <- plot6 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(),x=element_blank(), y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
+      plot6 <- plot6 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
     } else {
       plot6 <- ggplot() + theme_void()
     }
@@ -130,7 +134,7 @@ server <- function(input, output) {
     if(nrow(areaespecifica7)>0)
     {
       plot7 <- ggplot(data=areaespecifica7) + geom_col(aes(x=factor(1), y=porcentaje, fill=color), width=1)
-      plot7 <- plot7 + coord_polar(theta = "x") + theme(legend.position = "none", axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
+      plot7 <- plot7 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
     } else {
       plot7 <- ggplot() + theme_void()
     }
@@ -138,7 +142,7 @@ server <- function(input, output) {
     if(nrow(areaespecifica8)>0)
     {
       plot8 <- ggplot(data=areaespecifica8) + geom_col(aes(x=factor(1), y=porcentaje, fill=color), width=1)
-      plot8 <- plot8 + coord_polar(theta = "x") + theme(legend.position = "none", axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
+      plot8 <- plot8 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
     } else {
       plot8 <- ggplot() + theme_void()
     }
@@ -146,18 +150,17 @@ server <- function(input, output) {
     if(nrow(areaespecifica9)>0)
     {
       plot9 <- ggplot(data=areaespecifica9) + geom_col(aes(x=factor(1), y=porcentaje, fill=color), width=1)
-      plot9 <- plot9 + coord_polar(theta = "x") + theme(legend.position = "none", axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
+      plot9 <- plot9 + coord_polar(theta = "x") + theme(legend.position = "none", axis.title.x = element_blank(), axis.ticks = element_blank(), axis.text.y = element_blank()) + labs(title=element_blank(), x=element_blank(),y=element_blank()) + scale_fill_manual(breaks = c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"), values=c("#00b2f3", "#63fd2c", "#fffc00", "#fabf00","#fd0100"))
     } else {
       plot9 <- ggplot() + theme_void()
     }
     
     pl <- list(plot4, plot6, plot5, plot7, plot9, plot8, plot1, plot3, plot2)
-    col.titles = c("Materiales susceptibles\n","Materiales resistentes\n","Materiales medianamente\n resistentes")
-    row.titles = c("Durante \nla cosecha\n","Después de \n la cosecha,\n antes de la floración","Después de \n la floración,\n antes de la cosecha")
-    pl[1:3] = lapply(1:3, function(i) arrangeGrob(pl[[i]], top=col.titles[i]))
+    col.titles = c("Materiales\n susceptibles\n            ","Materiales\n resistentes\n             ","Materiales\n medianamente resistentes")
+    row.titles = c("Durante la cosecha\n                          ","Después de la cosecha,\n antes de la floración","Después de la floración,\n antes de la cosecha")
+    pl[1:3] = lapply(1:3, function(i) arrangeGrob(pl[[i]], top=col.titles[i], widths = unit(5,"cm"), heights=unit(5,"cm")))
     grid.arrange(grobs=lapply(c(1,4,7), function(i) {
-      arrangeGrob(grobs=pl[i:(i+2)], left=row.titles[i/3 + 1], nrow=1)
+      arrangeGrob(grobs=pl[i:(i+2)], left=row.titles[i/3 + 1], nrow=1, heights=unit(5,"cm"))
     }), nrow=3)
-    #grid.arrange(plot4, plot6, plot5, plot7, plot9, plot8, plot1, plot3, plot2, nrow = 3, padding = unit(c(0,0,0,0), "null"))
   })
 }
