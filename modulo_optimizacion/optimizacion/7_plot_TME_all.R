@@ -31,7 +31,7 @@ dfCumsumActual$TM_arr <- ceiling(dfCumsumActual$TM_ajustado)
 
 # Plot
 ggplot() +
-  geom_bar(data=dfCumsumActual, aes(x=Fec, y=TM_ajustado, fill=FACTOR),stat="identity")+
+  geom_bar(data=dfCumsumActual, aes(x=Fec, y=TM_ajustado, fill=FACTOR),stat="identity",alpha = 0.2)+
   geom_text(data=dfCumsumActual,aes(x=Fec, y=label_TM_cum, label=TM_arr), vjust=1,
             color="white", size=3.5)+
   scale_colour_gradientn(colours=rainbow(4))+
@@ -44,11 +44,12 @@ ggplot() +
                      breaks=seq(1, 12, 1),
                      labels=c("Ene","Feb","Mar","Abr","May","Jun",
                               "Jul","Aug","Sep","Oct","Nov","Dec"))+
-  scale_y_continuous(name = "Numero de parcelas", 
+  scale_y_continuous(name = "Número de parcelas", 
                      breaks=seq(0, max(dfCumsumActual$label_TM_cum+100), 100),
                      sec.axis = sec_axis(~.*(max(incMedia$p)*100)/max(dfCumsumActual$label_TM_cum), name = "Incidencia",
                      breaks=seq(0, max(incMedia$p)*100, ceiling(max(incMedia$p)*100/10))))+
-  theme_minimal()
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())#
+        #,panel.background = element_blank())
 
 }
 

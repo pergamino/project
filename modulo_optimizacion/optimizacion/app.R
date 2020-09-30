@@ -3,6 +3,8 @@ library(shinydashboard)
 library(shinycssloaders)
 library(tableHTML)
 library(dplyr)
+library(shinyBS)
+library(shinyWidgets)
 
 source("1_analyse_RF.R")
 source("2_plot_RF.R")
@@ -19,29 +21,29 @@ ui <- fluidPage(dashboardPage(
   
   header <- dashboardHeader(
     tags$li(class = "dropdown",
-            tags$style(".main-header {max-height: 85px}"),
-            tags$style(".main-header .logo {height: 85px}")
+            tags$style(".main-header {max-height: 65px}"),
+            tags$style(".main-header .logo {height: 65px}")
     ),
     
-    title = "Optimización del Monitoreo de la Roya"), 
+    title = h4("Optimización del Monitoreo de la Roya")), 
   
   
   sidebar <- dashboardSidebar(
     
     # Adjust the sidebar
-    tags$style(".left-side, .main-sidebar {padding-top: 100px}"),
+    tags$style(".left-side, .main-sidebar {padding-top: 70px}"),
     
     sidebarMenu(
-      menuItem("Con Datos", tabName = "ConDatos1", icon = icon("dashboard"),
+      menuItem("Análisis Con Datos", tabName = "ConDatos1", icon = icon("dashboard"),
                
                menuSubItem('Variables más importantes',
                            tabName = "App1",
                            icon = icon('line-chart')),
                menuSubItem('Número de parcelas',
                            tabName = "App2",
-                           icon = icon('line-chart'))
+                           icon = icon('hashtag'))
       ),
-      menuItem("Sin Datos", tabName = "SinDatos", icon = icon("th"))
+      menuItem("Análisis Sin Datos", tabName = "SinDatos", icon = icon("th"))
     )
     
   ),
@@ -67,9 +69,7 @@ ui <- fluidPage(dashboardPage(
                                     numericInput("ano_actual",
                                                  h5("Año actual"),
                                                  value=2019),
-                                    selectInput("select_col",
-                                                h5("Seleccione las columnas"),
-                                                choices= names(data()), multiple= TRUE),
+                                    
                                     
                                     #br(),
                                     actionButton("action",h5("Iniciar el analisis"))
@@ -97,9 +97,9 @@ ui <- fluidPage(dashboardPage(
                                label = "Variable 2",
                                choices = c("Altura", "Variedad", "Regiones", "Year")
                              ),
-                             textOutput("var_imp"
+                           
                                         
-                             ),
+                         
                              
                          ),
                          
@@ -112,41 +112,45 @@ ui <- fluidPage(dashboardPage(
         
         # Second tab content
         tabItem(tabName = "App2",
-                h2("Numero de parcelas"),
+                h2("Número de parcelas"),
                 
-                fluidRow( 
+                fluidRow(
+                  
                   tabBox(
                     id = "tabset2", height = "500px", width = "500px",
-                    tabPanel("Parametros",
-                             fluidRow(
-                               column(width = 6,
-                                      box(
+                    
+                  tabsetPanel(
+                    
+                    tabPanel("Parámetros",
+                             fluidRow(style='margin: 0px;',
+                               column(10,offset = 0,
+                                      box(width = 6,background = "yellow",style='margin: 6px;',
                                         numericInput("num_detectabilidad",
                                                      h5("Umbral de detectabilidad"),
                                                      value = 1),
                                         numericInput("num_n",
-                                                     h5("Numero de plantas"),
+                                                     h5("Número de plantas"),
                                                      value = 30),
                                         numericInput("num_TMF",
-                                                     h5("Tamano minimo de parcelas"),
+                                                     h5("Tamaño mínimo de parcelas"),
                                                      value = 10)
-                                      )
+                                      
                                ),
                                
-                               column(width = 6,
-                                      box(color = "yellow",background = "yellow",
-                                          title=tags$p(style = "font-size: 130%;", "Numero de parcelas en el teritorio"),
+                            
+                                      box(color = "yellow",background = "light-blue",width = 6,
+                                          title=tags$p(style = "font-size: 50%;", h5("Número de parcelas en el teritorio")),
                                           uiOutput("comb_var"))
                                )
                              )
                     ),
-                    tabPanel("Tamano a realizar",  
+                    tabPanel("Tamaño a realizar",  
                              box("Antes de pasar al monitoreo del mes",plotOutput("plot_monit_esperado",height=500),
                                  width = 12,
                                  downloadButton("down_plot_monit_actual", "Download Plot")
                              )
                     ),
-                    tabPanel("Tamano efectuado y necesario",
+                    tabPanel("Tamaño efectuado y necesario",
                              fluidRow(
                                column(width = 5,
                                       box("Considerando el monitoreo del mes",
@@ -167,6 +171,7 @@ ui <- fluidPage(dashboardPage(
                              )
                     )
                   )
+                )
                 )
         ),
         
@@ -200,7 +205,7 @@ ui <- fluidPage(dashboardPage(
         )
       )
     )
-)
+  )
 )
 
 
@@ -214,7 +219,7 @@ dashboardPage(
 server <- function(session, input, output) {
   
   # Con datos -----------------------
-  data <-  reactive({
+  df_epid <-  eventReactive(input$action,{
     req(input$file_epid)
     
     inFile_epid <- input$file_epid
@@ -224,23 +229,6 @@ server <- function(session, input, output) {
     read.csv(inFile_epid$datapath, header = T)
   })
   
-  
-  df_epid <- eventReactive({
-    input$action
-    data()
-  }, {
-    
-    req(data())
-    if(is.null(input$select_col) || input$select_col == "")
-      data() else 
-        data()[, colnames(data()) %in% input$select_col]
-    
-  })
-  
-  
-  observeEvent(data(), {
-    updateSelectInput(session, "select_col", choices=colnames(data()))
-  })
   
   
   
@@ -261,11 +249,8 @@ server <- function(session, input, output) {
     func_plot_RF(analyse_RF())
   })
   
-  #mensanje grafico RF
-  
-  output$var_imp <- renderText({ 
-    paste("Usted a seleccionado las variables de ", input$V1, "y",input$V2 )
-  })
+
+ 
   
   
   
@@ -330,7 +315,7 @@ server <- function(session, input, output) {
   
   analyse_vgam <- reactive({
     
-    withProgress(message = 'Calculo en curso',
+    withProgress(message = 'Cálculo en curso',
                  detail = 'Puede tomar un cafecito...', value = 0, {
                    TME(table_RF(),
                        df_Np(),
