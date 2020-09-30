@@ -57,32 +57,40 @@ ui <- fluidPage(dashboardPage(
         # First tab content
         tabItem(tabName = "App1",
                 h3("Análisis de variables más importantes"),
-                fluidRow(column(10,
+                fluidRow(column(12,
+                                tags$style(HTML('#run{background-color:orange}')),
                                 
-                                box(h4("Datos de monitoreo"),color = "light-blue",background = "light-blue",width = 4,
-                                    fileInput("file_epid", label=h5("Ingrese un archivo CSV"),
+                                box(h4("Datos de monitoreo"),color = "light-blue",background = "navy",width = 4,
+                                    fileInput("file_epid", label=h5("1. Ingresar un archivo CSV"),
                                               accept = c(
                                                 "text/csv",
                                                 "text/comma-separated-values,text/plain",
                                                 ".csv")
                                     ),
                                     numericInput("ano_actual",
-                                                 h5("Año actual"),
+                                                 h5("2. Año actual"),
                                                  value=2019),
                                     
                                     
-                                    #br(),
-                                    actionButton("action",h5("Iniciar el analisis"))
+                                    br(),
+                                    actionBttn("action",tags$b("Iniciar el análisis"),color = "warning", style = "simple")
                                     
                                 ),
                                 
                                 box(title = h4("Gráfico de variables más importantes", align = "center"),
-                                    color = "teal",background = "teal",
-                                    withSpinner(plotOutput("plot_RF", height = 250)),
+                                   # color = "teal",background = "teal",
+                                    withSpinner(plotOutput("plot_RF", height = 200)),
                                     width = 8)),
                          
+                ),
                          
-                         box(title="Elegir las variables",width = 4,
+                        fluidRow(column(12,
+                                    
+                          box(title="Elegir las variables",width = 4,height = 250,
+                              background  = "light-blue",
+                              bsButton("q1", label = "", icon = icon("question"), style = "info", size = "extra-small"),
+                              bsPopover(id = "q1",title ="Variables", content = paste0("Elija las variables más importantes de acuerdo con el gráfico anterior."),
+                                        placement = "right", trigger = "focus", options = list(container = "body")),
                              selectInput(
                                inputId = "V1",
                                label = "Variable 1",
@@ -103,16 +111,17 @@ ui <- fluidPage(dashboardPage(
                              
                          ),
                          
-                         box(title = "Categorías",
-                             background  = "navy",
+                         box(title = h4("Categorías", align = "center"),
+                            # background  = "navy",
                              withSpinner(tableOutput("out_table_comb_var")),
-                             width = 6)
-                )
+                             width = 8))
+                     )
+                
         ),
         
         # Second tab content
         tabItem(tabName = "App2",
-                h2("Número de parcelas"),
+                h3("Número de parcelas"),
                 
                 fluidRow(
                   
@@ -121,7 +130,7 @@ ui <- fluidPage(dashboardPage(
                     
                   tabsetPanel(
                     
-                    tabPanel("Parámetros",
+                    tabPanel(tags$b("Parámetros"),
                              fluidRow(style='margin: 0px;',
                                column(10,offset = 0,
                                       box(width = 6,background = "yellow",style='margin: 6px;',
@@ -144,13 +153,13 @@ ui <- fluidPage(dashboardPage(
                                )
                              )
                     ),
-                    tabPanel("Tamaño a realizar",  
+                    tabPanel(tags$b("Tamaño a realizar"),  
                              box("Antes de pasar al monitoreo del mes",plotOutput("plot_monit_esperado",height=500),
                                  width = 12,
                                  downloadButton("down_plot_monit_actual", "Download Plot")
                              )
                     ),
-                    tabPanel("Tamaño efectuado y necesario",
+                    tabPanel(tags$b("Tamaño efectuado y necesario"),
                              fluidRow(
                                column(width = 5,
                                       box("Considerando el monitoreo del mes",
@@ -165,7 +174,7 @@ ui <- fluidPage(dashboardPage(
                                )
                              )
                     ),
-                    tabPanel("Nueva ronda",
+                    tabPanel(tags$b("Nueva ronda"),
                              fluidRow(
                                box(uiOutput("table_TM_sequencial_NR"))
                              )
