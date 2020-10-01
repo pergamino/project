@@ -65,6 +65,9 @@ print(cabeceras)
 
 dbDisconnect(con)
 
+defAnio <- max(epid$anio)
+defMes <- max(filter(epid,anio==defAnio)$mes)
+
 #epid <- read.xlsx("dataEpid/allData.xlsx")
 
 epid$alerta[epid$alertares!=""] <- epid$alertares[epid$alertares!=""]

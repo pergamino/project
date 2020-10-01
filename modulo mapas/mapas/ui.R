@@ -22,10 +22,10 @@ sidebar <- dashboardSidebar(
                selected = levels(periodo_feno)[1]),
   selectInput("selAnio", label = "Año", 
               choices = anios, 
-              selected = 1),
+              selected = defAnio),
   selectInput("selMes", label = "Mes", 
               choices = list("Enero" = 1, "Febrero" = 2, "Marzo" = 3, "Abril" = 4, "Mayo" = 5, "Junio" = 6, "Julio" = 7, "Agosto" = 8, "Septiembre" = 9, "Octubre" = 10, "Noviembre" = 11, "Diciembre" = 12), 
-              selected = 1),
+              selected = defMes),
   box(title = "Colores de alerta",status="warning",height=350,width=250,
   img(src = "colorAlertas.png",height=250,width=240)
   )
