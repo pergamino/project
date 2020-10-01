@@ -78,7 +78,7 @@ ui <- fluidPage(
                                     
                                     
                                     br(),
-                                    actionBttn("action",tags$b(h5("Iniciar el análisis")),color = "warning", style = "fill",block = TRUE)
+                                    actionBttn("action",h5("Iniciar el análisis"),color = "success", style = "jelly",block = FALSE,size = "sm")
                                     
                                 ),
                                 
@@ -92,7 +92,7 @@ ui <- fluidPage(
                         fluidRow(column(12,
                                     
                           box(title="Elegir las variables",width = 4,height = 300,
-                              background  = "light-blue",
+                              background  = "navy",
                               bsButton("q1", label = "", icon = icon("question"), style = "info", size = "extra-small"),
                               bsPopover(id = "q1",title ="Variables", content = paste0("Elija las variables más importantes de acuerdo con el gráfico anterior."),
                                         placement = "right", trigger = "focus", options = list(container = "body")),
@@ -111,7 +111,7 @@ ui <- fluidPage(
                                choices = c("Altura", "Variedad", "Regiones", "Year")
                              ),
                            
-                             actionBttn("elegir",(h5("Mostrar Categorías")), color = "primary",style = "fill",block = TRUE),          
+                             actionBttn("elegir",(h5("Mostrar Categorías")), color = "warning",style = "jelly",block = FALSE, size = "sm"),          
                          
                              
                          ),
@@ -171,8 +171,8 @@ ui <- fluidPage(
                     tabPanel(tags$b("Datos monitoreo del mes"),
                         fluidRow(
                           fluidRow(
-                             column(12 ,offset = 2,
-                                 box(h4("Datos de monitoreo mes en curso"),color = "light-blue",background = "navy",width = 5,height=350,
+                             column(12 ,
+                                 box(h4("Datos de monitoreo mes en curso"),color = "light-blue",background = "navy",width = 4,height=350,
                                      fileInput("file_epid2", label=h5("1. Ingresar un archivo CSV"),
                                                accept = c(
                                                  "text/csv",
@@ -185,7 +185,7 @@ ui <- fluidPage(
                                  
                                  
                                  br(),
-                                 actionBttn("action2",tags$b(h5("Iniciar el análisis")),color = "warning", style = "fill",block = TRUE)
+                                 actionBttn("action2",(h5("Iniciar el análisis")),color = "success", style = "jelly",block = FALSE, size = "sm")
                                  
                             
                              
@@ -258,7 +258,7 @@ ui <- fluidPage(
                                    value = 10),
                       width = 5,
                   
-                  actionBttn("resultados",tags$b(h5("Mostrar resultados")),color = "primary", style = "fill",block = TRUE)),
+                  actionBttn("resultados",(h5("Mostrar resultados")),color = "primary", style = "jelly",block = FALSE ,size = "sm")),
                   
                   box(title = tags$b("Resultados"),tableOutput("out_sin_datos"),
                       width = 7)
@@ -448,12 +448,12 @@ server <- function(session, input, output) {
   
   
   #MENSAJE boton 2 
-  # observeEvent(input$action2, {
-  #   showModal(modalDialog(
-  #     title = "Mensaje Importante",
-  #     "Espere a que el botón de iniciar sea de color naranja"
-  #   ))
-  # })
+  observeEvent(input$action2, {
+    showModal(modalDialog(
+      title = "Mensaje Importante",
+      "Continuar a la siguiente pestaña ->"
+    ))
+  })
   #FIN 
   
   table_RF2 <-  reactive({
