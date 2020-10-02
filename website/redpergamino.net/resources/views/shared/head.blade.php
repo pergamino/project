@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">-->
 
   <!-- Vendor CSS Files -->
   <link href="{{URL::asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -24,8 +24,8 @@
   <link href="{{URL::asset('vendor/venobox/venobox.css')}}" rel="stylesheet">
   <link href="{{URL::asset('vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
   <link href="{{URL::asset('vendor/aos/aos.css')}}" rel="stylesheet">
-  <link href="{{URL::asset('css/hero/style.css?version=3.2')}}" rel="stylesheet">
-  <link href="{{URL::asset('css/hero/reset.css?version=3.2')}}" rel="stylesheet">
+  <link href="{{URL::asset('css/hero/style.css?version=3.3')}}" rel="stylesheet">
+  <link href="{{URL::asset('css/hero/reset.css?version=3.3')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{URL::asset('css/style.css?v=3')}}" rel="stylesheet">

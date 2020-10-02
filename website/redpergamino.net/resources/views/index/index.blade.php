@@ -8,7 +8,7 @@
           <br>
           <p class="left-text">Es financiado por la Unión Europea. El objetivo general es:</p>
           <br>
-          <p class="left-text" style="font-style: italic;">"Aumentar la capacidad de la región para diseñar e implementar políticas, programas y medidas para una mejor adaptación, capacidad de respuesta y resiliencia de la población más vulnerable, que vive en las zonas de producción de café de Centroamérica y República Dominicana, y que está expuesta a los efectos adversos del cambio y variabilidad climática".</p>
+          <p class="left-text" style="font-style: italic;line-height : 25px;">"Aumentar la capacidad de la región para diseñar e implementar políticas, programas y medidas para una mejor adaptación, capacidad de respuesta y resiliencia de la población más vulnerable, que vive en las zonas de producción de café de Centroamérica y República Dominicana, y que está expuesta a los efectos adversos del cambio y variabilidad climática".</p>
           <br>
           <p class="left-text">Procagica está coordinado por el IICA: <a href="http://www.iica.int/es/node/296">http://www.iica.int/es/node/296</a> </p>
         </div>
