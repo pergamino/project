@@ -214,42 +214,42 @@ class IndexController extends Controller
             'title'=>'Procagica, taller Panamá, mayo de 2018',
             'description'=>'Procagica, taller Panamá, mayo de 2018', 
             'url'=>'https://photos.google.com/share/AF1QipOM_GPbfgUz2mGkHikxH_9niKqT4aZP_jhnjGEmm6OdxycCbEtxD55uB3IAidvVTg?key=VHdsLU90aEp6ckNqSG05SnZPcVJKTnh4U3UyVlR3', 
-            'thumb'=>'https://lh6.googleusercontent.com/proxy/NR4NpeLvKr80ARXE1jU_A3wrLJ0EIOeJjtd0ChNZSJIVEEiQZrhvE2ukPvwbhGbPIhkIaxwyGnGNKXEw1oxVU7Mb8Gz9hUpNRq-lTT3c9d9IXtgTfEK_ZhV14PSWzk5oLEeZAUpONsUGmFBXNgPLuqL7_gN2q3M6Zourl9yzytRJgqkrPOS44CV9RcsVg_5l7IgROz3gbkSX6BkxiWd96ZUGqYdYgMXidNd0lhKEnqOIuFjHzKAM17TdEJyVS2q17c4M5K3PdBcQyNEIPcESYOM61jyAEw'],
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3cehYK1uYM5bmA8f-pUkhrszB5Y4WqEoVRcanEfiAY7V98vJrW-ABPJ5SwanEqYduobnbmrG5PdSduRayCI_PhiJKYrmkZ9rowS-SF-KGor0fIK0iWZR4j10o4JjfolJ5kLPeJQ3MeOafleiTaBHWLVpg=w1234-h820-no?authuser=0'],
             [
             'title'=>'Procagica. Taller Guatemala, 22 de mayo 2018. Anacafé            ',
             'description'=>'Procagica. Taller Guatemala, 22 de mayo 2018. Anacafé            ', 
             'url'=>'https://photos.google.com/share/AF1QipPBTXV8_VfQulZu9qI7ll2-bk5bam-mDxMFNMSQLYOo7XjrRTgPLp8ggxEtIcMgMw?key=ZTM1MkdOVms2M2VkNGZFbHp5d0xicEhxSXNfb2h3', 
-            'thumb'=>'https://lh4.googleusercontent.com/proxy/BbhoVOAYiE_eGqScf97eBv9e3aRXgqMQ8usqIaFf_FPpJz7mZjkYAuVhP2-1vKZnfnwKefCn0jmolNHel5Aq2PHTE3wiN8smg2jHsNAxiYwQE6O2RDFNrIY2AlMkTab3P6-NQpTUDcj7eIJg3Jliae0xEzEo8VUVpOoVX8YKbxIk4sGfsczAG-Fcgklg3UWO18-HB05YBaFxtrOhGTafFkjyhhzFKkNGwT77xLFeb3rMhXTnyv9vIYxCiYIvBwx4jwlumJXqW7oFoKO-CaiXaDH6s67o2g'],
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3fnDI2S4A--Nuux5Hh6UAV8o8TRR9zWR4Koer4j3sED0VQF2tn7c0wGkh2zOqixD8Cx4gYgS9hMsoeybXOkcvu1KHgQz-ojzYdCnOYcnU87LI9M1HND38fn9SCyE6ayQ--NyrF9IcYgzorMRVUsId4zvw=w2126-h1338-no?authuser=0'],
             [
             'title'=>'Procagica. Taller Rep. Dominicana, 19 de junio 2018.            ',
             'description'=>'Procagica. Taller Rep. Dominicana, 19 de junio 2018.            ', 
             'url'=>'https://photos.google.com/share/AF1QipODJHvAqFGhP9bX_tDqPbe1DDSHHmqmOF1VgU2Q0TXJw3YbilJNQm0_1GQVH6ZmJQ?key=QU1HSWx5Y0FnM2JhZmNScE9haEFjNERtVHI2cDd3', 
-            'thumb'=>'https://lh4.googleusercontent.com/proxy/pmtMZjHuuaFiPBhC7bqYCH07uPk5sfOW7pfdlJvitJnJQVkMTNRjfRZuR0751MVb0Q9V4kgQpt7Bblhx4vHtDyC36W2TUdlXRTEgsqgD6fyCTFwD6rQEy8kdQasq7chv2--fW8cddUdH0iKpWfBM5a7cGbWJ25saYP5WaB85vAKwPIMOqfVsGE2Hvjs1LR4UZTSgtewZeQf7coDmDKZ5oH1DunFd_nj78uIRkGW6nCRgWaFy4_RcWIHP27GsexsRjjU2YfuXYcw1nALWFVQoo_FdIXEZTw'],
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3dZeG_LSxI8LnYQiW5i8XYZzcWx9l_AJnWXL44tnFgeTN9a_SEzIQbmEr6kgL7l-W_VWud_R7nkBQ3usMARDdyxYC4YFnMpeSAButhuMDQVNorkikjh8nCiuOOdyw0UwvAsAfA6iqeXNPuSG36I51x74Q=w1784-h1338-no?authuser=0'],
             [
             'title'=>'Procagica, taller Guatemala - nov 2018            ',
             'description'=>'Procagica, taller Guatemala - nov 2018            ', 
             'url'=>'https://photos.google.com/share/AF1QipPOL2cm6WpEKSwa2y3PEfaXpnjm4mApE4Ri-wPHnFb99K5mK73GVFkjxjQ4nEzF_A?key=ZmVONGdWYVhWTnQ3UHlPSG4wNGJtdVNQSGtmcVlR', 
-            'thumb'=>'https://lh5.googleusercontent.com/proxy/WuQ4SVHbMd8jcRv1q8sLpcZKhesdDYnL8Hjmu5phMa0TTYH4gLzBn6G5HcjUzZMOnxkJ-3tb8V9NfmOF8ndBoEA-jDtKeYHwJRBNQN5qYlIUw9DD7NbBGkpSM-M3za3j64g5lMcCaJKYLBDkgBC6bDUPKZFC9JZQCIFYMxwXsSBqmSdd0tkSItp-LSXtPoYEbvn9wFNVeAIB9fMHU63FBScTIu-fFN5HADgtb2CD8dpk7Tn2vQp6lB54KiPm3WNm0QJ0MbMC5zjndakQTa7dHB5l2wFJmA'],
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3cSpvHy2LwwRVVFoTiYaQ5UVA6hJKDwU_QFmSqfbiOu4KM2lcDSnU_Ua8prZ8qMOoo-VsIpR7jXNRGc73XO0WM76aX_u015PXX_bCXPaQUOGC9NVJiPr-VKvFX5zPF4dYjuY_fCS-tBVexd34bitkV7iw=w2012-h1338-no?authuser=0'],
             [
             'title'=>'Procagica, taller Honduras - Oct 2018, Tegucigalpa            ',
             'description'=>'Procagica, taller Honduras - Oct 2018, Tegucigalpa            ', 
             'url'=>'https://photos.google.com/share/AF1QipMBw5nlHzr6tclL_InLFzCrKQ7qi_UE-v4GX68khUVKPGk-jE3LH7xl0wJSMkKBrg?key=R1o5anBzcVZiYnZKTEN3WXhIUEJSa2VVZ0RPd1hR', 
-            'thumb'=>'https://lh5.googleusercontent.com/proxy/5_i9-v7x7JiaoxMGzctErIZhPUXoWKBqCNlvoaKSkQf7JlSSguI_sNdwPo5YRrWyyHzLS03rAQCcyUhuRQ4aZBMSxcnRzjMglEgx5aVimXL_15Vf_MWANRwEDdhE2fXDm0zh2b4qiff4SuuEYFCHI17hNnKBbHKyAFRW8Or3IiF5aen1Mxz1uJTZdZ8sMUJpbLCwy6xDS5yAQq-BvU5d56IB9WlmZ1HLgm5-XTZu9X-NQJthOzEOuUT-Dh_ejaXCLEPo4pDGCHX1WymXi3J3GsREKP-NdQ'],
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3coRQsMsP34HWPA32Oo63KeFUjYGKG8XnVojwnrDCyPMRkB5DJRrEOQGhnClcqRcOktCyzU9NEv4WlTspH8wIk3ax_kgM5-Hw9jmkDLgeXr1gSW4CyJZXLjDexaBfwNYY4k0hY3_C3fB71cMrUH_E655g=w2012-h1338-no?authuser=0'],
             [
             'title'=>'procagica, taller nacional Salvador, dic 2018            ',
             'description'=>'procagica, taller nacional Salvador, dic 2018            ', 
             'url'=>'https://photos.google.com/share/AF1QipNJoq-Y1Vk3jWU6ae9j9qrMoqF-h5LsPeFnONzyZFcgHsCvU161ksRKMcZu2CjcsA?key=R1hWckYzLVdES05qQjBOSnZTZ0kwM1BmdXBIenln', 
-            'thumb'=>'https://lh3.googleusercontent.com/proxy/E_4rhtvmCCkdF65OpROCxyiNcaz7vD9oX5zJw6CiFeFS5PLbP8_oDsj3TEGxz3dqB-m95MU5kaGmAKxIXiM8SHAQ-opckKQ_Vkwb3sb8BFMY1N1Jkk_KKUwkEkTpbyOmxDydHdbMdIa5wZNkvJJTqKtlrbjz-UB8JY5MMfKh_MgO9eJoOhoubhgcmt6YWETJxmCoewHXpwEw0gKPxzrrXnvMPbgj20tJ24_YDcCen6FvXWwtGfyxeeUAgowwKF1rmTTcvfutqbyKvDote00YoODqSJ5b7g'],
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3dsBUjOx4guahO3moztBp83CIJT5Kwq4FnnRYOOpNajxC_jtYuZqafyvoB6sfEe75WggGVgxlCeDePIR-J9H_6mr8UQ2QTduE8LHbtNczIt2UKfzFk4hrlIzIktnCL5pHEBFrGqn0lePkBX-A9FpN1FRQ=w2012-h1338-no?authuser=0'],
             [
             'title'=>'Procagica. Taller regional prevención crisis, San Salvador, 5-6 dic. 2018            ',
             'description'=>'Procagica. Taller regional prevención crisis, San Salvador, 5-6 dic. 2018            ', 
             'url'=>'https://photos.google.com/share/AF1QipPoriJ8zGRsg-57h9773nWYjlzgucjmbbQGnYzWRQd74JSXwSDssBwzUWVsguCAcw?key=Vk40ZkQweGNBblI1b0RmUzV6TnhJY0ZHZWZ6R1N3', 
-            'thumb'=>'https://lh6.googleusercontent.com/proxy/MuNBn1PTceWMTfOPHuFafKmTfotnb2-quwk2wknvEyDll1Ue-S4Qy3lA8362QtBa4l-jlRLjGO-6nhwSJ0Id97lxhvL9PrGsPgyvxMWX46EGywPYuFO6WmoYss3M9s76KVo40-f0SOXUHTwROmms_t0S2wSQu0fE-EBu3z8YWoDL3mcCX7FzdROvZtKwsFMikVrFUoAdNR5kPj3P35mCS9ZgMoITOpnghcAr3KgAEzi_kgMzv-NXjmFcflWh-cPEQ1Vcwz_kGBCkIcA2H4MOmBhg3VAYUQ'],
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3cN8zuBeAKFM0ka-Lc8WTm09NtTm3Vr3XoEk3WZAin_YODPGefU9RvyaKWzujtcLtNI_A44N3TRxXCgfIGuj__CEq1HwZ2_d9KI1zfphVQlHU9RaWwVTQtJLSpf2U8AdBQatUy5grqIoQmgBo8NHIdFtQ=w2012-h1338-no?authuser=0'],
             [
             'title'=>'Taller regional, Managua - 22-23 Octubre 2019            ',
             'description'=>'Taller regional, Managua - 22-23 Octubre 2019            ', 
             'url'=>'https://photos.google.com/share/AF1QipPDofg0YUrfR6kPVowKFmB9msgJF2AaEK4Xh-yL3B_62VtpLbjPMGSFwJnn0GH_ag?key=V09tay1iOFZsak1iX0kxZ2h2UUdvb2RYUmdBMmFB', 
-            'thumb'=>'https://lh3.googleusercontent.com/proxy/ubA2FsciWtf1gU2xLbbAqKpkT2v0MfiiZN0hY9sHiFgGCEhhuPjsHun-OZ6Wlp2hm08GLpJlERJru7g2ENFMBgZ2Rl5r6wODUJpLEsy4ZLiSm1nJN9R5VX5IqomYSP9s5XRiFlgSBSbiEBnTgpP0UI9JI_n89HUWTA2EZz4CjnSH6mANrJGH9Cba1K8qSXOvfSNxB_kEVR9q1ja2wYRMXYF2OO4D8KJFYR0I_eJfRrfHS6O0EccBwhogLRbZZw-O0HodNrXS5xWpfaMiIw135OIzmha5CA']
+            'thumb'=>'https://lh3.googleusercontent.com/pw/ACtC-3ewfONpcick5gKunak_ipEqJbmHVcf6FKbFhkLfA1-vIjkOWO8FnfLZkuMsC7TsTz1DPS0zY6wBsVy95UWJv9ydKpuavdlC_sZy-S_48QSReAD1kKaGrfmltVRTcBbID7aEmdXaLMkKodJs22ZvBUlJuw=w1280-h960-no?authuser=0']
         ];
         $galeriaJson=json_encode($galeria);
         $galeria_main= json_decode($galeriaJson,true);
