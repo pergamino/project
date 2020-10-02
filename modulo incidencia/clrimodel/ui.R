@@ -39,17 +39,29 @@ body <- dashboardBody(
             h2("Pronóstico de incidencia de roya"),
             
             p('Esta aplicación le permite predecir la incidencia de la roya del café a partir del clima, la sombra, el manejo, la información sobre el crecimiento del árbol de cafeto y la vigilancia de la enfermedad.'),
-            p('Establezca los valores para cada variable y presione el botón "Estimar incidencia"'),
+            p('Cargue el archivo de clima y establezca los valores para cada variable y presione el botón "Estimar incidencia". 
+              La descripción del archivo de datos climáticos que debe usar se encuentra en la sección Información ubicado en el panel izquierdo.'),
             
             fluidRow(
               box(title = HTML(paste("Variables climáticas",icon('cloud-sun'))),status = "success",solidHeader = TRUE,collapsible = TRUE,
                   
-                numericInput("rDay14-11", label = h5("Número de días lluviosos entre el día 14 y 11 antes de la medición de la incidencia actual (rDay14-11)"), max = 4, value = 2, min = 0),
-                numericInput("pre11-8", label = h5("Precipitación acumulada promedio (mm) entre el día 11 y 8 antes de la medición de la incidencia actual (pre11-8)"), value = 7.15, min = 0),
-                numericInput("tMax9-6", label = h5("Promedio de temperaturas máximas diarias (°C) entre el día 9 y 6 antes de la medición de la incidencia actual (tMax9-6)"), value = 22, min = 0),
-                numericInput("pre6-3", label = h5("Precipitación acumulada promedio (mm) entre el día 6 y 3 antes de la medición de la incidencia actual (pre6-3)"), value = 5.6, min = 0),
-                numericInput("tMin4-1", label = h5("Promedio de temperaturas mínimas diarias (°C) entre el día 4 y 1 antes de la medición de la incidencia actual (tMin4-1)"), value = 17.5, min = 0),
-
+                #numericInput("rDay14-11", label = h5("Número de días lluviosos entre el día 14 y 11 antes de la medición de la incidencia actual (rDay14-11)"), max = 4, value = 2, min = 0),
+                #numericInput("pre11-8", label = h5("Precipitación acumulada promedio (mm) entre el día 11 y 8 antes de la medición de la incidencia actual (pre11-8)"), value = 7.15, min = 0),
+                #numericInput("tMax9-6", label = h5("Promedio de temperaturas máximas diarias (°C) entre el día 9 y 6 antes de la medición de la incidencia actual (tMax9-6)"), value = 22, min = 0),
+                #numericInput("pre6-3", label = h5("Precipitación acumulada promedio (mm) entre el día 6 y 3 antes de la medición de la incidencia actual (pre6-3)"), value = 5.6, min = 0),
+                #numericInput("tMin4-1", label = h5("Promedio de temperaturas mínimas diarias (°C) entre el día 4 y 1 antes de la medición de la incidencia actual (tMin4-1)"), value = 17.5, min = 0),
+                
+                fileInput('file', 'Seleccione el archivo CSV de clima',
+                          multiple = FALSE,
+                          accept = c(
+                            '.csv'
+                          )
+                ),
+                
+                textOutput("textVar"),
+                tags$br(),
+                
+                tableOutput('tblVar')
               ),
               
               box(title = HTML(paste("Propiedades de cultivo y vigilancia",icon('leaf'))),status = "success",solidHeader = TRUE,collapsible = TRUE,
@@ -59,6 +71,10 @@ body <- dashboardBody(
                 
                 numericInput("rP", label = h5("Incidencia actual (rP)"), value = 28.5, min = 0),
                 
+                dateInput('date',
+                          label = 'Fecha de medición de la incidencia',
+                          value = Sys.Date()
+                ),
                 #hr(),
                 selectInput("feno", h5("Fenología"),  choices = list("De la cosecha hasta la floración" = 1, "De la floración hasta la cosecha" = 2, "Durante de la cosecha" = 3), selected=NULL),
                 
@@ -70,6 +86,7 @@ body <- dashboardBody(
             fluidRow(
               valueBoxOutput("clriBox", width = 12)
             ),
+            
             fluidRow(
               column(12, align="center",
                      plotOutput("prediction"),
@@ -87,8 +104,19 @@ body <- dashboardBody(
             h2("Información sobre el modelo"),
             
             p('Para usar este modelo, debe tener el valor de vigilancia de la roya y la información del clima alrededor de la fecha en que fue medida, específicamente de 14 días antes.'),
-            p('Los datos de clima deben estar en escala diaria. Las variables están caracterizadas en periodos de días consecutivos. La siguiente figura muestra los periodos para cada variable climática:'),
+            p('Los datos de clima deben estar en escala diaria en un archivo de valores separados por comas (CSV). Las variables necesarias son la temperatura máxima y mínima de cada día, y la precipitación acumulada del día. Los nombres de las columnas deben ser: fecha,tmax,tmin,precipitacion.'),
+            p('La fecha debe estar en formato año-mes-día (por ejemplo 2020-10-05), las temperaturas en grados centígrados y la precipitación en milímetros.'),
             
+            p('En el siguiente botón puede descargar un ejemplo de la estructura del archivo CSV:'),
+            
+            br(),
+            
+            downloadButton("downloadData", "Descargar archivo de ejemplo"),
+            
+            br(),
+            br(),
+            
+            p('A partir del archivo de datos subido, el sistema genera automáticamente las variables del modelo según la fecha de medición de incidencia (que debe especificar en el formulario). La siguiente figura muestra los periodos para cada variable climática:'),
             fluidRow(
               column(12, align="center",
                      img(src = "ventanasTiempo.png",width=600,align = "center")
@@ -114,6 +142,7 @@ body <- dashboardBody(
     )
   ),
   
+
   # bsPopover(
   #   id        = "rDay14-11",
   #   title     = "rDay14-11",
