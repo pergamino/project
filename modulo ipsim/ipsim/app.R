@@ -4,7 +4,10 @@
 # Autor : Natacha MOTISI
 ###############################
 
-# Modif 02/04/2020: ajout moulinette inoculum
+# Modif 02/04/2020 : ajout moulinette inoculum
+# Modif 29/06/2020 : 3 modeles a comparer, modele simple, intermediaire, complet
+# Ajout de la variable Input_calidad_del_manejo() dans func_ipsim() pour adapter au modele simple
+
 
 library(shiny)
 library(shinydashboard)
@@ -16,11 +19,12 @@ library(RPostgreSQL)
 source("0.1-archivo_epidemio.R")
 source("0.2-moulinette_inoculum.R")
 source("1-moulinette_meteo.R")
-source("2-ipsim.R")
+source("2-ipsim_4-modeloCompletoLecaniPoda2.R")
 source("3-pronostico.R")
-source("4.1-plot_pronostico.R")
+source("4.1-plot_pronostico2.R")
 source("4.2-plot_moulinette_meteo.R")
 source("4.3-infoBox_alerta.R")
+source("4.4-plot_tasa_creci.R")
 
 
 ui <- dashboardPage(
@@ -78,7 +82,6 @@ ui <- dashboardPage(
         ),
         
         actionButton("show", "Obtener datos de modelo climático")
-        
       ),
       
       menuItem(
@@ -136,14 +139,14 @@ ui <- dashboardPage(
             width = 6,
             selectInput(
               inputId = "NAd",
-              label = "Nutricion adecuada",
+              label = "Nutrición suficiente",
               choices = c("Si", "No")
             )
             %>%
               shinyInput_label_embed(
                 shiny_iconlink() %>%
                   bs_embed_popover(
-                    title = "3 categorias",
+                    title = "2 categorias",
                     content = paste("Si : NPKMgS",
                                     "No : menos que NPKMgS")
                     ,
@@ -163,15 +166,15 @@ ui <- dashboardPage(
               choices = c("Alta", "Media", "Baja o pleno sol"),
               selected="Baja o pleno sol"
             )
-            
+
             %>%
               shinyInput_label_embed(
                 shiny_iconlink() %>%
                   bs_embed_popover(
                     title = "3 categorias",
-                    content = paste("Alta : >40% sombra",
-                                    "Media : 20-40% sombra",
-                                    "Baja : <20% sombra")
+                    content = paste("Alta : >60% sombra",
+                                    "Media : 40-60% sombra",
+                                    "Baja : <40% sombra")
                     ,
                     placement = "right",
                     tags$style(".popover{
@@ -182,56 +185,14 @@ ui <- dashboardPage(
                   )
               ),
         
-        # hr(),
-        
-        fluidRow(
-          h5(
-            align = "center",
-            tags$p(style = "font-weight: bold;", "Mes de aplicacion de quimicos:")
-          ),
-          column(
-            width = 6,
-            checkboxGroupInput(
-              inputId = "Q1",
-              label = NULL,
-              choices =   c(
-                "Enero"     = "1",
-                "Febrero"   = "2",
-                "Marzo"     = "3",
-                "Abril"     = "4",
-                "Mayo"      = "5",
-                "Junio"     = "6"
-              )
-            )
-            
-          ),
-          
-          column(
-            width = 6,
-            checkboxGroupInput(
-              inputId = "Q2",
-              label = NULL,
-              choices = c(
-                "Julio"     = "7",
-                "Agosto"    = "8",
-                "Setiembre" = "9",
-                "Octubre"   = "10",
-                "Noviembre" = "11",
-                "Diciembre" = "12"
-              )
-            )
-          )
-        ),
-        
-        
-        # hr(),
+
         
         fluidRow(
           column(
             width = 4,
             dateInput(
               inputId = "fecha_flo",
-              label = "Fecha de la floracion",
+              label = "Fecha de la floración",
               value = "2017-04-01"
             )
           ),
@@ -253,8 +214,138 @@ ui <- dashboardPage(
               value = "2018-01-01"
             )
           )
-        )
+        ),
+        
+        
+          
+          fluidRow(
+            h5(
+              align = "center",
+              tags$p(style = "font-weight: bold;", "Mes de aplicacion de quimicos")
+            ),
+            column(
+              width = 6,
+              checkboxGroupInput(
+                inputId = "Q1",
+                label = NULL,
+                choices =   c(
+                  "Enero"     = "1",
+                  "Febrero"   = "2",
+                  "Marzo"     = "3",
+                  "Abril"     = "4",
+                  "Mayo"      = "5",
+                  "Junio"     = "6"
+                )
+              )
+              
+            ),
+            
+            column(
+              width = 6,
+              checkboxGroupInput(
+                inputId = "Q2",
+                label = NULL,
+                choices = c(
+                  "Julio"     = "7",
+                  "Agosto"    = "8",
+                  "Setiembre" = "9",
+                  "Octubre"   = "10",
+                  "Noviembre" = "11",
+                  "Diciembre" = "12"
+                )
+              )
+            )
           ),
+          
+        
+        fluidRow(
+          h5(
+            align = "center",
+            tags$p(style = "font-weight: bold;", "Calidad de la poda")
+            
+          ), 
+          
+          column(
+            width = 6,
+            selectInput(
+              inputId = "CaliPoda1",
+              label = "Enero",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda2",
+              label = "Febrero",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda3",
+              label = "Marzo",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda4",
+              label = "Abril",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda5",
+              label = "Mayo",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda6",
+              label = "Junio",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            )
+          ),
+          column(
+            width = 6,
+            selectInput(
+              inputId = "CaliPoda7",
+              label = "Julio",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda8",
+              label = "Agosto",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda9",
+              label = "Setiembre",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda10",
+              label = "Octubre",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda11",
+              label = "Noviembre",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            ),
+            selectInput(
+              inputId = "CaliPoda12",
+              label = "Diciembre",
+              choices = c("Total", "P50%", "P25%", "No"),
+              selected = "No"
+            )
+          )
+        )
+        
+    ),
       # menuItem(
       #   "Salidas de Ipsim",
       #   tabName = "salidas",
@@ -305,10 +396,9 @@ ui <- dashboardPage(
               de aumento de la incidencia de la roya de la hoja del café",
               status = "warning",
               solidHeader = T,
-              column(12,align="center",
-                img(
-                  src = "Fig1.png", width='80%'
-                )
+              img(
+                src = "Fig1.png",
+                width = '80%'
               )
           )
         )
@@ -321,11 +411,9 @@ ui <- dashboardPage(
             title = "El ciclo de vida de la roya ",
             status = "warning",
             solidHeader = T,
-            column(12,align="center",
-              img(
-                src = "Fig2.png",
-                width = "80%"
-              )
+            img(
+              src = "Fig2.png",
+              width = '80%'
             )
             )
         ),
@@ -336,11 +424,9 @@ ui <- dashboardPage(
             title = "¿Cómo se construye el modelo? ",
             status = "warning",
             solidHeader = T,
-            column(12,align="center",
-              img(
-                src = "Fig3.png",
-                width = "80%"
-              )
+            img(
+              src = "Fig3.png",
+              width = '80%'
             )
         )
       ),  
@@ -381,12 +467,16 @@ ui <- dashboardPage(
             box(title="Riesgo de crecimiento de la  roya",width=12,
               plotOutput("plot_alerta")),
 
-            infoBoxOutput("progressBox")
+            infoBoxOutput("progressBox"),
+            textOutput("txt_poda")
               ),
             
             column(width = 6,
             box(title="Riesgos ligados al clima y las variables del sistema",width=12,
               plotOutput("plot_meteo"))
+            # ,
+            # box(title="Tasa de crecimiento",width=12,
+            #     plotOutput("plot_tasa_creci"))
           ),
           tags$style("#progressBox {width:500px;}")
           
@@ -414,7 +504,9 @@ ui <- dashboardPage(
       
       if (is.null(inFile_epid))
         return(NULL)
+      
       read.csv(inFile_epid$datapath, header = T)
+      
     })
     
     output$table_epid <- renderTable({
@@ -434,8 +526,10 @@ ui <- dashboardPage(
       inFile_meteo <- input$file_meteo
       
       if (is.null(inFile_meteo))
-          return(NULL)
+        return(NULL)
+      
       read.csv(inFile_meteo$datapath, header = T)
+      
     })
     
     
@@ -497,6 +591,140 @@ ui <- dashboardPage(
       )
     })
     
+    Input_poda1 <- reactive({
+      switch(
+        input$CaliPoda1,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+   
+    Input_poda2 <- reactive({
+      switch(
+        input$CaliPoda2,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    
+    Input_poda3 <- reactive({
+      switch(
+        input$CaliPoda3,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    Input_poda4 <- reactive({
+      switch(
+        input$CaliPoda4,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    
+    Input_poda5 <- reactive({
+      switch(
+        input$CaliPoda5,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    
+    Input_poda6 <- reactive({
+      switch(
+        input$CaliPoda6,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    Input_poda7 <- reactive({
+      switch(
+        input$CaliPoda7,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    Input_poda8 <- reactive({
+      switch(
+        input$CaliPoda8,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    Input_poda9 <- reactive({
+      switch(
+        input$CaliPoda9,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    
+    Input_poda10 <- reactive({
+      switch(
+        input$CaliPoda10,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    Input_poda11 <- reactive({
+      switch(
+        input$CaliPoda11,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    
+    Input_poda12 <- reactive({
+      switch(
+        input$CaliPoda12,
+        "Total" = 1,
+        "P50%" = 2,
+        "P25%" = 3,
+        "No" = 4
+      )
+    })
+    
+    Input_poda <- reactive({
+      c(Input_poda1(),Input_poda2(),Input_poda3(),Input_poda4(),Input_poda5(),Input_poda6(),
+        Input_poda7(),Input_poda8(),Input_poda9(),Input_poda10(),Input_poda11(),Input_poda12())
+    })
+    
+    
+    # output$txt_poda <- renderText({ 
+    #   Input_poda()
+    # })
     
     
     Input_quimicos <- reactive({
@@ -514,7 +742,19 @@ ui <- dashboardPage(
              "No" = 2)
     })
     
+    Input_calidad_del_manejo <- reactive({
+      switch(input$CaliManejo,
+             "Optimo" = 1,
+             "Regular" = 2,
+             "Deficiente" =3)
+    })
+     
+    
+
+    
     # IPSIM ----------------
+    
+    # V2020-06--------------
     
     df_ipsim <- reactive({
       func_ipsim(
@@ -524,17 +764,16 @@ ui <- dashboardPage(
         Input_var(),
         Input_quimicos(),
         Input_nutri_adequada(),
+        Input_calidad_del_manejo(),
         Input_fecha_flo(),
         Input_fecha_ini_cosecha(),
         Input_fecha_fin_cosecha(),
-        Input_sombra()
+        Input_sombra(),
+        Input_poda()
       )
     })
     
-    # output$ipsim <- renderTable({
-    #   func_table_ipsim(df_ipsim())
-    # })
-    
+
     
     df_prono <- reactive({
       func_prono (df_ipsim(),
@@ -558,41 +797,7 @@ ui <- dashboardPage(
     
     
     # Info Box sobre el riesgo del mes en curso
-    
-    # # Mes del ano
-    # df_mes <- data.frame(num_mes = c(1:12),
-    # nombre_mes = c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre")
-    # )
-    # 
-    # 
-    # # Riesgo del mes en curso
-    # 
-    # ano_en_curso <- reactive({
-    #   subset(df_prono(),ano==max(ano))
-    # })
-    # 
-    # mes_en_curso <- reactive({
-    #   max(ano_en_curso()$num_mes)
-    # })
-    # 
-    # nombre_mes_en_curso <- reactive({
-    #   df_mes$nombre_mes[df_mes$num_mes==mes_en_curso()]
-    # })
-    # 
-    # riesgo_del_mes <- reactive({
-    #   ano_en_curso()$riesgo[ano_en_curso()$num_mes==mes_en_curso()]
-    # })
-    # 
-    # df_riesgo <-  data.frame(riesgo=c(1:4),
-    #                          nom_riesgo=c("aumentar fuertemente","aumentar",
-    #                                       "matente estable o va aumentar levemente",
-    #                                       "bajar")
-    # )
-    # 
-    # incidencia_va <- reactive({
-    #   df_riesgo$nom_riesgo[df_riesgo$riesgo==riesgo_del_mes()]
-    # })
-    
+
     df_infoBox <- reactive({
       func_infoBox(df_prono(),
                    df_epid_new(),
@@ -615,8 +820,9 @@ ui <- dashboardPage(
       )
     })
     
-    # output$plot_prono_txt <- renderPlot({
-    #   func_plot_prono_txt(df_prono())
+    # output$plot_tasa_creci <- renderPlot({
+    #   func_tasa_creci(df_prono(),
+    #                   df_epid_new())
     # })
     
     output$plot_meteo <- renderPlot({
@@ -625,6 +831,8 @@ ui <- dashboardPage(
         df_ipsim()
       )
     })
+    
+    
     
     # 27/06/2019 : download Data + plot --------------
     #
@@ -681,10 +889,10 @@ ui <- dashboardPage(
         fluidRow(
           column(width=7,
                  leafletOutput(outputId = "selection", height = 400),
-                 ),
+          ),
           column(width=5,
                  div(style='height:400px; overflow-y: scroll',
-                  tableOutput("table_clima")
+                     tableOutput("table_clima")
                  )
           )
         ),

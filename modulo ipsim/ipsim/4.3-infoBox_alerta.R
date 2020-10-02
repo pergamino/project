@@ -15,7 +15,10 @@ library(mondate)
   
   # Nombre del mes del ano
   df_mes <- data.frame(num_mes = c(1:12),
-                       nombre_mes = c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre")
+                       nombre_mes = c("Enero", "Febrero", "Marzo", "Abril", 
+                                      "Mayo", "Junio", "Julio", "Agosto", 
+                                      "Setiembre", "Octubre", "Noviembre", 
+                                      "Diciembre")
   )
   
   nombre_mes_en_curso <- df_mes$nombre_mes[df_mes$num_mes==mes_en_curso]
@@ -38,22 +41,30 @@ date_fin <- as.Date(as.mondate(df_data_prono$Fecha_median[nrow(df_data_prono)]) 
 
 
 rect0 <- data.frame(xstart = min(date_init,date_floracion), xend = date_floracion,
-                    ystart = c(0,5,15,20,30), yend = c(5,15,20,30,(max(35,datos_epidemio$incidencia,na.rm=T))),
+                    ystart = c(0,5,15,20,30), yend = c(5,15,20,30,(max(35,datos_epidemio$incidencia,
+                                                                       df_data_prono$incidencia_ipsim,
+                                                                       na.rm=T))),
                     col = col_alerta,
                     periodo=0)
 
 rect1 <- data.frame(xstart = date_floracion, xend = date_ini_cosecha,
-                    ystart = c(0,2.5,5,10,20), yend = c(2.5,5,10,20,(max(35,datos_epidemio$incidencia,na.rm=T))),
+                    ystart = c(0,2.5,5,10,20), yend = c(2.5,5,10,20,(max(35,datos_epidemio$incidencia,
+                                                                         df_data_prono$incidencia_ipsim,
+                                                                         na.rm=T))),
                     col = col_alerta,
                     periodo=1)
 
 rect2 <- data.frame(xstart = date_ini_cosecha, xend = date_fin_cosecha,
-                    ystart = c(0,5,15,20,30), yend = c(5,15,20,30,(max(35,datos_epidemio$incidencia,na.rm=T))),
+                    ystart = c(0,5,15,20,30), yend = c(5,15,20,30,(max(35,datos_epidemio$incidencia,
+                                                                       df_data_prono$incidencia_ipsim,
+                                                                       na.rm=T))),
                     col = col_alerta,
                     periodo=2)
 
 rect3 <- data.frame(xstart = date_fin_cosecha, xend = max(date_fin,date_fin_cosecha),
-                    ystart = c(0,2.5,5,10,20), yend = c(2.5,5,10,20,(max(35,datos_epidemio$incidencia,na.rm=T))),
+                    ystart = c(0,2.5,5,10,20), yend = c(2.5,5,10,20,(max(35,datos_epidemio$incidencia,
+                                                                         df_data_prono$incidencia_ipsim,
+                                                                         na.rm=T))),
                     col = col_alerta,
                     periodo=3)
 
@@ -68,8 +79,8 @@ for(fecha in 1:nrow(df_periodo)){
   col_alerta_del_mes <-
     if (df_data_prono$Fecha_median[nrow(df_data_prono)] > df_periodo$xstart[fecha] &
         df_data_prono$Fecha_median[nrow(df_data_prono)] < df_periodo$xend[fecha] &
-        df_data_prono$incidencia[nrow(df_data_prono)] > df_periodo$ystart[fecha] &
-        df_data_prono$incidencia[nrow(df_data_prono)] < df_periodo$yend[fecha])
+        df_data_prono$incidencia_median[nrow(df_data_prono)] >= df_periodo$ystart[fecha] &
+        df_data_prono$incidencia_median[nrow(df_data_prono)] <= df_periodo$yend[fecha])
     {
       df_periodo$col[fecha]
     } else {
