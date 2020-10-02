@@ -1,14 +1,19 @@
 # Sorties des pronstics d'IPSIM
 #################################
 
+# 2020-06-26 : Modif sur l'incidence
+# on ne prend pas la moyenne de toutes les parcelles a chq date
+# mais la mediane (la moyenne des 50% les plus semblables (des plus proches de la moyenne))
+
+
 
 func_prono <- function(sortie_ipsim,
                       datos_epidemio,
                       variedad){
   
   library(tidyverse)
-  library(plotly)
   library(ggpubr)
+  library(plyr)
   
 
   # Nb de points a attribuer a la croissance  
@@ -20,9 +25,20 @@ func_prono <- function(sortie_ipsim,
   # Datos epidemiologicos
   ###########################
   
-  sub <- aggregate(data.frame(incidencia=datos_epidemio$incidencia),
-                   by=list(Fecha_median=datos_epidemio$Fecha_median,num_mes=datos_epidemio$num_mes,ano=datos_epidemio$ano),
-                   mean,na.rm=T)
+  sub1 <- aggregate(data.frame(incidencia_mean=datos_epidemio$incidencia),
+                    by=list(Fecha_median=datos_epidemio$Fecha_median,num_mes=datos_epidemio$num_mes,ano=datos_epidemio$ano),
+                    mean,na.rm=T)
+  
+  sub2 <- aggregate(data.frame(incidencia_median=datos_epidemio$incidencia),
+                    by=list(Fecha_median=datos_epidemio$Fecha_median,num_mes=datos_epidemio$num_mes,ano=datos_epidemio$ano),
+                    median,na.rm=T)
+  
+  sub <- cbind(sub1,incidencia_median=sub2$incidencia_median)
+  
+  # sub <- ddply(datos_epidemio, c("Fecha_median","num_mes","ano"), summarise,
+  #              incidencia_mean=mean(incidencia),
+  #              incidencia_median=median(incidencia))
+  
   
   # Sorties IPSIM
   #############################
@@ -38,8 +54,8 @@ func_prono <- function(sortie_ipsim,
   df_data_prono$creci_obs <- NA
   df_data_prono$creci_prono <- NA
   
-  df_data_prono$catIncidence <- ifelse(df_data_prono$incidencia<5,"Incidencia baja (<5%)",
-                                       ifelse(df_data_prono$incidencia>10,"Incidencia alta (>10%)",
+  df_data_prono$catIncidence <- ifelse(df_data_prono$incidencia_median<5,"Incidencia baja (<5%)",
+                                       ifelse(df_data_prono$incidencia_median>10,"Incidencia alta (>10%)",
                                               "Incidencia media (5-10%)"))
   df_data_prono$catIncidence<-factor(df_data_prono$catIncidence,c("Incidencia baja (<5%)",
                                                                   "Incidencia media (5-10%)",
@@ -47,7 +63,7 @@ func_prono <- function(sortie_ipsim,
   
   
   for(i in 2:nrow(df_data_prono)){
-    df_data_prono$creci_obs[i] <- 30*(df_data_prono$incidencia[i]-df_data_prono$incidencia[i-1])/as.numeric(df_data_prono$Fecha_median[i]-df_data_prono$Fecha_median[i-1])
+    df_data_prono$creci_obs[i] <- 30*(df_data_prono$incidencia_median[i]-df_data_prono$incidencia_median[i-1])/as.numeric(df_data_prono$Fecha_median[i]-df_data_prono$Fecha_median[i-1])
   }                           
   
   
@@ -65,8 +81,9 @@ func_prono <- function(sortie_ipsim,
   df_data_prono$incidencia_ipsim <- NA
   
   for(s in 1:nrow(df_data_prono)){
-    df_data_prono$incidencia_ipsim[s] <- max(0,df_data_prono$incidencia[s]+df_data_prono$creci_prono[s])
+    df_data_prono$incidencia_ipsim[s] <- max(0,df_data_prono$incidencia_median[s]+df_data_prono$creci_prono[s])
   }
+  
   
 
   return(df_data_prono)
