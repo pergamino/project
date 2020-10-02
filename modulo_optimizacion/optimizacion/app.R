@@ -99,7 +99,7 @@ ui <- fluidPage(
                              selectInput(
                                inputId = "V1",
                                label = "Variable 1",
-                               choices = c("Altura", "Variedad", "Regiones", "Year"),
+                               choices = c("Altura", "Variedad", "Regiones"),#, "Year"),
                                
                              ),
                              
@@ -108,7 +108,7 @@ ui <- fluidPage(
                              selectInput(
                                inputId = "V2",
                                label = "Variable 2",
-                               choices = c("Altura", "Variedad", "Regiones", "Year")
+                               choices = c("Altura", "Variedad", "Regiones")#, "Year")
                              ),
                            
                              actionBttn("elegir",(h5("Mostrar Categorías")), color = "primary",style = "jelly",block = FALSE, size = "sm"),          
@@ -340,7 +340,8 @@ server <- function(session, input, output) {
   # })
   # 
 
- 
+  
+  
   
   # choix des variables importantes
   var_important <- eventReactive(input$elegir,{
