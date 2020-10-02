@@ -47,9 +47,22 @@ func_plot_meteo <- function(output_moulinette,
   
   microclima <- rbind(sub_meteo,ipsim_long)
   
-  var.labs <- c("Aparicion de hojas", "Infeccion", "Latencia","Perdidas de esporas",
-                "Defoliacion","Cantidad de esporas", "Susceptibilidad del hospedero")
-  names(var.labs) <- c("Aparicion_hojas", "Infeccion", "Latencia", "Perdidas_esporas",
+  microclima$var <- factor(microclima$var, levels = c("Inoc_antes_lavado", 
+                                                      "Perdidas_esporas", 
+                                                      "Cantidad_esporas",
+                                                      "Infeccion",
+                                                      "Latencia",
+                                                      "Suscept_hospedero",
+                                                      "Aparicion_hojas",
+                                                      "Defoliacion"))
+  
+  var.labs <- c("Aparicion de hojas", "Infeccion", "Latencia",
+                "Cantidad de esporas despues del parasitismo",
+                "Perdidas de esporas por lavado",
+                "Defoliacion","Cantidad de esporas despues del parasitismo y del lavado", 
+                "Susceptibilidad del hospedero")
+  names(var.labs) <- c("Aparicion_hojas", "Infeccion", "Latencia", 
+                       "Inoc_antes_lavado","Perdidas_esporas",
                        "Defoliacion","Cantidad_esporas","Suscept_hospedero")
   
   ggplot() +
@@ -66,7 +79,7 @@ func_plot_meteo <- function(output_moulinette,
     labs(x = "Fecha de monitoreo")+
     scale_x_date(date_labels = "%d/%m/%y",
                  breaks=unique(microclima$Fecha_median))+
-    scale_y_discrete(name=NULL,labels=NULL)+
+    # scale_y_discrete(name=NULL,breaks=NULL,labels=NULL)+
     ylim(c(0.9,1.1))+
     scale_radius(breaks = c(1,2,3), 
                           labels=c("Baja","Media","Alta"), name="Fuerza del processo")+
@@ -79,10 +92,12 @@ func_plot_meteo <- function(output_moulinette,
       axis.title.y = element_blank(),
       axis.text.y = element_blank(),
       axis.title.x = element_text(size=12),
-      axis.text.x = element_text(size=10),
-      text = element_text(size=20),
-      strip.background = element_blank())+
-    theme(legend.title=element_text(size=12),
+      axis.text.x = element_text(size=12,angle = 90,face="bold"),
+      text = element_text(size=15),
+      axis.ticks = element_blank(),
+      strip.background = element_blank(),
+      strip.text.x = element_text(size = 13,face="bold"))+
+    theme(legend.title=element_text(size=12,face="bold"),
           legend.text=element_text(size=12))
     
 }

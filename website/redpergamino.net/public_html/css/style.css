@@ -1690,3 +1690,106 @@ section {
   font-size: 12px;
   color:#627680 !important;
 }
+
+.box-gallery{
+  
+  z-index: 1; /* prevent shadows falling behind containers with backgrounds */
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+.box-gallery a{
+  text-align: center;
+}
+.box-gallery ul{
+  position: relative;
+  float: left;
+  margin: 0 30px 30px 0;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+}
+.box-gallery li{
+  width: 520px;
+  display: inline-table;
+  background-color: rgb(217, 217, 217);
+  padding: 10px;
+  margin:5px;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+}
+
+.box-gallery img {
+  width: 520px;
+  height: 320px;
+}
+
+.checkboxes{
+  height: 350px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.checkbox-skin{
+    background-color: transparent;
+    display: inline-block;
+    width: 300px;
+    height: 350px;
+}
+
+.checkboxes input[type=checkbox]{
+    display: none;
+}
+
+.checkboxes input[type=checkbox]:checked + .checkbox-skin{
+    background-color: #627680;
+    color:white;
+    height: 350px;
+}
+
+.doc-frame {
+/*   border: 2px solid black; */
+  width:300px;
+  height:350px;
+  background-color:white;
+  
+}
+
+.doc-preview {
+/*   border: 2px solid black; */
+  width:auto;
+  height:300px;
+  background-color:white;
+/*   margin:3px; */
+  -webkit-box-shadow: 1px 1px 12px 0px rgba(87,87,87,1);
+-moz-box-shadow: 1px 1px 12px 0px rgba(87,87,87,1);
+box-shadow: 1px 1px 12px -3px rgba(87,87,87,1);
+  overflow:hidden;
+  font-size:10px;
+  padding:10px;
+  white-space: wrap;  
+  overflow: hidden;
+}
+
+.doc-name {
+  font-family: 'Roboto', sans-serif;
+  font-size:15px;
+  padding:15px;
+  display:flex;
+  align-items: center;
+  width:250px;
+  white-space: nowrap;  
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.doc-name i {
+  margin-right:10px;
+  margin-left:3px;
+  font-size:15px;
+  background-color:#627680;
+  color:white;
+  padding:2px;
+  border-radius:2px;
+}
