@@ -111,7 +111,7 @@ ui <- fluidPage(
                                choices = c("Altura", "Variedad", "Regiones", "Year")
                              ),
                            
-                             actionBttn("elegir",(h5("Mostrar Categorías")), color = "warning",style = "jelly",block = FALSE, size = "sm"),          
+                             actionBttn("elegir",(h5("Mostrar Categorías")), color = "primary",style = "jelly",block = FALSE, size = "sm"),          
                          
                              
                          ),
