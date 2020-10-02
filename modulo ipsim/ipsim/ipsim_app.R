@@ -23,8 +23,8 @@ func_ipsim_app <- function() {
                    dbname="pergamino")
   
   #---------------------Querys a la base de datos -----------------------------------### 
-  result <- dbGetQuery(con, paste(paste("SELECT * from argumentos_ipsim_app where cod_lote=", args[1], sep=""), "order by fecha desc limit 1;"))
-  #result <- dbGetQuery(con, "SELECT * from argumentos_ipsim_app where cod_lote=42 order by fecha desc limit 1;") #consulta de prueba 
+ # result <- dbGetQuery(con, paste(paste("SELECT * from argumentos_ipsim_app where cod_lote=", args[1], sep=""), "order by fecha desc limit 1;"))
+  result <- dbGetQuery(con, "SELECT * from argumentos_ipsim_app where cod_lote=42 order by fecha desc limit 1;") #consulta de prueba 
   
 
   #cadena para hacer la consulta del clima segun la coordenada de lote
