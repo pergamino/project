@@ -72,14 +72,31 @@ server <- function(input, output) {
   
   output$areasplot2 <- renderPlot({
     areaespecifica1 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==1 & catvariedad==1)
+    areaespecifica1$color <- factor(areaespecifica1$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica2 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==1 & catvariedad==2)
+    areaespecifica2$color <- factor(areaespecifica2$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica3 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==1 & catvariedad==3)
+    areaespecifica3$color <- factor(areaespecifica3$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica4 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==2 & catvariedad==1)
+    areaespecifica4$color <- factor(areaespecifica4$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica5 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==2 & catvariedad==2)
+    areaespecifica5$color <- factor(areaespecifica5$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica6 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==2 & catvariedad==3)
+    areaespecifica6$color <- factor(areaespecifica6$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica7 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==3 & catvariedad==1)
+    areaespecifica7$color <- factor(areaespecifica7$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica8 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==3 & catvariedad==2)
+    areaespecifica8$color <- factor(areaespecifica8$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
+    
     areaespecifica9 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==3 & catvariedad==3)
+    areaespecifica9$color <- factor(areaespecifica9$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
     
     if(nrow(areaespecifica1)>0)
     {

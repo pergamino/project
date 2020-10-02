@@ -53,15 +53,19 @@ when color = 'verde' then '#63fd2c'
 when color = 'amarilla' then '#fffc00'
 when color = 'naranja' then '#fabf00'
 when color = 'rojo' then '#fd0100' end as color,
+case when color = 'azul' then 1
+when color = 'verde' then 2
+when color = 'amarilla' then 3
+when color = 'naranja' then 4
+when color = 'rojo' then 5 end as orden,
 areaalerta,
 porcentaje
-from alertas_porcentaje_areas order by periodo,catvariedad,mes,anio,color"
+from alertas_porcentaje_areas order by periodo,catvariedad,mes,anio,orden"
 
 areas <- dbGetQuery(con,sqlareas)
 
 sql2 <- "select * from evaluacion_regional_roya order by anio, mes"
 cabeceras <- dbGetQuery(con,sql2)
-print(cabeceras)
 
 dbDisconnect(con)
 
