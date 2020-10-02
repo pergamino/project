@@ -1,5 +1,5 @@
 
-source("Eco-func-V2c.R")
+source("Eco-func-V3.R")
 #crear matrices (deben ser un input Shiny)
 
 #costo de insumos (ci) y mano de obra (mo) por nivel de manejo (eso deberia ser una tabla)
