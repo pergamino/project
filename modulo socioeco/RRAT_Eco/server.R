@@ -205,5 +205,14 @@ server <- function(input, output, session) {
     proRoya(txir(),mes=mes(),inc=input$incObs,doPlot=F)
   })
   
+  observe({
+    try({if(nrow(indic.sp())>0)
+    {
+      html("maxRoyaBase",indic.sp()["linea.base","maxRoya"])
+      html("maxRoyaTendencial",indic.sp()["tendencial","maxRoya"])
+      html("maxRoyaManejo",indic.sp()["con.tratamiento.adaptativo","maxRoya"])
+    }})
+  })
+  
   output$salida <- renderPrint({ indic.sp() })
 }

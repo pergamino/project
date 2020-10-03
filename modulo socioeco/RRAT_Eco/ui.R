@@ -13,7 +13,10 @@ ui <- dashboardPage(
   
   
   body <- dashboardBody(
-    
+    useShinyjs(),
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "seroya.css")
+    ),
     tabItems(
       
       # Sistema de produccion ---------------------------------------------------
@@ -284,7 +287,6 @@ ui <- dashboardPage(
                              )
                              
                       ),
-                      
                       column(width = 4,
                              box(title=tags$p(style = "font-size: 70%;","Condiciones para crecimiento de Roya"),color = "olive",background = "olive",
                                  width=20,height = 100,
@@ -292,27 +294,146 @@ ui <- dashboardPage(
                                              choices=c("desfavorable","normales", "favorable","muy favorables"),width="200px")
                              )
                       )
-                      
                     ),
-                    plotOutput("plotVigilancia"),
-                    verbatimTextOutput("salida", placeholder = FALSE)
+                    fluidRow(
+                      column(
+                        width=12,
+                        plotOutput("plotVigilancia"),
+                        verbatimTextOutput("salida", placeholder = FALSE)
+                      ),
+                    ),
+                    fluidRow(
+                      column(
+                        width = 6,
+                        h3("Máximo de incidencia de roya"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico"),
+                                 tags$div(id="maxRoyaBase")
+                                 ),
+                          column(width=4,
+                                 p("Pronóstico"),
+                                 tags$div(id="maxRoyaTendencial")
+                                 ),
+                          column(width=4,
+                                 p("Con manejo de roya"),
+                                 tags$div(id="maxRoyaManejo")
+                                 )
+                        ),
+                        h3("Margen anual"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                        h3("Seguridad Alimentaria y Nutricional"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                        h3("Precio mínimo del café para sostenibilidad"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                        h3("Ingresos netos del café"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                      ),
+                      column(
+                        width = 6,
+                        h3("Valor agregado del producto"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                        h3("Valor agregado de los productores de la región"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                        h3("Costo de oportunidad Jornaleo"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                        h3("Costo de oportunidad Ciudad"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico"),
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        ),
+                        h3("Jornales contratados"),
+                        fluidRow(
+                          column(width=4,
+                                 p("Histórico")
+                          ),
+                          column(width=4,
+                                 p("Pronóstico")
+                          ),
+                          column(width=4,
+                                 p("Con manejo de roya")
+                          )
+                        )
+                      )
+                    )
                 ),
-                
-                # ),
-                
-                # column(width = 6, 
-                #box(
-                  
-                #  box(title="Maximo de incidencia de Roya",
-                #      infoBoxOutput("MIRHistorico"),
-                #      infoBoxOutput("MIRPronostico"),
-                #      infoBoxOutput("MIRConManejoDeRoya")
-                #  ),
-                #  valueBoxOutput("ecoBox1"),
-                #  valueBoxOutput("ecoBox2")
-                #)
-                
-                # )
                 
               )# fin fluidRow
               

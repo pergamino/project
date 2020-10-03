@@ -1,0 +1,25 @@
+.azul {
+  background-color: #139feb;
+  padding:10px;
+  text-align: center;
+}
+.verde {
+  background-color: #5bff27;
+  padding:10px;
+  text-align: center;
+}
+.amarillo {
+  background-color: #ffff0a;
+  padding:10px;
+  text-align: center;
+}
+.naranja {
+  background-color: #fdb409;
+  padding:10px;
+  text-align: center;
+}
+.rojo {
+  background-color: #fb0007;
+  padding:10px;
+  text-align: center;
+}
