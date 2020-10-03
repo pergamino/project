@@ -24,6 +24,7 @@ Route::get('/documentos-cientificos','IndexController@documentos');
 
 Route::get('/memorias','IndexController@memorias');
 
+Route::get('/privacidad','IndexController@privacidad');
 //app
 Route::get('/app-experoya','IndexController@ipsim');
 Route::get('/app-stadman','IndexController@stadistic');

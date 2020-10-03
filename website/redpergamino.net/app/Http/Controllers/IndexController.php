@@ -20,6 +20,10 @@ class IndexController extends Controller
         return view('plataforma');
     }
 
+    public function privacidad(){
+        return view('pergamino.privacidad');
+    }
+
     public function modelos(){
         return view('modelos');
     }
