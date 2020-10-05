@@ -272,7 +272,7 @@ ui <- dashboardPage(
                 box(title="Vigilancia de incidencia de Roya",color = "navy",background ="navy", 
                     width=12,#height = 500,
                     fluidRow(
-                      column(width = 4,
+                      column(width = 3,
                              box(title=tags$p(style = "font-size: 70%;","Mes de la observacion de roya"),color = "teal",background ="teal", 
                                  width=20,height = 100,
                                  selectInput(inputId = "mesObs", label=NULL,
@@ -280,18 +280,25 @@ ui <- dashboardPage(
                              )
                              
                       ),
-                      column(width = 4,
+                      column(width = 3,
                              box(title=tags$p(style = "font-size: 70%;","Incidencia Roya en %"),color = "blue",background = "blue",
                                  width=20,height = 100,
                                  numericInput("incObs",label=NULL,value=0,width="200px")
                              )
                              
                       ),
-                      column(width = 4,
+                      column(width = 3,
                              box(title=tags$p(style = "font-size: 70%;","Condiciones para crecimiento de Roya"),color = "olive",background = "olive",
                                  width=20,height = 100,
                                  selectInput(inputId = "condPro", label=NULL,
                                              choices=c("desfavorable","normales", "favorable","muy favorables"),width="200px")
+                             )
+                      ),
+                      column(width = 3,
+                             box(title=tags$p(style = "font-size: 70%;","Pronóstico"),color = "orange",background = "orange",
+                                 width=20,height = 100,
+                                 selectInput(inputId = "pronostico", label=NULL,
+                                             choices=c("Año en curso","Año siguiente"),width="200px")
                              )
                       )
                     ),
@@ -299,138 +306,171 @@ ui <- dashboardPage(
                       column(
                         width=12,
                         plotOutput("plotVigilancia"),
-                        verbatimTextOutput("salida", placeholder = FALSE)
+                        #verbatimTextOutput("indice")
                       ),
                     ),
+                ),
                     fluidRow(
                       column(
                         width = 6,
+                        style="padding:8px;",
+                        box(width=12,
                         h3("Máximo de incidencia de roya"),
                         fluidRow(
                           column(width=4,
                                  p("Histórico"),
-                                 tags$div(id="maxRoyaBase")
+                                 div(id="maxRoyaBase", class="azul")
                                  ),
                           column(width=4,
                                  p("Pronóstico"),
-                                 tags$div(id="maxRoyaTendencial")
+                                 tags$div(id="maxRoyaTendencial", class="azul")
                                  ),
                           column(width=4,
                                  p("Con manejo de roya"),
-                                 tags$div(id="maxRoyaManejo")
+                                 tags$div(id="maxRoyaManejo", class="azul")
                                  )
                         ),
                         h3("Margen anual"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="margenBase", class="verde2")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="margenTendencial", class="verde2")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="margenManejo", class="verde2")
                           )
                         ),
                         h3("Seguridad Alimentaria y Nutricional"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="sanBase", class="azul")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="sanTendencial", class="azul")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="sanManejo", class="azul")
                           )
                         ),
                         h3("Precio mínimo del café para sostenibilidad"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="preciosostcafeBase", class="azul")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="preciosostcafeTendencial", class="azul")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="preciosostcafeManejo", class="azul")
                           )
                         ),
                         h3("Ingresos netos del café"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="ingresosBase", class="azul")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="ingresosTendencial", class="azul")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="ingresosManejo", class="azul")
                           )
                         ),
-                      ),
+                      )),
                       column(
                         width = 6,
+                        style="padding:8px;",
+                        box(width=12,
                         h3("Valor agregado del producto"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="valoragregadoBase", class="azul")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="valoragregadoTendencial", class="azul")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="valoragregadoManejo", class="azul")
                           )
                         ),
                         h3("Valor agregado de los productores de la región"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="valoragregadoRBase", class="azul2")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="valoragregadoRTendencial", class="azul2")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="valoragregadoRManejo", class="azul2")
                           )
                         ),
                         h3("Costo de oportunidad Jornaleo"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="costoopjornalBase", class="azul")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="costoopjornalTendencial", class="azul")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="costoopjornalManejo", class="azul")
                           )
                         ),
                         h3("Costo de oportunidad Ciudad"),
                         fluidRow(
                           column(width=4,
                                  p("Histórico"),
+                                 tags$div(id="costoopciudadBase", class="verde2")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="costoopciudadTendencial", class="verde2")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="costoopciudadManejo", class="verde2")
                           )
                         ),
                         h3("Jornales contratados"),
                         fluidRow(
                           column(width=4,
-                                 p("Histórico")
+                                 p("Histórico"),
+                                 tags$div(id="jornalesBase", class="azul")
                           ),
                           column(width=4,
-                                 p("Pronóstico")
+                                 p("Pronóstico"),
+                                 tags$div(id="jornalesTendencial", class="azul")
                           ),
                           column(width=4,
-                                 p("Con manejo de roya")
+                                 p("Con manejo de roya"),
+                                 tags$div(id="jornalesManejo", class="azul")
                           )
                         )
+                      )
                       )
                     )
                 ),
@@ -443,7 +483,7 @@ ui <- dashboardPage(
     )# fin de tabItems
     
   ) # fin dashboardBody
-) # fin dashboardPage
+
 
 dashboardPage(
   header,
