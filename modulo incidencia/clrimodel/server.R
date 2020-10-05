@@ -26,7 +26,7 @@ server <- function(input, output, session) {
       inFile <- input$file 
       df <- read.csv(inFile$datapath, sep = ',', header = TRUE, check.names = FALSE)
       
-      df$date <- as.Date(df$fecha,format="%Y-%m-%d")
+      df$fecha <- as.Date(df$fecha,format="%Y-%m-%d")
       
       fechaI <- as.Date(as.character(input$date),format="%Y-%m-%d")
       
