@@ -34,11 +34,15 @@ sidebar <- dashboardSidebar(
 ############    Body    ######################
 
 body <- dashboardBody(
-  
+  useShinyjs(),
   valueBoxOutput("approvalBox", width=12),
   fluidRow(
     column(width=7,box(width=12,leafletOutput(outputId = "outbreakMap", height = 460)),
-           box(width=12,height=160,textOutput("comentario"))
+           box(width=12,style="min-height:160px;padding:20px;text-align: justify; font-size:14pt;",
+               textOutput("comentario"),
+               tags$hr(),
+               a(id="informe","Ver informe completo",target="blank_")
+          )
     ),
     box(width=5, title="Síntesis de Alertas", status = "primary", solidHeader = TRUE, height = 660,
       plotOutput('areasplot2', height = "570px")

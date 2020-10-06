@@ -67,7 +67,18 @@ server <- function(input, output) {
   })
   
   output$comentario <- renderText({
-    filter(cabeceras,anio==input$selAnio & mes==input$selMes)$comentario
+    comentario <- filter(cabeceras,anio==input$selAnio & mes==input$selMes)$comentario
+    urlinforme <- filter(cabeceras,anio==input$selAnio & mes==input$selMes)$archivo
+    comentario
+  })
+  
+  urlInforme <- reactive({
+    urlinforme <- filter(cabeceras,anio==input$selAnio & mes==input$selMes)$archivo
+    urlinforme
+  })
+  
+  observe({
+    runjs(paste("$('#informe').attr('href','https://admin.redpergamino.net/files/",urlInforme(),"')",sep=""))
   })
   
   output$areasplot2 <- renderPlot({

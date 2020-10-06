@@ -1,0 +1,42 @@
+.azul {
+  background-color: #139feb;
+  padding:10px;
+  text-align: center;
+  font-size: 24pt;
+}
+.azul2 {
+  background-color: #44a0c7;
+  padding:10px;
+  text-align: center;
+  font-size: 24pt;
+}
+.verde {
+  background-color: #5bff27;
+  padding:10px;
+  text-align: center;
+  font-size: 24pt;
+}
+.verde2 {
+  background-color: #38ab07;
+  padding:10px;
+  text-align: center;
+  font-size: 24pt;
+}
+.amarillo {
+  background-color: #ffff0a;
+  padding:10px;
+  text-align: center;
+  font-size: 24pt;
+}
+.naranja {
+  background-color: #fdb409;
+  padding:10px;
+  text-align: center;
+  font-size: 24pt;
+}
+.rojo {
+  background-color: #fb0007;
+  padding:10px;
+  text-align: center;
+  font-size: 24pt;
+}

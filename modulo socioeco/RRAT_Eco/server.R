@@ -14,6 +14,21 @@ server <- function(input, output, session) {
     filter(costomanejo,cod_pais==filter(paises,pais==input$selPais)$cod_pais)
   })
   
+  unidadesPais <- reactive({
+    filter(unidades,cod_pais==filter(paises,pais==input$selPais)$cod_pais)
+  })
+  
+  pronostico <- reactive({
+    if(input$pronostico=="Año en curso")
+    {
+      1
+    }
+    else
+    {
+      2
+    }
+  })
+  
   observe({
     updateSelectInput(session, "selRegion",
                       choices = selRegiones()
@@ -179,7 +194,7 @@ server <- function(input, output, session) {
                       salario.min.ciudad=input$niSueldoMinCiudad,
                       salario.min.rural=input$niSueldoMinCampo,
                       canasta.basica.pp=input$niCanastaBasica,
-                      precio.int.cafe=input$niPrecioVentaCafe,
+                      precio.int.cafe=90,
                       rendimiento.esperado=input$niRedimCafeOro,
                       num.peones.perm=input$niMumPeones,
                       nivel.manejo=input$tiNivManejo,
@@ -197,7 +212,7 @@ server <- function(input, output, session) {
   })
   
   indic.sp <- reactive({ 
-    indic <- indicEcoAll(sp(),moi(),nci,txir(),mes=mes(),inc=input$incObs,condiciones(),anio=1)
+    indic <- indicEcoAll(sp(),moi(),nci,txir(),mes=mes(),inc=input$incObs,condiciones(),anio=pronostico())
     indic
   })
   
@@ -205,5 +220,220 @@ server <- function(input, output, session) {
     proRoya(txir(),mes=mes(),inc=input$incObs,doPlot=F)
   })
   
-  output$salida <- renderPrint({ indic.sp() })
+  observe({
+    try({if(nrow(indic.sp())>0)
+    {
+      html("maxRoyaBase",paste(round(as.numeric(indic.sp()["linea.base","maxRoya"])), "%",sep = " "))
+      if(indic.sp()["linea.base","periodo"]=="antes_cosecha"){
+        runjs("$('#maxRoyaBase').css({'background-color':'#139feb','color':''});")
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 3 & round(as.numeric(indic.sp()["linea.base","maxRoya"])) < 5) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#5bff27', 'color':'#fff');")
+        }
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 5 & round(as.numeric(indic.sp()["linea.base","maxRoya"])) < 10) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#ffff0a','color':'#000'});")
+        }
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 10 & round(as.numeric(indic.sp()["linea.base","maxRoya"])) < 20) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#fdb409','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 20) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#fb0007','color':'#fff'});")
+        }
+      } else {
+        runjs("$('#maxRoyaBase').css({'background-color':'#139feb','color':'#fff'});")
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 5 & round(as.numeric(indic.sp()["linea.base","maxRoya"])) < 15) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#5bff27','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 15 & round(as.numeric(indic.sp()["linea.base","maxRoya"])) < 20) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#ffff0a','color':'#000'});")
+        }
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 20 & round(as.numeric(indic.sp()["linea.base","maxRoya"])) < 30) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#fdb409','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["linea.base","maxRoya"])) >= 30) {
+          runjs("$('#maxRoyaBase').css({'background-color':'#fb0007','color':'#fff'});")
+        }
+      }
+      html("maxRoyaTendencial",paste(round(as.numeric(indic.sp()["tendencial","maxRoya"])),"%",sep=" "))
+      if(indic.sp()["linea.base","periodo"]=="antes_cosecha"){
+        runjs("$('#maxRoyaTendencial').css({'background-color':'#139feb','color':'#fff'});")
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 3 & round(as.numeric(indic.sp()["tendencial","maxRoya"])) < 5) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#5bff27','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 5 & round(as.numeric(indic.sp()["tendencial","maxRoya"])) < 10) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#ffff0a','color':'#000'});")
+        }
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 10 & round(as.numeric(indic.sp()["tendencial","maxRoya"]))< 20) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#fdb409','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 20) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#fb0007','color':'#fff'});")
+        }
+      } else {
+        runjs("$('#maxRoyaTendencial').css({'background-color':'#139feb','color':'#fff'});")
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 5 & round(as.numeric(indic.sp()["tendencial","maxRoya"])) < 15) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#5bff27','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 15 & round(as.numeric(indic.sp()["tendencial","maxRoya"])) < 20) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#ffff0a','color':'#000'});")
+        }
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 20 & round(as.numeric(indic.sp()["tendencial","maxRoya"])) < 30) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#fdb409','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["tendencial","maxRoya"])) >= 30) {
+          runjs("$('#maxRoyaTendencial').css({'background-color':'#fb0007','color':'#fff'});")
+        }
+      }
+      html("maxRoyaManejo",paste(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])),"%",sep=" "))
+      if(indic.sp()["linea.base","periodo"]=="antes_cosecha"){
+        runjs("$('#maxRoyaManejo').css({'background-color':'#139feb','color':'#fff'});")
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 3 & round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) < 5) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#5bff27','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 5 & round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) < 10) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#ffff0a','color':'#000'});")
+        }
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 10 & round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"]))< 20) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#fdb409','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 20) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#fb0007','color':'#fff'});")
+        }
+      } else {
+        runjs("$('#maxRoyaManejo').css({'background-color':'#139feb','color':'#fff'});")
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 5 & round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) < 15) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#5bff27','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 15 & round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) < 20) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#ffff0a','color':'#000'});")
+        }
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 20 & round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) < 30) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#fdb409','color':'#fff'});")
+        }
+        if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","maxRoya"])) >= 30) {
+          runjs("$('#maxRoyaManejo').css({'background-color':'#fb0007','color':'#fff'});")
+        }
+      }
+      html("margenBase",paste(round(as.numeric(indic.sp()["linea.base","margen"])),unidadesPais()$unidaddinero,sep=" "))
+      if(round(as.numeric(indic.sp()["linea.base","margen"]))<0) {
+        runjs("$('#margenBase').css({'background-color':'#fb0007','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["linea.base","margen"]))<round(as.numeric(indic.sp()["linea.base","umbral"]))) {
+        runjs("$('#margenBase').css({'background-color':'#fdb409','color':'#fff'});")
+      } else {
+        runjs("$('#margenBase').css({'background-color':'#38ab07','color':'#fff'});")
+      }
+      html("margenTendencial",paste(round(as.numeric(indic.sp()["tendencial","margen"])),unidadesPais()$unidaddinero,sep=" "))
+      if(round(as.numeric(indic.sp()["tendencial","margen"]))<0) {
+        runjs("$('#margenTendencial').css({'background-color':'#fb0007','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["tendencial","margen"]))<round(as.numeric(indic.sp()["linea.base","umbral"]))) {
+        runjs("$('#margenTendencial').css({'background-color':'#fdb409','color':'#fff'});")
+      } else {
+        runjs("$('#margenTendencial').css({'background-color':'#38ab07','color':'#fff'});")
+      }
+      html("margenManejo",paste(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","margen"])),unidadesPais()$unidaddinero,sep=" "))
+      if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","margen"]))<0) {
+        runjs("$('#margenManejo').css({'background-color':'#fb0007','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","margen"]))<round(as.numeric(indic.sp()["linea.base","umbral"]))) {
+        runjs("$('#margenManejo').css({'background-color':'#fdb409','color':'#fff'});")
+      } else {
+        runjs("$('#margenManejo').css({'background-color':'#38ab07','color':'#fff'});")
+      }
+      html("sanBase",round(as.numeric(indic.sp()["linea.base","san.pp"]),digits=1))
+      if(round(as.numeric(indic.sp()["linea.base","san.pp"]),digits=1)<1.3) {
+        runjs("$('#sanBase').css({'background-color':'#fb0007','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["linea.base","san.pp"]),digits=1)<1.7) {
+        runjs("$('#sanBase').css({'background-color':'#ffff0a','color':'#000'});")
+      } else if(round(as.numeric(indic.sp()["linea.base","san.pp"]),digits=1)<2.5) {
+        runjs("$('#sanBase').css({'background-color':'#fdb409','color':'#fff'});")
+      } else {
+        runjs("$('#sanBase').css({'background-color':'#38ab07','color':'#fff'});")
+      }
+      html("sanTendencial",round(as.numeric(indic.sp()["tendencial","san.pp"]),digits=1))
+      if(round(as.numeric(indic.sp()["tendencial","san.pp"]),digits=1)<1.3) {
+        runjs("$('#sanTendencial').css({'background-color':'#fb0007','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["tendencial","san.pp"]),digits=1)<1.7) {
+        runjs("$('#sanTendencial').css({'background-color':'#ffff0a','color':'#000'});")
+      } else if(round(as.numeric(indic.sp()["tendencial","san.pp"]),digits=1)<2.5) {
+        runjs("$('#sanTendencial').css({'background-color':'#fdb409','color':'#fff'});")
+      } else {
+        runjs("$('#sanTendencial').css({'background-color':'#38ab07','color':'#fff'});")
+      }
+      html("sanManejo",round(as.numeric(indic.sp()["con.tratamiento.adaptativo","san.pp"]),digits=1))
+      if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","san.pp"]),digits=1)<1.3) {
+        runjs("$('#sanManejo').css({'background-color':'#fb0007','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","san.pp"]),digits=1)<1.7) {
+        runjs("$('#sanManejo').css({'background-color':'#ffff0a','color':'#000'});")
+      } else if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","san.pp"]),digits=1)<2.5) {
+        runjs("$('#sanManejo').css({'background-color':'#fdb409','color':'#fff'});")
+      } else {
+        runjs("$('#sanManejo').css({'background-color':'#38ab07','color':'#fff'});")
+      }
+      html("preciosostcafeBase",paste(round(as.numeric(indic.sp()["linea.base","precio.cafe.min.sost"]))," ",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadmedidacafe,sep=""))
+      html("preciosostcafeTendencial",paste(round(as.numeric(indic.sp()["tendencial","precio.cafe.min.sost"]))," ",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadmedidacafe,sep=""))
+      html("preciosostcafeManejo",paste(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","precio.cafe.min.sost"]))," ",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadmedidacafe,sep=""))
+      html("ingresosBase",paste(round(as.numeric(indic.sp()["linea.base","ingresosTotal"])),unidadesPais()$unidaddinero,sep=" "))
+      html("ingresosTendencial",paste(round(as.numeric(indic.sp()["tendencial","ingresosTotal"])),unidadesPais()$unidaddinero,sep=" "))
+      html("ingresosManejo",paste(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","ingresosTotal"])),unidadesPais()$unidaddinero,sep=" "))
+      html("valoragregadoBase",paste(round(as.numeric(indic.sp()["linea.base","valor.agregado"])),unidadesPais()$unidaddinero,sep = " "))
+      html("valoragregadoTendencial",paste(round(as.numeric(indic.sp()["tendencial","valor.agregado"])),unidadesPais()$unidaddinero,sep = " "))
+      html("valoragregadoManejo",paste(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","valor.agregado"])),unidadesPais()$unidaddinero,sep=" "))
+      html("valoragregadoRBase",paste(round(as.numeric(indic.sp()["linea.base","valor.agregado.R"])/1000000),"M",unidadesPais()$unidaddinero,sep = " "))
+      html("valoragregadoRTendencial",paste(round(as.numeric(indic.sp()["tendencial","valor.agregado.R"])/1000000),"M",unidadesPais()$unidaddinero,sep = " "))
+      html("valoragregadoRManejo",paste(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","valor.agregado.R"])/1000000),"M",unidadesPais()$unidaddinero,sep = " "))
+      
+      html("costoopjornalBase",round(as.numeric(indic.sp()["linea.base","costo.op.jornal"]),digits = 1))
+      if(round(as.numeric(indic.sp()["linea.base","costo.op.jornal"]),digits = 1)<3) {
+        runjs("$('#costoopjornalBase').css({'background-color':'#38ab07','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["linea.base","costo.op.jornal"]),digits = 1)<5) {
+        runjs("$('#costoopjornalBase').css({'background-color':'#ffff0a','color':'#000'});")
+      } else {
+        runjs("$('#costoopjornalBase').css({'background-color':'#fb0007','color':'#fff'});")
+      }
+      html("costoopjornalTendencial",round(as.numeric(indic.sp()["tendencial","costo.op.jornal"]),digits = 1))
+      if(round(as.numeric(indic.sp()["tendencial","costo.op.jornal"]),digits = 1)<3) {
+        runjs("$('#costoopjornalTendencial').css({'background-color':'#38ab07','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["tendencial","costo.op.jornal"]),digits = 1)<5) {
+        runjs("$('#costoopjornalTendencial').css({'background-color':'#ffff0a','color':'#000'});")
+      } else {
+        runjs("$('#costoopjornalTendencial').css({'background-color':'#fb0007','color':'#fff'});")
+      }
+      html("costoopjornalManejo",round(as.numeric(indic.sp()["con.tratamiento.adaptativo","costo.op.jornal"]),digits = 1))
+      if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","costo.op.jornal"]),digits = 1)<3) {
+        runjs("$('#costoopjornalManejo').css({'background-color':'#38ab07','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","costo.op.jornal"]),digits = 1)<5) {
+        runjs("$('#costoopjornalManejo').css({'background-color':'#ffff0a','color':'#000'});")
+      } else {
+        runjs("$('#costoopjornalManejo').css({'background-color':'#fb0007','color':'#fff'});")
+      }
+      html("costoopciudadBase",round(as.numeric(indic.sp()["linea.base","costo.op.ciudad"]),digits = 1))
+      if(round(as.numeric(indic.sp()["linea.base","costo.op.jornal"]),digits = 1)<3) {
+        runjs("$('#costoopciudadBase').css({'background-color':'#38ab07','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["linea.base","costo.op.jornal"]),digits = 1)<5) {
+        runjs("$('#costoopciudadBase').css({'background-color':'#ffff0a','color':'#000'});")
+      } else {
+        runjs("$('#costoopciudadBase').css({'background-color':'#fb0007','color':'#fff'});")
+      }
+      html("costoopciudadTendencial",round(as.numeric(indic.sp()["tendencial","costo.op.ciudad"]),digits = 1))
+      if(round(as.numeric(indic.sp()["tendencial","costo.op.jornal"]),digits = 1)<3) {
+        runjs("$('#costoopciudadTendencial').css({'background-color':'#38ab07','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["tendencial","costo.op.jornal"]),digits = 1)<5) {
+        runjs("$('#costoopciudadTendencial').css({'background-color':'#ffff0a','color':'#000'});")
+      } else {
+        runjs("$('#costoopciudadTendencial').css({'background-color':'#fb0007','color':'#fff'});")
+      }
+      html("costoopciudadManejo",round(as.numeric(indic.sp()["con.tratamiento.adaptativo","costo.op.ciudad"]),digits = 1))
+      if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","costo.op.jornal"]),digits = 1)<3) {
+        runjs("$('#costoopciudadManejo').css({'background-color':'#38ab07','color':'#fff'});")
+      } else if(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","costo.op.jornal"]),digits = 1)<5) {
+        runjs("$('#costoopciudadManejo').css({'background-color':'#ffff0a','color':'#000'});")
+      } else {
+        runjs("$('#costoopciudadManejo').css({'background-color':'#fb0007','color':'#fff'});")
+      }
+      html("jornalesBase",paste(round(as.numeric(indic.sp()["linea.base","num.jornales"])),"dias",sep = " "))
+      html("jornalesTendencial",paste(round(as.numeric(indic.sp()["tendencial","num.jornales"])),"dias",sep = " "))
+      html("jornalesManejo",paste(round(as.numeric(indic.sp()["con.tratamiento.adaptativo","num.jornales"])),"dias",sep = " "))
+    }})
+  })
+  #output$indice <- renderPrint({
+  #  indic.sp()
+  #})
 }

@@ -6,6 +6,7 @@ library(gdata)
 library(plotly)
 library(ggplot2)
 library(gridExtra)
+library(shinyjs)
 con <- dbConnect(PostgreSQL(), dbname = "pergamino", user = "admin",
                  host = "localhost",
                  password = "%Rsecret#")

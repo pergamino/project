@@ -1,10 +1,12 @@
 library(shiny)
 library(shinydashboard)
+library(shinydashboardPlus)
 library(ggplot2)
 library(rhandsontable)
 library(excelR)
 library(dplyr)
 library(RPostgreSQL)
+library(shinyjs)
 
 source("Eco-func-V3.R")
 

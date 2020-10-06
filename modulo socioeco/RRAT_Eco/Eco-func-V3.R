@@ -20,6 +20,9 @@ margen <- function(ingresos.total,
   ingresos.total-costos.prod.tot-gastos.alim.familia
 }
 
+margenminsost <- function(ingresos,gastoalim) {
+  ingresos - gastoalim
+}
 
 txRoya <- function(sp,md,mf,mc){
   #besoin d'avoir mis la roya dans sp
@@ -158,6 +161,7 @@ indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
   #ahora los indicadores derivados-haremosla linea base y con manejo despues
   rentab.cafe <- ingresosCafe-costosProdTot
   margen <- margen(ingresosTotal,costosProdTot, sp$gastos.alim.familia)
+  umbral <- margenminsost(sp$ingreso.min.sost,sp$gastos.alim.familia)
   valor.agregado <- margen+sp$gastos.alim.familia+num.jornales*sp$salario.jornal+sp$num.peones.perm*sp$salario.peon*12
   valor.agregado.R <- valor.agregado*sp$num.familias
   margen.alim.pp <- (margen+sp$gastos.alim.familia)/sp$tamano.familia
@@ -169,7 +173,8 @@ indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
   precio.cafe.min.prod <- costosProdTot/(rendimientoEsperado*sp$area.prod)
   costo.op.tierra <- sp$precio.tierra*0.03-rentab.cafe/sp$area.prod
   punto.equilibrio <- (sp$precio.tierra*0.03+costosProdTot/sp$area.prod)/rendimientoEsperado #cuanto hay que vender el cafe para que costo.op.tierra=0
-  data.frame(cbind(pais=as.character(sp$pais),zona=as.character(sp$zona),tipo.prod=as.character(sp$tipo.prod),maxRoya, rendimientoEsperado, ingresosCafe,costosProdTot, estrategiaTratamiento, costoTratamRoya, rentab.cafe, num.jornales, ingresosTotal, margen,
+  periodo <- switch(mes,sp$periodo.1,sp$periodo.2,sp$periodo.3,sp$periodo.4,sp$periodo.5,sp$periodo.6,sp$periodo.7,sp$periodo.8,sp$periodo.9,sp$periodo.10,sp$periodo.11,sp$periodo.12)
+  data.frame(cbind(pais=as.character(sp$pais), zona=as.character(sp$zona), tipo.prod=as.character(sp$tipo.prod), periodo, umbral, maxRoya, rendimientoEsperado, ingresosCafe,costosProdTot, estrategiaTratamiento, costoTratamRoya, rentab.cafe, num.jornales, ingresosTotal, margen,
         valor.agregado,valor.agregado.R,margen.alim.pp,san.pp,costo.op.jornal,costo.op.rural,costo.op.ciudad,precio.cafe.min.prod,
         precio.cafe.min.sost,costo.op.tierra,punto.equilibrio))
 }
