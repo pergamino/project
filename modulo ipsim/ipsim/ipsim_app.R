@@ -10,6 +10,7 @@ source("archivo_epidemio_app.R")
 source("0.2-moulinette_inoculum.R")
 source("1-moulinette_meteo.R")
 source("2-ipsim.R")
+#source("2-ipsim_4-modeloCompletoLecaniPoda2.R")
 
 
 func_ipsim_app <- function() {
