@@ -284,4 +284,7 @@ class IndexController extends Controller
     public function optimizacion(){
         return view('apps.optimizacion');
     }
+    public function seroya(){
+        return view('apps.seroya');
+    }
 }

@@ -24,7 +24,7 @@
                   <li><a href="/app-stadman" >STADMAN</a></li>
                   <li><a href="/app-stadnic">STADINC</a></li>
                   <li><a href="#">MIROYA</a></li>
-                  <li><a href="#">SEROYA</a></li>
+                  <li><a href="/app-seroya">SEROYA</a></li>
                   <li><a href="#">ROBRIM</a></li>
                   <li><a href="#">Aplicación Productor </a></li>
                 </ul>
