@@ -72,10 +72,8 @@ ui <- fluidPage(
                                                 "text/comma-separated-values,text/plain",
                                                 ".csv")
                                     ),
-                                    numericInput("ano_actual",
-                                                 h5("2. Año actual"),
-                                                 value=2019),
-                                    
+                                    selectInput("periodo", h5("2.  Periodo de estudio"), 
+                                                choices = c(''),multiple = TRUE),
                                     
                                     br(),
                                     actionBttn("action",h5("Iniciar el análisis"),color = "success", style = "jelly",block = FALSE,size = "sm")
@@ -297,7 +295,7 @@ dashboardPage(
 server <- function(session, input, output) {
   
   # Con datos -----------------------
-  df_epid <-  eventReactive(input$action,{
+  df_epid <-  reactive({
     req(input$file_epid)
     
     inFile_epid <- input$file_epid
@@ -307,11 +305,14 @@ server <- function(session, input, output) {
     read.csv(inFile_epid$datapath, header = T)
   })
   
+  observeEvent(df_epid(), {
+    updateSelectInput(session, "periodo", choices = unique(df_epid()$Year))
+  })
 
   
   
   sub_df_epid1 <- eventReactive(input$action,{
-    subset(df_epid(),!(Year %in% input$ano_actual))
+    subset(df_epid(),Year %in% unlist(input$periodo))
   })
   
   
