@@ -18,269 +18,279 @@ source("7_plot_TME_all.R")
 
 ui <- fluidPage(
   
+  
   dashboardPage(
-  
-  
-  header <- dashboardHeader(
-    tags$li(class = "dropdown",
-            tags$style(".main-header {max-height: 65px}"),
-            tags$style(".main-header .logo {height: 65px}")
+    
+    
+    header <- dashboardHeader(
+      tags$li(class = "dropdown",
+              tags$style(".main-header {max-height: 65px}"),
+              tags$style(".main-header .logo {height: 65px}")
+      ),
+      
+      title = h4("Optimización del Monitoreo de la Roya")), 
+    
+    
+    sidebar <- dashboardSidebar(
+      
+      # Adjust the sidebar
+      tags$style(".left-side, .main-sidebar {padding-top: 70px}"),
+      
+      sidebarMenu(
+        menuItem("Análisis Con Datos", tabName = "ConDatos1", icon = icon("dashboard"),
+                 
+                 menuSubItem('Variables más importantes',
+                             tabName = "App1",
+                             icon = icon('line-chart')),
+                 menuSubItem('Número de parcelas',
+                             tabName = "App2",
+                             icon = icon('hashtag'))
+        ),
+        menuItem("Análisis Sin Datos", tabName = "SinDatos", icon = icon("th")),
+        
+        
+        menuItem("Información del modelo",tabName = "info",icon = icon("file"))
+      )
+      
     ),
     
-    title = h4("Optimización del Monitoreo de la Roya")), 
-  
-  
-  sidebar <- dashboardSidebar(
     
-    # Adjust the sidebar
-    tags$style(".left-side, .main-sidebar {padding-top: 70px}"),
-    
-    sidebarMenu(
-      menuItem("Análisis Con Datos", tabName = "ConDatos1", icon = icon("dashboard"),
-               
-               menuSubItem('Variables más importantes',
-                           tabName = "App1",
-                           icon = icon('line-chart')),
-               menuSubItem('Número de parcelas',
-                           tabName = "App2",
-                           icon = icon('hashtag'))
-      ),
-      menuItem("Análisis Sin Datos", tabName = "SinDatos", icon = icon("th")),
+    body <- 
       
-      
-      menuItem("Información del modelo",tabName = "info",icon = icon("file"))
-    )
-    
-  ),
-  
-  
-  body <- 
-    
-    dashboardBody(
-      
-      tabItems(
-        # First tab content
-        tabItem(tabName = "App1",
-                h3("Análisis de variables más importantes"),
-                fluidRow(column(12,
-                                tags$style(HTML('#run{background-color:orange}')),
-                                
-                                box(h4("Datos de monitoreo"),color = "light-blue",background = "navy",width = 4,
-                                    fileInput("file_epid", label=h5("1. Ingresar un archivo CSV"),
-                                              accept = c(
-                                                "text/csv",
-                                                "text/comma-separated-values,text/plain",
-                                                ".csv")
-                                    ),
-                                    selectInput("periodo", h5("2.  Periodo de estudio"), 
-                                                choices = c(''),multiple = TRUE),
-                                    
-                                    br(),
-                                    actionBttn("action",h5("Iniciar el análisis"),color = "success", style = "jelly",block = FALSE,size = "sm")
-                                    
-                                ),
-                                
-                                box(title = h4("Gráfico de variables más importantes", align = "center"),
-                                   # color = "teal",background = "teal",
-                                    withSpinner(plotOutput("plot_RF", height = 200)),
-                                    width = 8)),
-                         
-                ),
-                         
-                        fluidRow(column(12,
-                                    
-                          box(title="Elegir las variables",width = 4,height = 300,
-                              background  = "navy",
-                              bsButton("q1", label = "", icon = icon("question"), style = "info", size = "extra-small"),
-                              bsPopover(id = "q1",title ="Variables", content = paste0("Elija las variables más importantes de acuerdo con el gráfico anterior."),
-                                        placement = "right", trigger = "focus", options = list(container = "body")),
-                             selectInput(
-                               inputId = "V1",
-                               label = "Variable 1",
-                               choices = c("Altura", "Variedad", "Regiones"),#, "Year"),
-                               
-                             ),
-                             
-                             
-                             
-                             selectInput(
-                               inputId = "V2",
-                               label = "Variable 2",
-                               choices = c("Altura", "Variedad", "Regiones")#, "Year")
-                             ),
-                           
-                             actionBttn("elegir",(h5("Mostrar Categorías")), color = "primary",style = "jelly",block = FALSE, size = "sm"),          
-                         
-                             
-                         ),
-                         
-                         box(title = h4("Categorías", align = "center"),
-                            # background  = "navy",
-                             withSpinner(tableOutput("out_table_comb_var")),
-                             width = 8))
-                     )
-                
-        ),
+      dashboardBody(
         
-        # Second tab content
-        tabItem(tabName = "App2",
-                h3("Número de parcelas"),
-                
-                fluidRow(
-                  
-                  tabBox(
-                    id = "tabset2", height = "500px", width = "500px",
-                    
-                  tabsetPanel(
-                    
-                    tabPanel(tags$b("Parámetros"),
-                             fluidRow(
-                               column(10, h4("Eligir los parámetros",align = "center"),
-                                      box(
-                                        width = 6,background = "yellow",style='margin: 6px;',
-                                        numericInput("num_detectabilidad",
-                                                     h5("Umbral de detectabilidad"),
-                                                     value = 1),
-                                        numericInput("num_n",
-                                                     h5("Número de plantas"),
-                                                     value = 30),
-                                        numericInput("num_TMF",
-                                                     h5("Tamaño mínimo de parcelas"),
-                                                     value = 10)
+        tabItems(
+          # First tab content
+          tabItem(tabName = "App1",
+                  h3("Análisis de variables más importantes"),
+                  fluidRow(column(12,
+                                  tags$style(HTML('#run{background-color:orange}')),
+                                  
+                                  box(h4("Datos de monitoreo"),color = "light-blue",background = "navy",width = 4,
+                                      fileInput("file_epid", label=h5("1. Ingresar un archivo CSV"),
+                                                accept = c(
+                                                  "text/csv",
+                                                  "text/comma-separated-values,text/plain",
+                                                  ".csv")
+                                      ),
                                       
-                               ),
+                                      
+                                      selectInput("periodo", h5("2.Periodo de estudio"), 
+                                                  choices = c(''),multiple = TRUE),
+                                      
+                                      selectInput("select_col",
+                                                  h5("3.Seleccionar columnas de interés"),
+                                                  choices= c(''), multiple= TRUE),
+                                      
+                                      br(),
+                                      actionBttn("action",h5("Iniciar el análisis"),color = "success", style = "jelly",block = FALSE,size = "sm")
+                                      
+                                  ),
+                                  
+                                  box(title = h4("Gráfico de variables más importantes", align = "center"),
+                                      #color = "teal",background = "teal",
+                                      withSpinner(plotOutput("plot_RF", height = 250)),
+                                      width = 8),
+                                  
+                                  textOutput("var_imp")
+                                  
+                  ),
+                  ),
+                  
+                  
+                  fluidRow(column(12,
+                                  
+                                  box(title="Elegir las variables",width = 4,height = 300,
+                                      background  = "navy",
+                                      bsButton("q1", label = "", icon = icon("question"), style = "info", size = "extra-small"),
+                                      bsPopover(id = "q1",title ="Variables", content = paste0("Elija las variables más importantes de acuerdo con el gráfico anterior."),
+                                                placement = "right", trigger = "focus", options = list(container = "body")),
+                                      selectInput(
+                                        inputId = "V1",
+                                        label = "Variable 1",
+                                        choices = names(data), multiple= FALSE,
+                                        
+                                      ),
+                                      
+                                      
+                                      
+                                      selectInput(
+                                        inputId = "V2",
+                                        label = "Variable 2",
+                                        choices = names(data), multiple= FALSE,
+                                      ),
+                                      
+                                      actionBttn("elegir",(h5("Mostrar Categorías")), color = "primary",style = "jelly",block = FALSE, size = "sm"),          
+                                      
+                                      
+                                  ),
+                                  
+                                  box(title = h4("Categorías", align = "center"),
+                                      # background  = "navy",
+                                      withSpinner(tableOutput("out_table_comb_var")),
+                                      width = 8))
+                  )
+          ),
           
-                            
-                                      box(color = "yellow",background = "light-blue",width = 6,
-                                          title=tags$p(style = "font-size: 50%;"), #h5("Número de parcelas en el teritorio"),
-                                          uiOutput("comb_var")),
-                               
-                               
-                            )
-                         )
-                    ),
-                    tabPanel(tags$b("Tamaño a realizar"),  
-                             box(h4("Antes de pasar al monitoreo del mes en curso",align = "center"),plotOutput("plot_monit_esperado",height=500),
-                                 width = 12,
-                                 downloadButton("down_plot_monit_actual", "Download Plot")
-                             )
-                    ),
+          # Second tab content
+          tabItem(tabName = "App2",
+                  h3("Número de parcelas"),
+                  
+                  fluidRow(
                     
-                    tabPanel(tags$b("Datos monitoreo del mes"),
-                        fluidRow(
-                          fluidRow(
-                             column(12 ,
-                                 box(h4("Datos de monitoreo mes en curso"),color = "light-blue",background = "navy",width = 4,height=350,
-                                     fileInput("file_epid2", label=h5("1. Ingresar un archivo CSV"),
-                                               accept = c(
-                                                 "text/csv",
-                                                 "text/comma-separated-values,text/plain",
-                                                 ".csv")),
-                                 
-                                 numericInput("ano_actual2",
-                                              h5("2. Año actual"),
-                                              value=2019),
-                                 
-                                 
-                                 br(),
-                                 actionBttn("action2",(h5("Iniciar el análisis")),color = "success", style = "jelly",block = FALSE, size = "sm")
-                                 
-                            
-                             
-                              )
-                            )
-                          )
-                         )
-                       ),
-                    
-                    
-                    
-                    
-                    
-                    
-                    tabPanel(tags$b("Tamaño efectuado y necesario"),
-                             fluidRow(
-                               column(12,h4("Considerando el monitoreo del mes en curso",align = "center"),
-                                
-                                      box(
-                                          plotOutput("plot_monit_actual",height=500),
-                                          width = 5
-                                     
-                               ),
-                               
-                             
-                                      box(uiOutput("table_TM_sequencial"),
-                                          width = 6)
-                               
-                             )
-                           )
-                    ),
-                    tabPanel(tags$b("Nueva ronda"),
-                             fluidRow(
-                               fluidRow(
-                                 column(3 ,offset = 2 ,
-                               box(uiOutput("table_TM_sequencial_NR"),width = 8)
+                    tabBox(
+                      id = "tabset2", height = "500px", width = "500px",
+                      
+                      tabsetPanel(
+                        
+                        tabPanel(tags$b("Parámetros"),
+                                 fluidRow(
+                                   column(10, h4("Eligir los parámetros",align = "center"),
+                                          box(
+                                            width = 6,background = "yellow",style='margin: 6px;',
+                                            numericInput("num_detectabilidad",
+                                                         h5("Umbral de detectabilidad"),
+                                                         value = 1),
+                                            numericInput("num_n",
+                                                         h5("Número de plantas"),
+                                                         value = 30),
+                                            numericInput("num_TMF",
+                                                         h5("Tamaño mínimo de parcelas"),
+                                                         value = 10)
+                                            
+                                          ),
+                                          
+                                          
+                                          box(color = "yellow",background = "light-blue",width = 6,
+                                              title=tags$p(style = "font-size: 50%;"), #h5("Número de parcelas en el teritorio"),
+                                              uiOutput("comb_var")),
+                                          
+                                          
+                                   )
                                  )
-                             )
-                           )
-                         )
+                        ),
+                        tabPanel(tags$b("Tamaño a realizar"),  
+                                 box(h4("Antes de pasar al monitoreo del mes en curso",align = "center"),plotOutput("plot_monit_esperado",height=500),
+                                     width = 12,
+                                     downloadButton("down_plot_monit_actual", "Download Plot")
+                                 )
+                        ),
+                        
+                        tabPanel(tags$b("Datos monitoreo del mes"),
+                                 fluidRow(
+                                   fluidRow(
+                                     column(12 ,
+                                            box(h4("Datos de monitoreo mes en curso"),color = "light-blue",background = "navy",width = 4,height=350,
+                                                fileInput("file_epid2", label=h5("1. Ingresar un archivo CSV"),
+                                                          accept = c(
+                                                            "text/csv",
+                                                            "text/comma-separated-values,text/plain",
+                                                            ".csv")),
+                                                
+                                                numericInput("ano_actual2",
+                                                             h5("2. Año actual"),
+                                                             value=2019),
+                                                
+                                                
+                                                br(),
+                                                actionBttn("action2",(h5("Iniciar el análisis")),color = "success", style = "jelly",block = FALSE, size = "sm")
+                                                
+                                                
+                                                
+                                            )
+                                     )
+                                   )
+                                 )
+                        ),
+                        
+                        
+                        
+                        
+                        
+                        
+                        tabPanel(tags$b("Tamaño efectuado y necesario"),
+                                 fluidRow(
+                                   column(12,h4("Considerando el monitoreo del mes en curso",align = "center"),
+                                          
+                                          box(
+                                            plotOutput("plot_monit_actual",height=500),
+                                            width = 5
+                                            
+                                          ),
+                                          
+                                          
+                                          box(uiOutput("table_TM_sequencial"),
+                                              width = 6)
+                                          
+                                   )
+                                 )
+                        ),
+                        tabPanel(tags$b("Nueva ronda"),
+                                 fluidRow(
+                                   fluidRow(
+                                     column(3 ,offset = 2 ,
+                                            box(uiOutput("table_TM_sequencial_NR"),width = 8)
+                                     )
+                                   )
+                                 )
+                        )
                       )
+                    )
                   )
-                )
-        ),
-        
-        tabItem(tabName = "SinDatos",
-                h2("Parámetros"),
-                
-                fluidRow( 
-                  column(12,
+          ),
+          
+          tabItem(tabName = "SinDatos",
+                  h2("Parámetros"),
                   
-                  box(background = "yellow",
-                      numericInput("num_Pro_SD",
-                                   h5("Nivel de significancia"),
-                                   value = 0.01),
-                      numericInput("num_n_SD", 
-                                   h5("Número de plantas"), 
-                                   value = 30),
-                      numericInput("num_Inc_SD", 
-                                   h5("Incidencia"), 
-                                   value = 0.05),
-                      numericInput("num_eeInc_SD", 
-                                   h5("Error estándar asociado a la media de la incidencia"), 
-                                   value = 0.01),
-                      numericInput("num_agreg_SD", 
-                                   h5("Agregación espacial"), 
-                                   value = 0.1),
-                      numericInput("num_TMF_SD", 
-                                   h5("Tamaño fijo de parcelas"), 
-                                   value = 10),
-                      width = 5,
+                  fluidRow( 
+                    column(12,
+                           
+                           box(background = "yellow",
+                               numericInput("num_Pro_SD",
+                                            h5("Nivel de significancia"),
+                                            value = 0.01),
+                               numericInput("num_n_SD", 
+                                            h5("Número de plantas"), 
+                                            value = 30),
+                               numericInput("num_Inc_SD", 
+                                            h5("Incidencia"), 
+                                            value = 0.05),
+                               numericInput("num_eeInc_SD", 
+                                            h5("Error estándar asociado a la media de la incidencia"), 
+                                            value = 0.01),
+                               numericInput("num_agreg_SD", 
+                                            h5("Agregación espacial"), 
+                                            value = 0.1),
+                               numericInput("num_TMF_SD", 
+                                            h5("Tamaño fijo de parcelas"), 
+                                            value = 10),
+                               width = 5,
+                               
+                               actionBttn("resultados",(h5("Mostrar resultados")),color = "primary", style = "jelly",block = FALSE ,size = "sm")),
+                           
+                           box(title = tags$b("Resultados"),tableOutput("out_sin_datos"),
+                               width = 7)
+                    )
+                  )
+          ),
+          tabItem(tabName = "info",
+                  # h2("Documento técnico del modelo",align = "center"),
                   
-                  actionBttn("resultados",(h5("Mostrar resultados")),color = "primary", style = "jelly",block = FALSE ,size = "sm")),
-                  
-                  box(title = tags$b("Resultados"),tableOutput("out_sin_datos"),
-                      width = 7)
-                )
-              )
-        ),
-        tabItem(tabName = "info",
-               # h2("Documento técnico del modelo",align = "center"),
-                
-                fluidRow( 
-                  column(7,
-                         titlePanel(tags$blockquote("Modelo optimización del monitoreo de la Roya: 
+                  fluidRow( 
+                    column(7,
+                           titlePanel(tags$blockquote("Modelo optimización del monitoreo de la Roya: 
                                                     Documento técnico del modelo",
-                                                    style = "font-size: 70%"
-                         )),
-                         downloadButton("downloadData", "Descargar Documento", class = "butt1"),
-                         tags$head(tags$style(".butt1{background-color:orange;} .butt1{color: black;} .butt1{font-family: Courier New}")),  
+                                                      style = "font-size: 70%"
+                           )),
+                           downloadButton("downloadData", "Descargar Documento", class = "butt1"),
+                           tags$head(tags$style(".butt1{background-color:orange;} .butt1{color: black;} .butt1{font-family: Courier New}")),  
+                    )
                   )
-                )
-                             
+                  
+          )
+          
         )
-        
       )
-    )
   )
 )
 
@@ -295,8 +305,9 @@ dashboardPage(
 server <- function(session, input, output) {
   
   # Con datos -----------------------
-  df_epid <-  reactive({
-    req(input$file_epid)
+  data <-  reactive({
+    #req(input$file_epid)
+    
     
     inFile_epid <- input$file_epid
     if (is.null(inFile_epid))
@@ -305,15 +316,46 @@ server <- function(session, input, output) {
     read.csv(inFile_epid$datapath, header = T)
   })
   
-  observeEvent(df_epid(), {
-    updateSelectInput(session, "periodo", choices = unique(df_epid()$Year))
+  
+  observeEvent(data(), {
+    updateSelectInput(session, "periodo", choices = unique(data()$Year))
   })
-
+  
+  observeEvent(data(), {
+    updateSelectInput(session, "select_col", choices=colnames(data()))
+  })
   
   
-  sub_df_epid1 <- eventReactive(input$action,{
-    subset(df_epid(),Year %in% unlist(input$periodo))
+  df_epid <- eventReactive(input$select_col,{
+    subset(data(),Year %in% unlist(input$periodo))
   })
+  
+  sub_df_epid1 <- eventReactive({
+    input$select_col
+    df_epid()
+  }, {
+    
+    df_epid()[, colnames(df_epid()) %in% input$select_col]
+    
+  })
+  
+  
+  
+  #   #df_epid
+  #   # sub_df_epid1<- eventReactive({
+  #    #input$action
+  #    #input$select_col
+  #    
+  #    
+  #    
+  #  }, {
+  #    
+  #    req( df_epid())
+  #    if(is.null(input$select_col) || input$select_col == "")
+  #      df_epid() else 
+  #        df_epid()[, colnames( df_epid()) %in% input$select_col]
+  #    
+  # })
   
   
   analyse_RF <- eventReactive(input$action,{
@@ -321,26 +363,49 @@ server <- function(session, input, output) {
   })
   
   
-  plot <-  eventReactive(analyse_RF(),{
+  plot <- eventReactive(analyse_RF(),{
     func_plot_RF(analyse_RF())
     
   })
-  
   
   output$plot_RF <- renderPlot({
     plot()
   })
   
   
-  # output$plot_RF <- renderPlot({
-  #   validate(
-  #     need(sub_df_epid1(), "Estoy esperando los datos y el lanzamiento del analisis."
-  #     )
-  #   )
-  #   func_plot_RF(analyse_RF())
-  # })
-  # 
-
+  
+  
+  #mensaje de plot graficos mas importantes
+  
+  
+  texto <- eventReactive(plot(),{
+    paste("Las dos variables más importantes son las que se encuentran en los extremos de la barra sombreada horizontal del gráfico.")
+    
+  })
+  
+  output$var_imp <- renderText({
+    texto()
+  })
+  
+  
+  
+  #mostrar opciones de variables a elegir 
+  
+  df_epid_sin <-  reactive({
+    
+    sub_df_epid1()[,!(names(sub_df_epid1()) %in% c("Year","Fec","Fecha","Mes"))]
+    
+  })
+  
+  
+  observeEvent(input$action, {
+    updateSelectInput(session, "V1", choices=colnames(df_epid_sin()))
+  })
+  
+  observeEvent(input$action, {
+    updateSelectInput(session, "V2", choices=colnames(df_epid_sin()))
+  })
+  
   
   
   
@@ -352,13 +417,11 @@ server <- function(session, input, output) {
   table_RF <-  reactive({
     func_table_RF(var_important(), # analyse_RF()
                   sub_df_epid1(),
-                  input$num_detectabilidad)
+                  input$num_detectabilidad)          
   })
   
   
-  
-  
-  comb_var <-  reactive({
+  comb_var <-  eventReactive(input$V2,{
     validate(
       need(sub_df_epid1(), "Estoy esperando los datos y el lanzamiento del analisis."
       )
@@ -405,7 +468,7 @@ server <- function(session, input, output) {
   
   analyse_vgam <- reactive({
     
-    withProgress(message = 'Cálculo en curso',
+    withProgress(message = 'Calculo en curso',
                  detail = 'Puede tomar un cafecito...', value = 0, {
                    TME(table_RF(),
                        df_Np(),
@@ -445,7 +508,7 @@ server <- function(session, input, output) {
   # sub_df_epid2 <- reactive({
   #   subset(df_epid2(),Year==input$ano_actual & tipo_de_datos=="efectuado") # inicial
   # })
-
+  
   
   
   
@@ -458,11 +521,16 @@ server <- function(session, input, output) {
   })
   #FIN 
   
+  
+  
+  
+  
   table_RF2 <-  reactive({
     func_table_RF(var_important(),
                   sub_df_epid2(),
                   input$num_detectabilidad)
   })
+  
   
   
   analyse_vgam2 <- reactive({
@@ -501,21 +569,17 @@ server <- function(session, input, output) {
     listTable
   })
   
-
-  
   output$table_TM_sequencial <- renderUI({
     table_output_list <- lapply(1:length(funcListTable()), function(i) {
       try(
         renderTable({funcListTable()[[i]]})
-
       )
     })
   })
-
+  
   
   
   ### Nueva ronda de monitoreo ------------------------
-  
   
   #nuevo de acuerdo con el browse 2 
   
@@ -523,13 +587,14 @@ server <- function(session, input, output) {
     subset(df_epid2(),tipo_de_datos %in% c("efectuado","nueva ronda")) # inicial
   })
   
-# FIN 
+  # FIN 
   
   
   
   # sub_df_epid_NR <- reactive({
   #   subset(df_epid(),tipo_de_datos %in% c("efectuado","nueva ronda")) # inicial
   # })
+  
   
   
   table_RF_NR <-  reactive({
@@ -565,9 +630,7 @@ server <- function(session, input, output) {
   })
   
   
-  ## n afficher que les resultats de nueva ronda
-  
-  
+  # n afficher que les resultats de nueva ronda
   
   #nuevo de acuerdo con el browse 2 
   sub_nueva_ronda <- reactive({
@@ -580,20 +643,7 @@ server <- function(session, input, output) {
                   input$num_detectabilidad)
   })
   
-  #FIn
-  
-  
-  
-  # sub_nueva_ronda <- reactive({
-  #   subset(df_epid(),tipo_de_datos =="nueva ronda")
-  # })
-  # 
-  # table_RF_nueva_ronda <-  reactive({
-  #   func_table_RF(var_important(), # analyse_RF()
-  #                 sub_nueva_ronda(),
-  #                 input$num_detectabilidad)
-  # })
-  # 
+  #FIn 
   
   funcListTable_NR <- reactive({
     listTable <- NULL
@@ -630,19 +680,13 @@ server <- function(session, input, output) {
   
   
   # Sin datos --------------------------
-  
-  resultados <- eventReactive(input$resultados,{
+  output$out_sin_datos <- renderTable({
     TME.fijo(input$num_Pro_SD,
              input$num_n_SD,
              input$num_Inc_SD,
              input$num_eeInc_SD,
              input$num_agreg_SD,
              input$num_TMF_SD)
-    
-  })
-  
-  output$out_sin_datos <- renderTable({
-   resultados()
   })
   
   
@@ -653,7 +697,9 @@ server <- function(session, input, output) {
     content = function(file) {
       file.copy("doc/guia.pdf", file)
     }
-  )
+  )  
+  
+  
   
 }
 
