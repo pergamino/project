@@ -14,21 +14,45 @@ library(writexl)
 library(dygraphs)
 library(xts)
 
+#global lat and lng
+latG <<- -87.565
+lngG <<- 14.1378
+
 
 # Carga de datos y scripts --------------------------------------------------
 
 source("03_llamados.R")
+#llamadas a cada una de las partes
 
 ## Ultimos datos de pronostico generados y variables
-datos_pron_finales <- readRDS("datos/03_datos_pron_finales.RDS")
+#datos_pron_finales <- readRDS("datos/03_datos_pron_finales.RDS")
 
 ## Set de datos completo (para el historico)
-datos_pronosticos <- readRDS("datos/02_datos_pronosticos.RDS")
+#datos_pronosticos <- readRDS("datos/02_datos_pronosticos.RDS")
 
 
 # Definicion del Server -----------------------------------------------------------
 
 shinyServer(function(input, output, session) {
+  
+  
+
+
+  observeEvent(input$ejecutar, {
+    
+    #llamadas a cada una de las partes con archivo csv
+    if(generar_datos(input) == 1){
+      procesar_variables()
+      generar_pronosticos()
+    }
+
+    
+    ## Ultimos datos de pronostico generados y variables
+    datos_pron_finales <- readRDS("datos/03_datos_pron_finales.RDS")
+    
+    ## Set de datos completo (para el historico)
+    datos_pronosticos <- readRDS("datos/02_datos_pronosticos.RDS")
+
   
   # Datos reactivos ----------------------------------------------------------------
   
@@ -824,5 +848,9 @@ shinyServer(function(input, output, session) {
       file.copy("datos/guia.pdf", file)
     }
   )
+
+
+  })
+
   
 })
