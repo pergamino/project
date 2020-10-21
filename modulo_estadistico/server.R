@@ -34,8 +34,6 @@ source("03_llamados.R")
 # Definicion del Server -----------------------------------------------------------
 
 shinyServer(function(input, output, session) {
-  
-  
 
 
   observeEvent(input$ejecutar, {
