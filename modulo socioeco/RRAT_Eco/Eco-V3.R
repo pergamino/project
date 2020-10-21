@@ -52,7 +52,7 @@ sp$nivel.costo.insumos <- "bajo"
 indic.sp <- indicEcoAll(sp,moi,nci,txir,mes=6,inc=5,"d",anio=1)
 
 #el pronostico de roya se obtiene asi (todavia no esta en shiny)
-proRoya(txir,mes=6,inc=5,doPlot=T)
+proRoya(txir,mes=5,inc=5,doPlot=T)
 
 #agregar unidades. 
 #para obtener los attributos:

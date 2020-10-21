@@ -277,37 +277,25 @@ ui <- dashboardPage(
                                  width=20,height = 100,
                                  selectInput(inputId = "mesObs", label=NULL,
                                              choices=c("enero","febrero","marzo","abril","mayo","junio", "julio","agosto","setiembre","octubre","noviembre","diciembre"),width="200px")
-                             )
-                             
-                      ),
-                      column(width = 3,
+                             ),
                              box(title=tags$p(style = "font-size: 70%;","Incidencia Roya en %"),color = "blue",background = "blue",
                                  width=20,height = 100,
                                  numericInput("incObs",label=NULL,value=0,width="200px")
-                             )
-                             
-                      ),
-                      column(width = 3,
+                             ),
                              box(title=tags$p(style = "font-size: 70%;","Condiciones para crecimiento de Roya"),color = "olive",background = "olive",
                                  width=20,height = 100,
                                  selectInput(inputId = "condPro", label=NULL,
                                              choices=c("desfavorable","normales", "favorable","muy favorables"),width="200px")
-                             )
-                      ),
-                      column(width = 3,
+                             ),
                              box(title=tags$p(style = "font-size: 70%;","Pronóstico"),color = "orange",background = "orange",
                                  width=20,height = 100,
                                  selectInput(inputId = "pronostico", label=NULL,
                                              choices=c("Año en curso","Año siguiente"),width="200px")
                              )
-                      )
-                    ),
-                    fluidRow(
-                      column(
-                        width=12,
-                        plotOutput("plotVigilancia"),
-                        #verbatimTextOutput("indice")
                       ),
+                      column(width=9,
+                             plotOutput("plotVigilancia"),
+                             )
                     ),
                 ),
                     fluidRow(
@@ -395,7 +383,7 @@ ui <- dashboardPage(
                         width = 6,
                         style="padding:8px;",
                         box(width=12,
-                        h3("Valor agregado del producto"),
+                        h3("Valor agregado del productor"),
                         fluidRow(
                           column(width=4,
                                  p("Histórico"),

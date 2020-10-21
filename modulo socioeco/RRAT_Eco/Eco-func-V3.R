@@ -32,13 +32,13 @@ txRoya <- function(sp,md,mf,mc){
   txn <- txf <-txd <- txc <- ir <- 1:12
   for(i in 1:12) {ir[i] <- sp[[paste("inc.roya.",i,sep="")]]}
   for(i in 1:11) {
-    txn[i] <- (ir[i+1]-ir[i])/ir[i]
+    txn[i] <- min((ir[i+1]-ir[i])/ir[i],0.95)
     txd[i] <- ifelse(txn[i]>0,min(txn[i]*md,0.95), txn[i])
     txf[i] <- ifelse(txn[i]>0,min(txn[i]*mf,0.95), txn[i])
     txc[i] <- ifelse(txn[i]>0,min(txn[i]*mc,0.95), txn[i])
   }
   i <- 12
-  txn[i] <- (ir[1]-ir[i])/ir[i]
+  txn[i] <- min((ir[1]-ir[i])/ir[i],0.95)
   txd[i] <- ifelse(txn[i]>0,min(txn[i]*md,0.95), txn[i])
   txf[i] <- ifelse(txn[i]>0,min(txn[i]*mf,0.95), txn[i])
   txc[i] <- ifelse(txn[i]>0,min(txn[i]*mc,0.95), txn[i])
@@ -57,7 +57,7 @@ proRoya <- function(tx, mes, inc, doPlot=T){
   if(mes==2) {irPro[2] <- inc}
   if(mes>=3) {for (i in 1:(mes-2)){irPro[i+1] <- irPro[i]*(1+tx$txn[i])}}
 
-  irPro.n <- irPro
+  irPro.n <- ifelse(irPro >= 100,100,irPro)
   
   for (i in mes:11){irPro[i+1] <- ifelse(i==mes, inc*(1+tx$txd[i]),irPro[i]*(1+tx$txd[i]))}
   if(mes==12) {irPro[12] <- inc}
@@ -65,7 +65,7 @@ proRoya <- function(tx, mes, inc, doPlot=T){
   if(mes==1) {irPro[1] <- inc; irPro[2] <- irPro[1]*(1+tx$txd[1])}
   if(mes==2) {irPro[2] <- inc}
   if(mes>=3) {for (i in 1:(mes-2)){irPro[i+1] <- irPro[i]*(1+tx$txd[i])}}
-  irPro.d <- irPro
+  irPro.d <- ifelse(irPro >= 100,100,irPro)
   
   for (i in mes:11){irPro[i+1] <- ifelse(i==mes, inc*(1+tx$txf[i]),irPro[i]*(1+tx$txf[i]))}
   if(mes==12) {irPro[12] <- inc}
@@ -73,7 +73,7 @@ proRoya <- function(tx, mes, inc, doPlot=T){
   if(mes==1) {irPro[1] <- inc; irPro[2] <- irPro[1]*(1+tx$txf[1])}
   if(mes==2) {irPro[2] <- inc}
   if(mes>=3) {for (i in 1:(mes-2)){irPro[i+1] <- irPro[i]*(1+tx$txf[i])}}
-  irPro.f <- irPro
+  irPro.f <- ifelse(irPro >= 100,100,irPro)
   
   for (i in mes:11){irPro[i+1] <- ifelse(i==mes, inc*(1+tx$txc[i]),irPro[i]*(1+tx$txc[i]))}
   if(mes==12) {irPro[12] <- inc}
@@ -81,7 +81,7 @@ proRoya <- function(tx, mes, inc, doPlot=T){
   if(mes==1) {irPro[1] <- inc; irPro[2] <- irPro[1]*(1+tx$txc[1])}
   if(mes==2) {irPro[2] <- inc}
   if(mes>=3) {for (i in 1:(mes-2)){irPro[i+1] <- irPro[i]*(1+tx$txc[i])}}
-  irPro.c <- irPro
+  irPro.c <- ifelse(irPro >= 100,100,irPro)
   irProAll <- data.frame(cbind(irPro.n,irPro.d,irPro.f,irPro.c))
   #plot
   if(doPlot){
@@ -146,8 +146,8 @@ indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
   pronosticoRoya <- proRoya(txir,mes,inc,doPlot=F)
   estrategiaTratamiento <- ifelse(endsWith(escenario,"adaptativo"),"adaptativo",ifelse(endsWith(escenario,"sistematico"),"sistematico","ninguno"))
   if(escenario=="linea.base"){rendimientoEsperado <- sp$rendimiento.esperado; maxRoya <- maxRoyaHist(sp)}
-  if(escenario=="tendencial") {maxRoya <- max(pronosticoRoya[[paste("irPro",cond,sep=".")]]); rendimientoEsperado <- sp$rendimiento.esperado*(1-(maxRoya-max(txir$ir))*anio/200)}
-  if(startsWith(escenario, "con.tratamiento.")) {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-(inc-max(txir$ir))*anio/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
+  if(escenario=="tendencial") {maxRoya <- max(pronosticoRoya[[paste("irPro",cond,sep=".")]]); rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir)/200)}
+  if(startsWith(escenario, "con.tratamiento.")) {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir)/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
   
   #if(escenario=="con.tratamiento.sistematico") {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-(maxRoya-max(txir$ir))*anio/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
   #if(escenario=="con.tratamiento.adaptativo") {maxRoya <- max(pronosticoRoya[["irPro.d"]]); rendimientoEsperado <- sp$rendimiento.esperado*(1-(maxRoya-max(txir$ir))*anio/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
