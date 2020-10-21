@@ -12,6 +12,8 @@ library(fontawesome)
 library(writexl)
 library(dygraphs)
 library(xts)
+library(leaflet)
+
 
 # Interfaz de usuario ------------------------------------------------------------------------------
 
@@ -32,7 +34,11 @@ shinyUI(
                 menuItem("Módulo Estadístico", 
                          tabName = "estadistico", 
                          icon = icon("chart-bar")
-                         )
+                         ),
+                menuItem("Datos Modelo Clima", 
+                         tabName = "datos", 
+                         icon = icon("download")
+                )
                 )
             ),
         
@@ -153,173 +159,214 @@ shinyUI(
                 options   = list(container = "body")
             ),
             
-            # Unica seccion o tab de la aplicacion
-            
+            # contenido de tabs
+            tabItems(
             tabItem(
                 tabName   = "estadistico",
                 h2(tags$b("Contenido del módulo estadístico")),
                 h2(paste("Día de consulta:", Sys.Date()
                 )
                 ),
-            ),
-            
-            # ???
-            
-            tags$style(make_css(list('.box', 
-                                     c('font-size', 'font-family', 'color'), 
-                                     c('16px', 'arial', 'black')
-            )
-            )
-            ),
-            
-            # Caja de subsecciones: Inicio, Información del modelo y Graficos
-            
-            tabBox(
-                id = "tabbox1", width = "1000px",
-                
-                # Subseccion 1: Seleccion de variante de modelos y semaforo --------------------------------------------------------
-                
-                tabPanel("Inicio",
-                         
-                         # Tabla de seleccion de las variantes de la temperatura y los
-                         # modelos (INPUT)
-                         
-                         fluidRow(
-                             box(
-                                 title       = tags$p("Ajuste de temperatura", style = "font-size: 125%"),
-                                 status      = "success",
-                                 solidHeader = TRUE,
-                                 radioButtons(
-                                     inputId  = "sombra",
-                                     label    = "Seleccione si la parcela de café cuenta con sombra:",
-                                     choices  = c("Sí hay sombra", "No hay sombra")
+                fluidRow(
+                    # ???
+                    
+                    tags$style(make_css(list('.box', 
+                                             c('font-size', 'font-family', 'color'), 
+                                             c('16px', 'arial', 'black')
+                    )
+                    )
+                    ),
+                    
+                    # Caja de subsecciones: Inicio, Información del modelo y Graficos
+                    
+                    tabBox(
+                        id = "tabbox1", width = "1000px",
+                        
+                        # Subseccion 1: Seleccion de variante de modelos y semaforo --------------------------------------------------------
+                        
+                        tabPanel("Inicio",
+                                 
+                                 # Tabla de seleccion de las variantes de la temperatura y los
+                                 # modelos (INPUT)
+                                 
+                                 fluidRow(
+                                     box(
+                                         title       = tags$p("Datos de clima", style = "font-size: 125%"),
+                                         status      = "success",
+                                         solidHeader = TRUE,
+                                         ui <- fluidPage(
+                                             
+                                             # Input: Select a file ----
+                                             fileInput("archivo_clima", "Seleccione un archivo:",
+                                                       multiple = FALSE,
+                                                       accept = c("text/csv",
+                                                                  "text/comma-separated-values,text/plain",
+                                                                  ".csv")),
+                                             radioButtons("sep", "Separador",
+                                                          choices = c(Coma = ",",
+                                                                      Puntocoma = ";",
+                                                                      Tab = "\t"),
+                                                          selected = ","),
+                                             actionButton("ejecutar", "Ejecutar modelo")
+                                             
+                                         )
+                                     ),
+                                     box(
+                                         title       = tags$p("Ajuste de temperatura", style = "font-size: 125%"),
+                                         status      = "success",
+                                         solidHeader = TRUE,
+                                         radioButtons(
+                                             inputId  = "sombra",
+                                             label    = "Seleccione si la parcela de café cuenta con sombra:",
+                                             choices  = c("Sí hay sombra", "No hay sombra")
+                                         ),
+                                         radioButtons(
+                                             inputId  = "arboles",
+                                             label    = "Seleccione la altura de los árboles que producen sombra:",
+                                             choices  = c("Mayor o igual a 7 metros con sombra irregular",
+                                                          "Mayor o igual a 7 metros con sombra regular",
+                                                          "Menor a 7 metros")
+                                         )
+                                     )
+
                                  ),
-                                 radioButtons(
-                                     inputId  = "arboles",
-                                     label    = "Seleccione la altura de los árboles que producen sombra:",
-                                     choices  = c("Mayor o igual a 7 metros con sombra irregular",
-                                                  "Mayor o igual a 7 metros con sombra regular",
-                                                  "Menor a 7 metros")
+                                 
+                                 # Semaforo de las probabilidades generadas a partir de la fecha 
+                                 # actual (fp) para los tres modelos (OUTPUT)
+                                 
+                                 fluidRow(
+                                     tableOutput("semaforo")
                                  )
-                             )
-                         ),
-                         
-                         # Semaforo de las probabilidades generadas a partir de la fecha 
-                         # actual (fp) para los tres modelos (OUTPUT)
-                         
-                         fluidRow(
-                             tableOutput("semaforo")
-                         )
-                ),
-                
-                # Subseccion 2: Variables, probabilidades e historico --------------------------------------------------------
-                
-                tabPanel(
-                    "Información del modelo",
-                    
-                    # Lista desplegable para seleccionar el modelo de las variables
-                    # a desplegar (INPUT)
-                    
-                    fluidRow(
-                        column(width = 7,
-                        box(
-                            title       = tags$p("Modelo", style = "font-size: 125%"),
-                            status      = "primary",
-                            solidHeader = TRUE,
-                            selectInput(
-                                inputId  = "modelo",
-                                label    = "Seleccione el modelo",
-                                choices  = c("Modelo de infección", 
-                                             "Modelo de inicio de la esporulación", 
-                                             "Modelo de intensificación de la esporulación"
-                                ),
-                                selected = "Modelo de infección"
-                            )
-                        )
                         ),
-                        column(
-                            width = 5,
-                            align = "center",
-                            fluidRow(
-                                titlePanel(tags$blockquote("Documento técnico del modelo",
-                                                           style = "font-size: 70%"
-                                )),
-                                downloadButton("downloadData", "Descargar Documento")
-                            )
+                        
+                        # Subseccion 2: Variables, probabilidades e historico --------------------------------------------------------
+                        
+                        tabPanel(
+                            "Información del modelo",
                             
-                        )
-                    ),
-                    
-                    # Valueboxes: variables del modelo seleccionado (OUTPUT)
-                    
-                    fluidRow(
-                        titlePanel(tags$blockquote("Variables del modelo",
-                                                   style = "font-size: 90%"
-                        )
-                        ),
-                        titlePanel(tags$blockquote(tags$em("Para más información pase el cursor sobre las variables"),
-                                                   style = "font-size: 70%"
-                        )
-                        ),
-                        valueBoxOutput("prom_lluvia"),
-                        valueBoxOutput("prom_temp_min"),
-                        valueBoxOutput("prom_amp_term"),
-                        valueBoxOutput("prom_temp_max"),
-                        valueBoxOutput("amp_term"),
-                        valueBoxOutput("temp_max"),
-                        valueBoxOutput("prom_lluvia_2"),
-                        valueBoxOutput("prom_lluvia_3")
-                    ),
-                    
-                    # Valueboxes: pronostico de probabilidad del modelo seleccionado (OUTPUT)
-                    
-                    fluidRow(
-                        title = tags$p("Probabilidad del modelo seleccionado",
-                                       "font-size: 125%"),
-                        valueBoxOutput("p_modelo1"),
-                        valueBoxOutput("p_modelo2"),
-                        valueBoxOutput("p_modelo3")
-                    ),
-                    
-                    # Botones de descarga: histórico de pronosticos de los modelos
-                    # según variante de temperatura seleccionada (OUTPUT)
-                    
-                    fluidRow(
-                        column(
-                            width = 12,
-                            align = "left",
-                            downloadButton("csv", "Descargar CSV"),
-                            downloadButton("excel", "Descargar Excel")
+                            # Lista desplegable para seleccionar el modelo de las variables
+                            # a desplegar (INPUT)
+                            
+                            fluidRow(
+                                column(width = 7,
+                                       box(
+                                           title       = tags$p("Modelo", style = "font-size: 125%"),
+                                           status      = "primary",
+                                           solidHeader = TRUE,
+                                           selectInput(
+                                               inputId  = "modelo",
+                                               label    = "Seleccione el modelo",
+                                               choices  = c("Modelo de infección", 
+                                                            "Modelo de inicio de la esporulación", 
+                                                            "Modelo de intensificación de la esporulación"
+                                               ),
+                                               selected = "Modelo de infección"
+                                           )
+                                       )
+                                ),
+                                column(
+                                    width = 5,
+                                    align = "center",
+                                    fluidRow(
+                                        titlePanel(tags$blockquote("Documento técnico del modelo",
+                                                                   style = "font-size: 70%"
+                                        )),
+                                        downloadButton("downloadData", "Descargar Documento")
+                                    )
+                                    
+                                )
+                            ),
+                            
+                            # Valueboxes: variables del modelo seleccionado (OUTPUT)
+                            
+                            fluidRow(
+                                titlePanel(tags$blockquote("Variables del modelo",
+                                                           style = "font-size: 90%"
+                                )
+                                ),
+                                titlePanel(tags$blockquote(tags$em("Para más información pase el cursor sobre las variables"),
+                                                           style = "font-size: 70%"
+                                )
+                                ),
+                                valueBoxOutput("prom_lluvia"),
+                                valueBoxOutput("prom_temp_min"),
+                                valueBoxOutput("prom_amp_term"),
+                                valueBoxOutput("prom_temp_max"),
+                                valueBoxOutput("amp_term"),
+                                valueBoxOutput("temp_max"),
+                                valueBoxOutput("prom_lluvia_2"),
+                                valueBoxOutput("prom_lluvia_3")
+                            ),
+                            
+                            # Valueboxes: pronostico de probabilidad del modelo seleccionado (OUTPUT)
+                            
+                            fluidRow(
+                                title = tags$p("Probabilidad del modelo seleccionado",
+                                               "font-size: 125%"),
+                                valueBoxOutput("p_modelo1"),
+                                valueBoxOutput("p_modelo2"),
+                                valueBoxOutput("p_modelo3")
+                            ),
+                            
+                            # Botones de descarga: histórico de pronosticos de los modelos
+                            # según variante de temperatura seleccionada (OUTPUT)
+                            
+                            fluidRow(
+                                column(
+                                    width = 12,
+                                    align = "left",
+                                    downloadButton("csv", "Descargar CSV"),
+                                    downloadButton("excel", "Descargar Excel")
+                                )
+                            ),
+                            
+                            # Tabla: histórico de pronosticos de los modelos según variante de 
+                            # temperatura seleccionada (OUTPUT)
+                            
+                            fluidRow(
+                                column(
+                                    width = 12,
+                                    align = "center",
+                                    tableOutput("historico")
+                                )
                             )
                         ),
-                    
-                    # Tabla: histórico de pronosticos de los modelos según variante de 
-                    # temperatura seleccionada (OUTPUT)
-                    
-                    fluidRow(
-                        column(
-                            width = 12,
-                            align = "center",
-                            tableOutput("historico")
+                        
+                        # Subseccion 3: Grafico del historico --------------------------------------------------------
+                        
+                        tabPanel(
+                            "Gráficos",
+                            
+                            # Grafico de serie de tiempo: histórico de pronosticos de los modelos 
+                            # según variante de temperatura seleccionada (OUTPUT)
+                            
+                            fluidRow(
+                                dygraphOutput("grafico_modelo_aparicion"),
+                                dygraphOutput("grafico_modelo_esporulacion"),
+                                dygraphOutput("grafico_modelo_intensificacion")
                             )
                         )
-                    ),
-                
-                # Subseccion 3: Grafico del historico --------------------------------------------------------
-                
-                tabPanel(
-                    "Gráficos",
-                    
-                    # Grafico de serie de tiempo: histórico de pronosticos de los modelos 
-                    # según variante de temperatura seleccionada (OUTPUT)
-                    
-                     fluidRow(
-                        dygraphOutput("grafico_modelo_aparicion"),
-                        dygraphOutput("grafico_modelo_esporulacion"),
-                        dygraphOutput("grafico_modelo_intensificacion")
+                    )
+                )
+            ),
+            tabItem(
+                tabName   = "datos",
+                h2(tags$b("Descargar datos de clima")),
+                fluidRow(
+                    ui <- fluidPage(
+                        tags$iframe(
+                            src = "https://admin.redpergamino.net/clima", 
+                            width = "100%",
+                            height = 1200,
+                            scrolling = 'no',
+                            id = 'frame',
                         )
-                     )
-                 )
-             )
+                    )
+                )
+            )
+            
+            )
+
+            )
          )
       )
