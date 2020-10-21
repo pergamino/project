@@ -6,8 +6,14 @@ server <- function(input, output, session) {
     filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5 
   })
   
-  selSistemaProduccion <- reactive({
+  selSistemaProduccion <- reactiveVal()
+  
+  selSistemaProduccion0 <- reactive({
     filter(varsocioeco,region==input$selRegion)
+  })
+  
+  observe({
+    selSistemaProduccion(filter(varsocioeco,region==input$selRegion))
   })
   
   costoManejoPais <- reactive({
@@ -39,25 +45,25 @@ server <- function(input, output, session) {
     updateTextInput(session,"tiTipoProductor",value=selSistemaProduccion()$tipoprod)
     updateNumericInput(session,"niNumFam",value=selSistemaProduccion()$numfamilias)
     updateNumericInput(session,"niTamFam",value=selSistemaProduccion()$tamanofamilia)
-    updateNumericInput(session,"niGastAlim",value=selSistemaProduccion()$gastosalimfamilia)
-    updateNumericInput(session,"niAhorOtroIngres",value=selSistemaProduccion()$ingresosotros)
-    updateNumericInput(session,"niMargSosten",value=selSistemaProduccion()$ingresominsost)
-    updateNumericInput(session,"niAreaProd",value=selSistemaProduccion()$areaprod)
-    updateNumericInput(session,"niRedimCafeOro",value=selSistemaProduccion()$rendimientoesperado)
-    updateNumericInput(session,"niPrecioVentaCafe",value=selSistemaProduccion()$preciocafe)
+    updateNumericInput(session,"niGastAlim",label=paste("Gasto de alimentación familia (",unidadesPais()$unidaddinero,"/año)",sep=""),value=selSistemaProduccion()$gastosalimfamilia)
+    updateNumericInput(session,"niAhorOtroIngres",label=paste("Ahorro u otros ingresos (",unidadesPais()$unidaddinero,"/año)",sep=""),value=selSistemaProduccion()$ingresosotros)
+    updateNumericInput(session,"niMargSosten",label=paste("Márgen mínima para sostenibilidad (",unidadesPais()$unidaddinero,"/año)",sep=""),value=selSistemaProduccion()$ingresominsost)
+    updateNumericInput(session,"niAreaProd",label=paste("Area de producción (",unidadesPais()$unidadarea,")",sep=""),value=selSistemaProduccion()$areaprod)
+    updateNumericInput(session,"niRedimCafeOro",label=paste("Rendimiento café oro (",unidadesPais()$unidadmedidacafe,"/",unidadesPais()$unidadarea,")",sep=""),value=selSistemaProduccion()$rendimientoesperado)
+    updateNumericInput(session,"niPrecioVentaCafe",label=paste("Precio de venta del café (",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadmedidacafe,")",sep=""),value=selSistemaProduccion()$preciocafe)
     updateTextInput(session,"tiNivManejo",value=selSistemaProduccion()$nivelmanejo)
-    updateNumericInput(session,"niCostoTratam",value=selSistemaProduccion()$costo1tratamientoroya)
+    updateNumericInput(session,"niCostoTratam",label=paste("Costo de 1 tratam. roya (",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadarea,")",sep=""),value=selSistemaProduccion()$costo1tratamientoroya)
     updateTextInput(session,"tiNivCostoInsum",value=selSistemaProduccion()$nivelcostoinsumos)
     updateNumericInput(session,"niCostoIndirect",value=selSistemaProduccion()$costosindirectos)
-    updateNumericInput(session,"niOtroCostoProd", value=selSistemaProduccion()$costosprodotros)
+    updateNumericInput(session,"niOtroCostoProd",label=paste("Otros costos de producción (",unidadesPais()$unidaddinero,"/año)",sep=""),value=selSistemaProduccion()$costosprodotros)
     updateNumericInput(session,"niMumPeones",value=selSistemaProduccion()$numpeonesperm)
-    updateNumericInput(session,"niSalarDiaJornal",value=selSistemaProduccion()$salariopeon)
-    updateNumericInput(session,"niCosecha",value=selSistemaProduccion()$dqmocosecha)
+    updateNumericInput(session,"niSalarDiaJornal",label=paste("Salario diario jornales (",unidadesPais()$unidaddinero,"/día)",sep=""),value=selSistemaProduccion()$salariopeon)
+    updateNumericInput(session,"niCosecha",label=paste("Cosecha (días-hombre/",unidadesPais()$unidadmedidacafe,")",sep=""),value=selSistemaProduccion()$dqmocosecha)
     updateNumericInput(session,"niManoObraFam",value=selSistemaProduccion()$mofamiliar)
-    updateNumericInput(session,"niCanastaBasica",value=selSistemaProduccion()$canastabasicapp)
+    updateNumericInput(session,"niCanastaBasica",label=paste("Canasta basica (",unidadesPais()$unidaddinero,"/mes/persona)",sep=""),value=selSistemaProduccion()$canastabasicapp)
     updateNumericInput(session,"niPrecioTierra",value=selSistemaProduccion()$preciotierra)
-    updateNumericInput(session,"niSueldoMinCiudad",value=selSistemaProduccion()$salariominciudad)
-    updateNumericInput(session,"niSueldoMinCampo",value=selSistemaProduccion()$salariominrural)
+    updateNumericInput(session,"niSueldoMinCiudad",label=paste("Sueldo minimo ciudad (",unidadesPais()$unidaddinero,"/mes)",sep=""),value=selSistemaProduccion()$salariominciudad)
+    updateNumericInput(session,"niSueldoMinCampo",label=paste("Sueldo minimo campo (",unidadesPais()$unidaddinero,"/mes)",sep=""),value=selSistemaProduccion()$salariominrural)
     updateNumericInput(session,"niDiasMesMOfam",value=selSistemaProduccion()$dmmofamiliar)
   })
   
@@ -75,8 +81,15 @@ server <- function(input, output, session) {
     updateNumericInput(session,"altoCI",value=filter(costoManejoPais(),manejo=="alto")$costoinsumo)
   })
   
-  values <- reactiveValues()
+  output$box1 <- renderUI({
+    box(title=paste("Mano de obra manejo (dias-hombres/",unidadesPais()$unidadarea,")",sep=""), color = "light-blue",background = "light-blue", width=50,height = 100)
+  })
   
+  output$box2 <- renderUI({
+    box(title=paste("Costos insumos nivel regular (",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadarea,")"), color = "light-blue",background = "light-blue", width=50,height = 100)
+  })
+  
+  values <- reactiveValues()
   
   # Title Roya historica  -------------------------------
   
