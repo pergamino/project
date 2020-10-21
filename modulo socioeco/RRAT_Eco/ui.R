@@ -169,7 +169,7 @@ ui <- dashboardPage(
                 
                 box(color = "green",background = "green", width=12,
                     fluidRow(
-                      column(width = 6,
+                      column(width = 4,
                              textOutput("nombre_region"),
                              tags$head(tags$style("#nombre_region{color: white;
                                         font-size: 30px;
@@ -179,7 +179,7 @@ ui <- dashboardPage(
                              )
                       ),
                       
-                      column(width = 6,
+                      column(width = 4,
                              textOutput("nombre_tipoProductor"),
                              tags$head(tags$style("#nombre_tipoProductor{color: white;
                                         font-size: 30px;
@@ -187,7 +187,10 @@ ui <- dashboardPage(
                                           }"
                              )
                              )
-                      )
+                      ),
+                      column(width = 4,
+                             
+                             )
                     )
                 )
               ),
@@ -239,7 +242,7 @@ ui <- dashboardPage(
                       #       HTML("Alto")
                       #),
                       column(width = 6,
-                             box(title="Mano de obra manejo (dias-hombres/ha)", color = "light-blue",background = "light-blue", width=50,height = 100),
+                             uiOutput("box1"),
                              numericInput("ningunMO", label = "Ninguno", value = NULL),
                              numericInput("minimoMO", label = "Minimo", value = NULL),
                              numericInput("bajoMO", label = "Bajo", value = NULL),
@@ -247,7 +250,7 @@ ui <- dashboardPage(
                              numericInput("altoMO", label = "Alto", value = NULL)
                       ),
                       column(width = 6,
-                             box(title="Costos insumos nivel regular ($/ha)", color = "light-blue",background = "light-blue", width=50,height = 100),
+                             uiOutput("box2"),
                              numericInput("ningunCI", label = "Ninguno", value = NULL),
                              numericInput("minimoCI", label = "Minimo", value = NULL),
                              numericInput("bajoCI", label = "Bajo", value = NULL),
