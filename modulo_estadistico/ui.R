@@ -12,7 +12,7 @@ library(fontawesome)
 library(writexl)
 library(dygraphs)
 library(xts)
-library(leaflet)
+#library(leaflet)
 
 
 # Interfaz de usuario ------------------------------------------------------------------------------
@@ -38,6 +38,10 @@ shinyUI(
                 menuItem("Datos Modelo Clima", 
                          tabName = "datos", 
                          icon = icon("download")
+                ),
+                menuItem("Información", 
+                         tabName = "informacion", 
+                         icon = icon("info")
                 )
                 )
             ),
@@ -191,13 +195,13 @@ shinyUI(
                                  
                                  fluidRow(
                                      box(
-                                         title       = tags$p("Datos de clima", style = "font-size: 125%"),
+                                         title       = HTML(paste("Datos variables climáticas",icon('cloud-sun'))),
                                          status      = "success",
                                          solidHeader = TRUE,
                                          ui <- fluidPage(
                                              
                                              # Input: Select a file ----
-                                             fileInput("archivo_clima", "Seleccione un archivo:",
+                                             fileInput("archivo_clima", "Seleccione el archivo CSV de clima:",
                                                        multiple = FALSE,
                                                        accept = c("text/csv",
                                                                   "text/comma-separated-values,text/plain",
@@ -212,7 +216,7 @@ shinyUI(
                                          )
                                      ),
                                      box(
-                                         title       = tags$p("Ajuste de temperatura", style = "font-size: 125%"),
+                                         title       = tags$p("Ajuste de temperatura", style = "font-size: 100%"),
                                          status      = "success",
                                          solidHeader = TRUE,
                                          radioButtons(

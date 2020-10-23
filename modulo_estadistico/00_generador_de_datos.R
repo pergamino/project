@@ -66,7 +66,7 @@ generar_datos <- function(input) {
       dbDisconnect(con)   #disconnect from database
       
       
-      print("Con datos de clima de un punto aleatorio de la región")
+      print("Con datos de clima de un punto aleatorio de la region")
       
       # Creacion del set de datos artificiales ----------------------------------
           

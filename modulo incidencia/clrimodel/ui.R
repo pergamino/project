@@ -14,6 +14,7 @@ sidebar<-dashboardSidebar(
   width = 350,
   sidebarMenu(id='sidebar',
     menuItem("Incidencia", tabName = "clri", icon = icon("viruses")),
+    menuItem("Datos Modelo Clima",   tabName = "datos", icon = icon("download")),
     menuItem("Información", tabName = "info", icon = icon("info"))
   )
 )
@@ -98,6 +99,22 @@ body <- dashboardBody(
             br(),
             br()
             
+    ),
+    
+    tabItem(
+      tabName   = "datos",
+      h2(tags$b("Descargar datos de clima")),
+      fluidRow(
+        ui <- fluidPage(
+          tags$iframe(
+            src = "https://admin.redpergamino.net/clima", 
+            width = "100%",
+            height = 1200,
+            scrolling = 'no',
+            id = 'frame',
+          )
+        )
+      )
     ),
     
     tabItem(tabName = "info",
