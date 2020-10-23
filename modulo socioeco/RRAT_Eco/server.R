@@ -3,21 +3,34 @@ server <- function(input, output, session) {
   # Tabla Sistema de produccion
   
   selRegiones <- reactive({
-    filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5 
+    if(is.null(importSistemaProd())){
+      filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5 
+    }
   })
   
   selSistemaProduccion <- reactiveVal()
   
   selSistemaProduccion0 <- reactive({
-    filter(varsocioeco,region==input$selRegion)
+    if(is.null(importSistemaProd())){
+      filter(varsocioeco,region==input$selRegion)
+    }
   })
   
   observe({
-    selSistemaProduccion(filter(varsocioeco,region==input$selRegion))
+    if(is.null(importSistemaProd())){
+      selSistemaProduccion(filter(varsocioeco,region==input$selRegion))
+    }
   })
   
-  costoManejoPais <- reactive({
+  costoManejoPais <- reactiveVal()
+  
+  costoManejoPais1 <- reactive({
+    costoManejoPais(filter(costomanejo,cod_pais==filter(paises,pais==input$selPais)$cod_pais))
     filter(costomanejo,cod_pais==filter(paises,pais==input$selPais)$cod_pais)
+  })
+  
+  observe({
+    costoManejoPais(costoManejoPais1())
   })
   
   unidadesPais <- reactive({
@@ -36,9 +49,11 @@ server <- function(input, output, session) {
   })
   
   observe({
-    updateSelectInput(session, "selRegion",
-                      choices = selRegiones()
-  )})
+    if(is.null(importSistemaProd())){
+      updateSelectInput(session, "selRegion",
+                      choices = selRegiones())
+      }
+    })
   
   observe({
     updateNumericInput(session,"niAlt",value=selSistemaProduccion()$altitud)
@@ -65,6 +80,7 @@ server <- function(input, output, session) {
     updateNumericInput(session,"niSueldoMinCiudad",label=paste("Sueldo minimo ciudad (",unidadesPais()$unidaddinero,"/mes)",sep=""),value=selSistemaProduccion()$salariominciudad)
     updateNumericInput(session,"niSueldoMinCampo",label=paste("Sueldo minimo campo (",unidadesPais()$unidaddinero,"/mes)",sep=""),value=selSistemaProduccion()$salariominrural)
     updateNumericInput(session,"niDiasMesMOfam",value=selSistemaProduccion()$dmmofamiliar)
+    #importSistemaProd(NULL)
   })
   
   observe({
@@ -97,7 +113,31 @@ server <- function(input, output, session) {
     paste("Región: ",input$selRegion,sep="")
   })
   
+  output$nombre_region_sp <- renderText({
+    paste("Región: ",input$selRegion,sep="")
+  })
+  
+  output$nombre_region_mo <- renderText({
+    paste("Región: ",input$selRegion,sep="")
+  })
+  
+  output$nombre_region_pro <- renderText({
+    paste("Región: ",input$selRegion,sep="")
+  })
+  
   output$nombre_tipoProductor <- renderText({
+    paste("Tipo de productor: ",input$tiTipoProductor,sep="")
+  })
+  
+  output$nombre_tipoProductor_sp <- renderText({
+    paste("Tipo de productor: ",input$tiTipoProductor,sep="")
+  })
+  
+  output$nombre_tipoProductor_mo <- renderText({
+    paste("Tipo de productor: ",input$tiTipoProductor,sep="")
+  })
+  
+  output$nombre_tipoProductor_pro <- renderText({
     paste("Tipo de productor: ",input$tiTipoProductor,sep="")
   })
   
@@ -107,14 +147,24 @@ server <- function(input, output, session) {
   DfRoyaHist <- reactiveVal()
   
   DfRoyaHist0 <- reactive({
-     DfRoyaHist(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo))    
-     filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)
+    if(nrow(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)>0)) {
+      DfRoyaHist(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo))    
+      filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)  
+    } else {
+      t <- data.frame(Mes=1:12,Incidencia=c(0,0,0,0,0,0,0,0,0,0,0,0),Periodo=c(rep("despues_cosecha",2), rep("antes_cosecha",7),rep("cosecha",3)))
+      DfRoyaHist(t)
+      t
+    }
   })
 
   output$hot <- renderExcel({
     colonnes <- data.frame(readOnly = c(TRUE, FALSE, FALSE), width = 100)
     excelTable(DfRoyaHist0(), columns = colonnes)
   })
+  
+  #observe({
+    
+  #})
   
   DfRoyaHist2 <- eventReactive(input$hot,{
     dfroya <- excel_to_R(input$hot)
@@ -186,14 +236,57 @@ server <- function(input, output, session) {
            lwd = 1, lty = 1)
   })
   
-  moi <- reactive({
+  moi <- reactiveVal()
+  
+  moi0 <- reactive({
+    moi(matrix(c(input$ningunMO,input$minimoMO,input$bajoMO,input$medioMO,input$altoMO,input$ningunCI,input$minimoCI,input$bajoCI,input$medioCI,input$altoCI),nrow=5,ncol=2,dimnames=list(c("ninguno","minimo","bajo","medio","alto"),c("mo","ci"))))
     matrix(c(input$ningunMO,input$minimoMO,input$bajoMO,input$medioMO,input$altoMO,input$ningunCI,input$minimoCI,input$bajoCI,input$medioCI,input$altoCI),nrow=5,ncol=2,dimnames=list(c("ninguno","minimo","bajo","medio","alto"),c("mo","ci")))
+  })
+  
+  observe({
+    moi(moi0())
   })
   
   inc.roya <- reactive({
     data.frame(mes=1:12,periodo=c(rep("despues.cosecha",2), rep("antes.cosecha",7),rep("cosecha",3)),inc.historico=DfRoyaHist()$Incidencia)
   })
   
+  sp0 <- reactiveVal()
+  sp1 <- reactive({
+    spi <- data.frame(pais=input$selPais,
+                      zona=input$selRegion,
+                      tipo.prod=input$tiTipoProductor,
+                      altitud=input$niAlt,
+                      num.familias=input$niNumFam,
+                      tamano.familia=input$niTamFam,
+                      ingresos.otros=input$niAhorOtroIngres,
+                      gastos.alim.familia=input$niGastAlim,
+                      ingreso.min.sost=input$niMargSosten,
+                      area.prod=input$niAreaProd,
+                      precio.cafe=input$niPrecioVentaCafe,
+                      rendimiento.esperado=input$niRedimCafeOro,
+                      nivel.manejo=input$tiNivManejo,
+                      costo.1tratamientoRoya=input$niCostoTratam,
+                      costos.indirectos=input$niCostoIndirect,
+                      nivel.costo.insumos=input$tiNivCostoInsum,
+                      costos.prod.otros=input$niOtroCostoProd,
+                      num.peones.perm=input$niMumPeones,
+                      salario.peon=input$niSueldoMinCampo,
+                      dq.mo.cosecha=input$niCosecha,
+                      salario.jornal=input$niSalarDiaJornal,
+                      mo.familiar=input$niManoObraFam,
+                      dm.mo.familiar=input$niDiasMesMOfam,
+                      precio.tierra=input$niPrecioTierra,
+                      salario.min.ciudad=input$niSueldoMinCiudad,
+                      salario.min.rural=input$niSueldoMinCampo,
+                      canasta.basica.pp=input$niCanastaBasica,
+                      precio.int.cafe=90,
+                      rendimiento.esperado=input$niRedimCafeOro,
+                      num.peones.perm=input$niMumPeones,
+                      nivel.manejo=input$tiNivManejo,
+                      nivel.costo.insumos=input$tiNivCostoInsum)
+    spi
+  })
   sp <- reactive({
     spi <- data.frame(pais=input$selPais,
                       zona=input$selRegion,
@@ -232,8 +325,11 @@ server <- function(input, output, session) {
     #insertar roya histrorica y fenologia en el sistema de producción
     for(i in 1:12){spi[[paste("inc.roya.",i,sep="")]] <- as.numeric(inc.roya()[i,3])}
     for(i in 1:12){spi[[paste("periodo.",i,sep="")]] <- as.character(inc.roya()[i,2]) }
-    
     spi
+  })
+  
+  observe({
+    sp0(sp1())
   })
   
   txir <- reactive({ 
@@ -466,7 +562,103 @@ server <- function(input, output, session) {
     error = function(err) {},
     finally = function() {})
   })
-  #output$indice <- renderPrint({
-  #  indic.sp()
-  #})
+  
+  ### Descargas y Subidas ###
+  output$sistemaDescargar <- downloadHandler(
+    filename <- function(){
+      paste("sistemaproductivo.RData")
+    },
+    
+    content = function(file) {
+      sistemaProductivo <- sp0()
+      save(sistemaProductivo, file = file)
+    }
+  )
+  
+  output$sistemaDescargar <- downloadHandler(
+    filename <- function(){
+      paste("sistemaproductivo.RData")
+    },
+    
+    content = function(file) {
+      sistemaProductivo <- sp0()
+      save(sistemaProductivo, file = file)
+    }
+  )
+  
+  output$royaDescargar <- downloadHandler(
+    filename <- function(){
+      paste("royahistorica.RData")
+    },
+    
+    content = function(file) {
+      royaHistorica <- DfRoyaHist()
+      save(royaHistorica, file = file)
+    }
+  )
+  
+  output$moDescargar <- downloadHandler(
+    filename <- function(){
+      paste("manoDeObra.RData")
+    },
+    
+    content = function(file) {
+      manoDeObra <- moi()
+      save(manoDeObra, file = file)
+    }
+  )
+  
+  importSistemaProd <- reactiveVal()
+  
+  observe({
+    if ( is.null(input$sistemaUpload)) return(NULL)
+    inFile <- input$sistemaUpload
+    file <- inFile$datapath
+    e = new.env()
+    name <- load(file, envir = e)
+    data <- e[[name]]
+    data <- data.frame(data)
+    names(data) <- c("pais","region","tipoprod","altitud","numfamilias","tamanofamilia","ingresosotros","gastosalimfamilia","ingresominsost","areaprod","preciocafe","rendimientoesperado","nivelmanejo","costo1tratamientoroya","costosindirectos","nivelcostoinsumos","costosprodotros","numpeonesperm","salariopeon","dqmocosecha","salariojornal","mofamiliar","dmmofamiliar","preciotierra","salariominciudad","salariominrural","canastabasicapp")
+    importSistemaProd(data)
+    updateSelectInput(session,"selPais",selected=data[1]$pais)
+    updateSelectInput(session,"selRegion",choices=filter(regiones,idpais==filter(paises,pais==data[1]$pais)$cod_extra)$rrat5,selected=data[2]$region)
+    selSistemaProduccion(data)
+  })
+  
+  observe({
+    if ( is.null(input$royaUpload)) return(NULL)
+    inFile <- input$royaUpload
+    file <- inFile$datapath
+    e = new.env()
+    name <- load(file, envir = e)
+    data <- e[[name]]
+    data <- data.frame(data)
+    DfRoyaHist(data)
+    output$hot <- renderExcel({
+      colonnes <- data.frame(readOnly = c(TRUE, FALSE, FALSE), width = 100)
+      excelTable(DfRoyaHist(), columns = colonnes)
+    })
+  })
+  
+  observe({
+    if ( is.null(input$moUpload)) return(NULL)
+    inFile <- input$moUpload
+    file <- inFile$datapath
+    e = new.env()
+    name <- load(file, envir = e)
+    data <- e[[name]]
+    data <- data.frame(data)
+    updateNumericInput(session,"ningunMO",value=data["ninguno","mo"])
+    updateNumericInput(session,"minimoMO",value=data["minimo","mo"])
+    updateNumericInput(session,"bajoMO",value=data["bajo","mo"])
+    updateNumericInput(session,"medioMO",value=data["medio","mo"])
+    updateNumericInput(session,"altoMO",value=data["alto","mo"])
+    
+    updateNumericInput(session,"ningunCI",value=data["ninguno","ci"])
+    updateNumericInput(session,"minimoCI",value=data["minimo","ci"])
+    updateNumericInput(session,"bajoCI",value=data["bajo","ci"])
+    updateNumericInput(session,"medioCI",value=data["medio","ci"])
+    updateNumericInput(session,"altoCI",value=data["alto","ci"])
+    
+  })
 }

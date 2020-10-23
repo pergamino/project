@@ -1,6 +1,6 @@
 ui <- dashboardPage(
   
-  header <- dashboardHeader(title = "Pronosticos Economicos"),
+  header <- dashboardHeader(title = "SEROYA"),
   
   sidebar <- dashboardSidebar(
     sidebarMenu(
@@ -22,7 +22,42 @@ ui <- dashboardPage(
       # Sistema de produccion ---------------------------------------------------
       
       tabItem(tabName = "sistemaProd",
-              
+              fluidRow(
+                
+                box(color = "green",background = "green", width=12,
+                    fluidRow(
+                      column(width = 3,
+                             textOutput("nombre_region_sp"),
+                             tags$head(tags$style("#nombre_region_sp{color: white;
+                                        font-size: 30px;
+                                        font-style: bold;
+                                        }"
+                             )
+                             )
+                      ),
+                      
+                      column(width = 5,
+                             textOutput("nombre_tipoProductor_sp"),
+                             tags$head(tags$style("#nombre_tipoProductor_sp{color: white;
+                                        font-size: 30px;
+                                          font-style: bold;
+                                          }"
+                             )
+                             )
+                      ),
+                      column(width = 4,
+                             fluidRow(
+                               column(width = 6,
+                                      downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")         
+                                      ),
+                               column(width = 6,
+                                      fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
+                                      )
+                             )
+                      )
+                    )
+                )
+              ),
               fluidRow(
                 # ########  1ere colone  ######## 
                 
@@ -169,7 +204,7 @@ ui <- dashboardPage(
                 
                 box(color = "green",background = "green", width=12,
                     fluidRow(
-                      column(width = 4,
+                      column(width = 3,
                              textOutput("nombre_region"),
                              tags$head(tags$style("#nombre_region{color: white;
                                         font-size: 30px;
@@ -179,7 +214,7 @@ ui <- dashboardPage(
                              )
                       ),
                       
-                      column(width = 4,
+                      column(width = 5,
                              textOutput("nombre_tipoProductor"),
                              tags$head(tags$style("#nombre_tipoProductor{color: white;
                                         font-size: 30px;
@@ -189,8 +224,11 @@ ui <- dashboardPage(
                              )
                       ),
                       column(width = 4,
-                             
+                             fluidRow(
+                              column(width=6,downloadButton("royaDescargar","Descargar datos de roya",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
+                              column(width=6,fileInput("royaUpload",label="Subir datos de roya",width="200px")),
                              )
+                      )
                     )
                 )
               ),
@@ -214,6 +252,38 @@ ui <- dashboardPage(
       
       
       tabItem(tabName = "manoObra",
+              fluidRow(
+                
+                box(color = "green",background = "green", width=12,
+                    fluidRow(
+                      column(width = 4,
+                             textOutput("nombre_region_mo"),
+                             tags$head(tags$style("#nombre_region_mo{color: white;
+                                        font-size: 30px;
+                                        font-style: bold;
+                                        }"
+                             )
+                             )
+                      ),
+                      
+                      column(width = 4,
+                             textOutput("nombre_tipoProductor_mo"),
+                             tags$head(tags$style("#nombre_tipoProductor_mo{color: white;
+                                        font-size: 30px;
+                                          font-style: bold;
+                                          }"
+                             )
+                             )
+                      ),
+                      column(width = 4,
+                             fluidRow(
+                                column(width=6,downloadButton("moDescargar","Descargar datos Mano de Obra",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
+                                column(width=6,fileInput("moUpload",label="Subir datos de Mano de Obra",width="200px")),
+                             )
+                      )
+                    )
+                )
+              ),
               fluidRow(
                 box(title = "Mano de obra familiar", 
                     # height = 340, width = NULL, 
@@ -269,7 +339,30 @@ ui <- dashboardPage(
       
       
       tabItem(tabName = "pronostico",
-              
+              fluidRow(
+                box(color = "green",background = "green", width=12,
+                    fluidRow(
+                      column(width = 4,
+                             textOutput("nombre_region_pro"),
+                             tags$head(tags$style("#nombre_region_pro{color: white;
+                                        font-size: 30px;
+                                        font-style: bold;
+                                        }"
+                             )
+                             )
+                      ),
+                      column(width = 4,
+                             textOutput("nombre_tipoProductor_pro"),
+                             tags$head(tags$style("#nombre_tipoProductor_pro{color: white;
+                                        font-size: 30px;
+                                          font-style: bold;
+                                          }"
+                             )
+                             )
+                      )
+                    )
+                )
+              ),
               fluidRow(
                 # column(width = 6,
                 box(title="Vigilancia de incidencia de Roya",color = "navy",background ="navy", 
