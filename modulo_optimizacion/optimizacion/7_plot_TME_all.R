@@ -2,8 +2,9 @@
 
 func_plot_TME_all <- function(analyse_vgam,
                                analyse_vgam2){
-  
-library(plyr)
+  library(plyr)
+  library(ggthemes)
+  library(RColorBrewer)
 
 salidaHistorica <- subset(analyse_vgam,Fec %in% unique(analyse_vgam2$Fec))
 salidaActual <- analyse_vgam2
@@ -28,13 +29,16 @@ dfCumsumActual <- ddply(dfSortedActual, "Fec",
 dfCumsumActual$TM_arr <- ceiling(dfCumsumActual$TM_ajustado)
 
 # !!!!! Ajuster echelle incidence echelle parcelle
-
+getPalette = colorRampPalette(brewer.pal(9, "Set1"))
+colourCount = length(unique(dfCumsumActual$FACTOR))
 # Plot
 ggplot() +
-  geom_bar(data=dfCumsumActual, aes(x=Fec, y=TM_ajustado, fill=FACTOR),stat="identity")+
+  geom_bar(data=dfCumsumActual, aes(x=Fec, y=TM_ajustado, fill=FACTOR),stat="identity",alpha = 0.6)+
   geom_text(data=dfCumsumActual,aes(x=Fec, y=label_TM_cum, label=TM_arr), vjust=1,
-            color="white", size=3.5)+
-  scale_colour_gradientn(colours=rainbow(4))+
+            color="grey14", size = 4)+
+ # scale_colour_gradientn(colours=rainbow(4))+
+  scale_fill_manual(values = getPalette(colourCount)) +
+  
   geom_line(data=incMedia, aes(x=Fec,y=p*100*max(dfCumsumActual$label_TM_cum)/(max(incMedia$p)*100),
                                group=group_inc,colour=group_inc),size=5, shape=15)+
   geom_point(data=incMedia, aes(x=Fec,y=p*100*max(dfCumsumActual$label_TM_cum)/(max(incMedia$p)*100),
@@ -48,7 +52,6 @@ ggplot() +
                      breaks=seq(0, max(dfCumsumActual$label_TM_cum+100), 100),
                      sec.axis = sec_axis(~.*(max(incMedia$p)*100)/max(dfCumsumActual$label_TM_cum), name = "Incidencia",
                      breaks=seq(0, max(incMedia$p)*100, ceiling(max(incMedia$p)*100/10))))+
-  theme_minimal()
-
+  theme_classic()
 }
 
