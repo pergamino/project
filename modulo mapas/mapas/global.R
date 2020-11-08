@@ -70,8 +70,48 @@ cabeceras <- dbGetQuery(con,sql2)
 
 dbDisconnect(con)
 
+epid$periodo2 <- ifelse(epid$periodo== "Antes de cosecha",
+                        "De la floración hasta la cosecha",
+                        ifelse(epid$periodo == "Durante cosecha",
+                               "Durante de la cosecha",
+                               "De la cosecha hasta la floración"))
+
+periodo_feno <- unique(factor(epid$periodo2))
 defAnio <- max(epid$anio)
 defMes <- max(filter(epid,anio==defAnio)$mes)
+defVariedad <- ""
+defFenologia <- ""
+if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Susceptibles"))>0) {
+  defVariedad <- "Susceptibles"
+  if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Susceptibles" & periodo2 == "De la floración hasta la cosecha"))>0){
+    defFenologia <- "De la floración hasta la cosecha"
+  } else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Susceptibles" & periodo2 == "Durante de la cosecha"))>0) {
+    defFenologia <- "Durante de la cosecha"
+  } else {
+    defFenologia <- "De la cosecha hasta la floración"
+  }
+} else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Medianamente resistentes"))>0) {
+  defVariedad <- "Medianamente resistentes"
+  if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Medianamente resistentes" & periodo2 == "De la floración hasta la cosecha"))>0){
+    defFenologia <- "De la floración hasta la cosecha"
+  } else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Medianamente resistentes" & periodo2 == "Durante de la cosecha"))>0) {
+    defFenologia <- "Durante de la cosecha"
+  } else {
+    defFenologia <- "De la cosecha hasta la floración"
+  }
+} else {
+  defVariedad <- "Resistentes"
+  if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Resistentes" & periodo2 == "De la floración hasta la cosecha"))>0){
+    defFenologia <- "De la floración hasta la cosecha"
+  } else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Resistentes" & periodo2 == "Durante de la cosecha"))>0) {
+    defFenologia <- "Durante de la cosecha"
+  } else {
+    defFenologia <- "De la cosecha hasta la floración"
+  }
+}
+
+print(defVariedad)
+print(defFenologia)
 
 #epid <- read.xlsx("dataEpid/allData.xlsx")
 
@@ -91,13 +131,7 @@ epid$alerta <- tabColors[trim(epid$alerta)]
 variedad <- unique(factor(epid$catvariedad))
 
 
-epid$periodo2 <- ifelse(epid$periodo== "Antes de cosecha",
-                        "De la floración hasta la cosecha",
-                        ifelse(epid$periodo == "Durante cosecha",
-                               "Durante de la cosecha",
-                               "De la cosecha hasta la floración"))
 
-periodo_feno <- unique(factor(epid$periodo2))
 
 anios <- unique(factor(epid$anio))
 
