@@ -14,18 +14,22 @@ sidebar <- dashboardSidebar(
   radioButtons(inputId = "nivSuscept",
                label = "Nivel de susceptibilidad de la variedad",
                choices = levels(variedad),
-               selected=levels(variedad)[1]),
+               selected=levels(variedad)[3]),
   
   radioButtons(inputId = "feno",
                label = "Fenología",
                choices = levels(periodo_feno),
-               selected = levels(periodo_feno)[1]),
+               selected = levels(periodo_feno)[2]),
   selectInput("selAnio", label = "Año", 
               choices = anios, 
               selected = defAnio),
   selectInput("selMes", label = "Mes", 
               choices = list("Enero" = 1, "Febrero" = 2, "Marzo" = 3, "Abril" = 4, "Mayo" = 5, "Junio" = 6, "Julio" = 7, "Agosto" = 8, "Septiembre" = 9, "Octubre" = 10, "Noviembre" = 11, "Diciembre" = 12), 
               selected = defMes),
+  box(title = span( icon("info"), a(id="ayuda","Ver guía de uso",target="blank_", href="guia_para_el_uso_de_mapalerta.pdf")),
+      status="warning",height=37,width=250, 
+      
+  ),
   box(title = "Colores de alerta",status="warning",height=350,width=250,
   img(src = "colorAlertas.png",height=250,width=240)
   )
