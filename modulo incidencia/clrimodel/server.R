@@ -7,6 +7,7 @@
 suppressPackageStartupMessages({
   library("SHAPforxgboost"); library("ggplot2"); library("xgboost")
   library("data.table"); library("here"); library('plotly')
+  library(lubridate)
 })
 library(DT)
 
@@ -26,8 +27,19 @@ server <- function(input, output, session) {
       inFile <- input$file 
       df <- read.csv(inFile$datapath, sep = ',', header = TRUE, check.names = FALSE)
       
-      df$fecha <- as.Date(df$fecha,format="%Y-%m-%d")
-      
+      if("precipitacion" %in% colnames(df) && "tempmin" %in% colnames(df) && "tempmax" %in% colnames(df) && "fecha" %in% colnames(df))
+      {
+        names(df)[names(df) == "precipitacion"] <- "precipitacion"
+        names(df)[names(df) == "tempmin"] <- "tmin"
+        names(df)[names(df) == "tempmax"] <- "tmax"
+        names(df)[names(df) == "fecha"] <- "fecha"
+        df$fecha <- as_date(format(strptime(as.character(df$fecha), "%m/%d/%y" ),"%Y-%m-%d"))
+      }
+      else
+      {
+        df$fecha <- as.Date(df$fecha,format="%Y-%m-%d")
+      }
+
       fechaI <- as.Date(as.character(input$date),format="%Y-%m-%d")
       
       df14_11 <- df[df$fecha >= fechaI - 14 & df$fecha <= fechaI - 11,'precipitacion']
