@@ -22,7 +22,7 @@ generar_datos <- function(input) {
                 names(datos_crudos)[names(datos_crudos) == "tempmax"] <- "temp_max"
                 names(datos_crudos)[names(datos_crudos) == "fecha"] <- "fecha"
                 
-                datos_crudos$fecha <- as_date(format(strptime(as.character(datos_crudos$fecha), "%m/%d/%Y" ),"%Y-%m-%d")) #cambiar formato de fechas 
+                datos_crudos$fecha <- as_date(format(strptime(as.character(datos_crudos$fecha), "%m/%d/%y" ),"%Y-%m-%d")) #cambiar formato de fechas 
                 
                 saveRDS(datos_crudos, file = "datos/00_datos_crudos.RDS")
                 

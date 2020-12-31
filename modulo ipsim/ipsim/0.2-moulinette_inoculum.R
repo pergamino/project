@@ -26,92 +26,50 @@
 
 moulinette_inoc <- function(datos_epidemio){
 
-  
-  output_inoc <- NULL
   output_incDefoliacion <- NULL
-  output_incEficaciaFung <- NULL
-  output_inoc_antes_lavado <- NULL
+  output_incInoc <- NULL
   output_incidencia <- NULL
   
   
   for (ino in 1:length(unique(datos_epidemio$Fecha_median))){
   # print(ino)
     
-# Inoculum (por el modelo completo)
-# Depiende de la incidencia a la fecha
+  sub_epid <- subset(datos_epidemio,Fecha_median==unique(datos_epidemio$Fecha_median)[ino])
+    
+  tab_inc_mediana <- aggregate(data.frame(inc_mediana=sub_epid$incidencia),
+                               by=list(Fecha_median=sub_epid$Fecha_median),
+                               FUN=median)
+    
+# Cantidad de inoculo - Depiende de la incidencia a la fecha
+# calcula la cant. de inoculo para la eficacia del parasitismo y la eficacia de las fungicidas  
 #######################################
-    sub_epid <- subset(datos_epidemio,Fecha_median==unique(datos_epidemio$Fecha_median)[ino])
-    
-    tab_inc_mediana <-     aggregate(data.frame(inc_mediana=sub_epid$incidencia),
-                                     by=list(Fecha_median=sub_epid$Fecha_median),
-                                     FUN=median)
-    
-    tab_inc_mediana$ipsim <- ifelse(tab_inc_mediana$inc_mediana<5,"Inoculum bajo",
-                                    ifelse(tab_inc_mediana$inc_mediana>10,"Inoculum alto","Inoculum medio"))
-    
-    tab_inc_mediana$cat <- ifelse(tab_inc_mediana$inc_mediana<5,1,
-                                  ifelse(tab_inc_mediana$inc_mediana>10,3,2))
-    
-    tab_inc_mediana$var <- "Inoculum"
 
-    
-    output_inoc <- rbind(output_inoc,tab_inc_mediana)
-    
-    
-    # Efecto de la incidencia sobre la eficacia de las fungicidas
-    # Depiende de la incidencia a la fecha
-    #######################################
+    tab_inc_mediana$ipsim <- ifelse(tab_inc_mediana$inc_mediana<10,"Inoculum bajo",
+                                    ifelse(tab_inc_mediana$inc_mediana>30,"Inoculum alto","Inoculum medio"))
 
-    
-    tab_inc_mediana$ipsim <- ifelse(tab_inc_mediana$inc_mediana<10,"Incidencia baja",
-                                    ifelse(tab_inc_mediana$inc_mediana>30,"Incidencia alta","Incidencia media"))
-    
-    tab_inc_mediana$cat <- ifelse(tab_inc_mediana$inc_mediana<10,3,
-                                  ifelse(tab_inc_mediana$inc_mediana>30,1,2))
-    
-    
-    tab_inc_mediana$var <- "Efecto de la incidencia sobre la eficacia de las fungicidas"
-    
-    output_incEficaciaFung <- rbind(output_incEficaciaFung, tab_inc_mediana)
-    
-    
-    
-    # Efecto de Lecanicillium
-    # Depiende de la incidencia a la fecha
-    # Para calcular la cantidad de esporas despues del parasitismo y antes del lavado
-    #######################################
-    
-    # Son los mismos niveles que arriba:
-    # Efecto de la incidencia sobre la eficacia de las fungicidas
-    
-    tab_inc_mediana$ipsim <- ifelse(tab_inc_mediana$inc_mediana<10,"Inoculo bajo",
-                                    ifelse(tab_inc_mediana$inc_mediana>30,"Inoculo alto","Inoculo medio"))
-    
     tab_inc_mediana$cat <- ifelse(tab_inc_mediana$inc_mediana<10,1,
                                   ifelse(tab_inc_mediana$inc_mediana>30,3,2))
-    
-    
-    
-    tab_inc_mediana$var <- "Inoculo disponible antes del parasitismo"
-    
-    output_inoc_antes_lavado <- rbind(output_inoc_antes_lavado, tab_inc_mediana)
 
+    tab_inc_mediana$var <- "Inoculo"
+
+
+    output_incInoc <- rbind(output_incInoc,tab_inc_mediana)
     
-    
+      
   
   # Efecto de la incidencia sobre la defoliacion
   # Depiende de la incidencia a la fecha
   #######################################
     
-    # Equation utilisee a partir des donnees de defoliation de Descombros 1994
+    # Equation utilisee a partir des donnees de Avelino : defoliation de Descombros 1994
     
     defoliacion <- 30*(0.0125*tab_inc_mediana$inc_mediana + 0.2186)
     
-    tab_inc_mediana$ipsim <- ifelse(defoliacion<=6,"Efecto bajo de la incidencia sobre la defoliacion",
+    tab_inc_mediana$ipsim <- ifelse(defoliacion<=6.558,"Efecto bajo de la incidencia sobre la defoliacion",
                                 ifelse(defoliacion>20,"Efecto alto de la incidencia sobre la defoliacion",
                                        "Efecto medio de la incidencia sobre la defoliacion"))
     
-    tab_inc_mediana$cat <- ifelse(defoliacion<=6,1,
+    tab_inc_mediana$cat <- ifelse(defoliacion<=6.558,1,
                               ifelse(defoliacion>20,3,2))
     
     tab_inc_mediana$var <- "Efecto de la incidencia sobre la defoliacion"
@@ -120,8 +78,8 @@ moulinette_inoc <- function(datos_epidemio){
     
 
 
-    output_incidencia <- rbind(output_inoc,output_inoc_antes_lavado,
-                               output_incDefoliacion,output_incEficaciaFung)
+    output_incidencia <- rbind(output_incInoc,
+                               output_incDefoliacion)
 
 }
 

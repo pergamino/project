@@ -38,12 +38,9 @@ shinyUI(
                 menuItem("Datos Modelo Clima", 
                          tabName = "datos", 
                          icon = icon("download")
+                )
                 ),
-                menuItem("Información", 
-                         tabName = "informacion", 
-                         icon = icon("info")
-                )
-                )
+                tags$div(style="padding:15px;",span( icon("info"), a(id="ayuda","Información",target="blank_", href="aspectos_tecnicos.pdf")))
             ),
         
         # Cuerpo del dashboard --------------------------------------------------------------
