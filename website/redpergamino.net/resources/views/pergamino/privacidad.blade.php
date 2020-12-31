@@ -121,9 +121,10 @@ El Usuario declara conocer que el Titular puede ser requerido por las autoridade
       <p>A menos que se indique lo contrario, todas las referencias hechas a la Unión Europea en el presente documento incluyen todos los actuales Estados miembros de la Unión Europea y del Espacio Económico Europeo.</p>
     </div>
         </div>
-        
+
 
       </div>
 </section><!-- End PLATAFORMA Section -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-THJ0900S2G"></script>
+<script src="{{ URL::asset('js/gtag.js') }}" ></script>
 @include('shared.footer');
-

@@ -16,7 +16,7 @@
           <br><h3>Contacto</h3>
           <br>
           <div class="row left-text" id="footer-mails">
-          
+
         <div class="col-lg-4 col-md-6 footer-links">
           <ul>
     <li>Jacques Avelino, especialista en roya:</li>
@@ -39,8 +39,11 @@
 </div>
 
 </div>
-        
+
         </div>
 
       </div>
 </section><!-- End PLATAFORMA Section -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-THJ0900S2G"></script>
+<script src="{{ URL::asset('js/gtag.js') }}" ></script>

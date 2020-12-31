@@ -9,7 +9,7 @@
 
         <!-- <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200"> -->
         <div class="row">
-            
+
           @foreach($tesis_main as $tesis)
           <div class="checkboxes">
             <div class="doc-frame">
@@ -17,14 +17,14 @@
               <label class="checkbox-skin" for="r{{$tesis['title']}}">
                 <a href="{{$tesis['url']}}" target="_blank">
                 <div class="doc-preview" style="background-image: url('{{$tesis['thumb']}} '); background-size: contain;background-position: center center;">
-                
+
                 </div>
                 </a>
               <label class="doc-name"><i class="material-icons">subject</i>{{\Illuminate\Support\Str::limit($tesis['title'],25, $end='...')}}</label>
               </label>
             </div>
           </div>
-        @endforeach 
+        @endforeach
         </div>
 
       </div>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="row">
-            
+
               @foreach($congresos_main as $tesis)
               <div class="checkboxes">
             <div class="doc-frame">
@@ -48,14 +48,14 @@
               <label class="checkbox-skin" for="r{{$tesis['title']}}">
                 <a href="{{$tesis['url']}}" target="_blank">
                 <div class="doc-preview" style="background-image: url('{{$tesis['thumb']}} '); background-size: contain;background-position: center center;">
-                
+
                 </div>
                 </a>
               <label class="doc-name"><i class="material-icons">subject</i>{{\Illuminate\Support\Str::limit($tesis['title'],25, $end='...')}}</label>
               </label>
             </div>
           </div>
-        @endforeach 
+        @endforeach
         </div>
 
       </div>
@@ -71,7 +71,7 @@
         </div>
 
         <div class="row">
-            
+
               @foreach($cientific_main as $tesis)
           <div class="checkboxes">
             <div class="doc-frame">
@@ -79,16 +79,18 @@
               <label class="checkbox-skin" for="r{{$tesis['title']}}">
                 <a href="{{$tesis['url']}}" target="_blank">
                 <div class="doc-preview" style="background-image: url('{{$tesis['thumb']}} '); background-size: contain;background-position: center center;">
-                
+
                 </div>
                 </a>
               <label class="doc-name"><i class="material-icons">subject</i>{{\Illuminate\Support\Str::limit($tesis['title'],25, $end='...')}}</label>
               </label>
             </div>
           </div>
-        @endforeach 
+        @endforeach
         </div>
 
       </div>
     </section>
 <!-- End CIENTIFIC Section -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-THJ0900S2G"></script>
+<script src="{{ URL::asset('js/gtag.js') }}" ></script>
