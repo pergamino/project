@@ -1,5 +1,5 @@
 
- 
+
  <!-- ======= TALLERES Section ======= -->
  <section  class="portfolio">
       <div class="container">
@@ -16,14 +16,14 @@
               <label class="checkbox-skin" for="r{{$tesis['title']}}">
                 <a href="{{$tesis['url']}}" target="_blank">
                 <div class="doc-preview" style="background-image: url('{{$tesis['thumb']}} '); background-size: contain;background-position: center center;">
-               
+
                 </div>
                 </a>
               <label class="doc-name"><i class="material-icons">subject</i>{{\Illuminate\Support\Str::limit($tesis['title'],25, $end='...')}}</label>
               </label>
             </div>
           </div>
-          @endforeach 
+          @endforeach
         </div>
       </div>
     </section>
@@ -38,28 +38,30 @@
         </div>
 
         <div class="row">
-        @foreach($galeria_main as $gallery) 
+        @foreach($galeria_main as $gallery)
         <div class="checkboxes" style=" width:530px;">
             <div class="doc-frame" style=" width:530px;">
               <input type="checkbox" name="rGroup" value="1" id="r{{$gallery['title']}}" checked="checked"/>
               <label class="checkbox-skin" for="r{{$gallery['title']}}" style=" width:530px;">
                 <a href="{{$gallery['url']}}" target="_blank">
                 <div class="doc-preview" style="background-image: url('{{$gallery['thumb']}} '); background-size: cover;background-position: center center; width:530px;">
-                
+
                 </div>
                 </a>
               <label class="doc-name" style=" width:530px;"><i class="material-icons">photo</i>{{\Illuminate\Support\Str::limit($gallery['title'],50, $end='...')}}</label>
               </label>
             </div>
           </div>
-          @endforeach 
-        
-        
-          
+          @endforeach
+
+
+
         </div>
-        
-      
+
+
 
       </div>
     </section>
 <!-- End GALERIA Section -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-THJ0900S2G"></script>
+<script src="{{ URL::asset('js/gtag.js') }}" ></script>

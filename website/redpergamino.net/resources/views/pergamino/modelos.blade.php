@@ -4,7 +4,7 @@
 
         <div class="section-title" data-aos="fade-up">
           <h2>Modelos desarrollados para Pergamino</h2>
-          <p class="left-text">En Procagica, estamos diseñando varios modelos para ayudar a construir el Sistema de Alerta Temprana (SAT). Todos los modelos desarollados están Open-Source</p>    
+          <p class="left-text">En Procagica, estamos diseñando varios modelos para ayudar a construir el Sistema de Alerta Temprana (SAT). Todos los modelos desarollados están Open-Source</p>
         </div>
 
       </div>
@@ -18,13 +18,13 @@
           <div class="row">
             <div class="col-sm-6">
             <img src="{{URL::asset('img/rfo.png')}}" alt="" style="width:60%;">
-            
+
             </div>
             <div class="col-sm-6">
             <p class="left-text">OPTIROYA se basa en un método territorial costo-eficiente para la estimación apropiada del número de parcelas (tamaño de muestra) necesarias para la vigilancia de la roya anaranjada (Hemileia vastatrix). La correcta estimación del tamaño de muestra bajo esta estrategia depende en primer lugar de una correcta estratificación de los sistemas de producción considerando las dos variables que más influyen en el desarrollo del hongo, y en un segundo plano depende del umbral de detección de la enfermedad y el grado de variabilidad de la incidencia registrada en periodos anteriores.</p>
             </div>
         </div>
-          
+
         </div>
 
       </div>
@@ -45,7 +45,7 @@
             <img src="{{URL::asset('img/IPSIM.png')}}" alt="" style="width:60%;">
             </div>
         </div>
-          
+
         </div>
 
       </div>
@@ -61,7 +61,7 @@
           <div class="row">
             <div class="col-sm-6">
             <iframe src="https://drive.google.com/file/d/1Z1LHAMjWTXR9lXWyWmacAbeizAEgVzcu/preview" width="500" height="300"></iframe>
-            
+
             </div>
             <div class="col-sm-6">
             <p class="left-text">El Modelo "MiRoya" es un Sistema Multi-Agente (SMA), basado en la plataforma CORMAS.</p>
@@ -74,7 +74,7 @@
             <p class="left-text">Ultima presentación del modelo </p>
             </div>
         </div>
-          
+
         </div>
 
       </div>
@@ -97,7 +97,7 @@
             <img src="{{URL::asset('img/FCM.png')}}" alt="" style="width:50%;">
             </div>
         </div>
-          
+
         </div>
 
       </div>
@@ -113,14 +113,14 @@
           <div class="row">
             <div class="col-sm-6">
             <img src="{{URL::asset('img/redbayesiana.jpg')}}" alt="" style="width:50%;">
-            
+
             </div>
             <div class="col-sm-6">
             <p class="left-text">El Modelo Bayesiano está basado en la plataforma Netica.</p>
             <br>
             </div>
         </div>
-          
+
         </div>
 
       </div>
@@ -142,9 +142,11 @@
             <img src="{{URL::asset('img/r.png')}}" alt="" style="width:70%;">
             </div>
         </div>
-          
+
         </div>
 
       </div>
 </section>
 <!-- End Modelo mecanistico Section -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-THJ0900S2G"></script>
+<script src="{{ URL::asset('js/gtag.js') }}" ></script>
