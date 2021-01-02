@@ -81,7 +81,15 @@ ui <- dashboardPage(
           accept = c("text/csv",
                      "text/comma-separated-values,text/plain",
                      ".csv")
-        )
+        ),
+        
+        actionButton("show", "Obtener datos de modelo climático", style="margin:20px;"),
+        
+        tags$br(),
+        
+        actionButton("show2", "Obtener mis datos de App Pergamino", style="margin:20px;"),
+        
+        tags$br()
       ),
       
       menuItem(
@@ -389,16 +397,14 @@ ui <- dashboardPage(
         # )
         #   ),
         
-        column(width = 12,
-          box(width = 200,
-              title = "El marco general para la evaluación multiatributo del riesgo 
+        column(width = 12, style="height:100%;",
+          box(width = 12, title = "El marco general para la evaluación multiatributo del riesgo 
               de aumento de la incidencia de la roya de la hoja del café",
               status = "warning",
               solidHeader = T,
               img(
                 src = "Fig1.png",
-                height = 300,
-                width = 500
+                style="height:100%;"
               )
           )
         )
@@ -413,8 +419,7 @@ ui <- dashboardPage(
             solidHeader = T,
             img(
               src = "Fig2.png",
-              height = 300,
-              width = 500
+              style="height:100%;"
             )
             )
         ),
@@ -427,8 +432,7 @@ ui <- dashboardPage(
             solidHeader = T,
             img(
               src = "Fig3.png",
-              height = 300,
-              width = 500
+              style = "height:100%;"
             )
         )
       ),  
@@ -503,8 +507,8 @@ ui <- dashboardPage(
       tabItem(
         tabName = "arbol",
         
-        box(collapsibleTreeOutput("plot_arbol",height = "1500px",
-                              width = "1500px"),
+        tags$div(style="width:100%;height:800px;background-color:#fff;border-style:solid;border-width:1px;overflow:auto;",collapsibleTreeOutput("plot_arbol",height = "1500px",
+                              width = "1950px"),
             width = 12)
       )
     ))
@@ -827,8 +831,9 @@ ui <- dashboardPage(
       collapsibleTreeNetwork(df_arbol, 
                              attribute = "ResultAttribut", 
                              fill="Color",
-                             fontSize = 20,
+                             fontSize = 14,
                              linkLength = 200,
+                             zoomable = TRUE,
                              collapsed = F)
     })
     
@@ -865,12 +870,12 @@ ui <- dashboardPage(
     })
     
     
-    output$plot_temp <- renderPlot({
+    output$plot_temp <- renderPlot(width=900,height=340,{
       func_temp(df_moulinette_meteo(),
                 df_meteo_new())
     })
     
-    output$plot_precip <- renderPlot({
+    output$plot_precip <- renderPlot(width=908,height=600,{
       func_precip(df_moulinette_meteo(),
                   df_meteo_new())
     })
@@ -933,6 +938,43 @@ ui <- dashboardPage(
     #   }
     # )
     
+    dataModal <- function(failed = FALSE) {
+      modalDialog(
+        title = "Obtener datos de modelo climático",
+        size = "l",
+        fluidRow(
+          column(width=12,
+                 tags$iframe(src="https://admin.redpergamino.net/clima", height=600, width="100%", border=0, style="border-style:none;")     
+          )
+        ),
+        footer = tagList(
+          modalButton("Cerrar")
+        )
+      )
+    }
+    
+    dataModal2 <- function(failed = FALSE) {
+      modalDialog(
+        title = "Obtener mis datos de App Pergamino",
+        size = "l",
+        fluidRow(
+          column(width=12,
+                 tags$iframe(src="https://admin.redpergamino.net/Identity/Account/LoginData?ReturnUrl=DataVigilancia", height=600, width="100%", border=0, style="border-style:none;")     
+          )
+        ),
+        footer = tagList(
+          modalButton("Cerrar")
+        )
+      )
+    }
+    
+    observeEvent(input$show, {
+      showModal(dataModal())
+    })
+    
+    observeEvent(input$show2, {
+      showModal(dataModal2())
+    })
   }
   
   shinyApp(ui, server)

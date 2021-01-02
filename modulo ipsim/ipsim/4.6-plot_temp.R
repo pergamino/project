@@ -29,7 +29,7 @@ func_temp <- function(output_moulinette,
    ggplot() +
 
    geom_line(data=sub_df_meteo2, aes(x=fecha0, y=tmean),color="red",
-             size = 1)+
+             size = 1) +
    
    geom_col(data=sub_dia_lat,
             aes(x = mid_date, y = num_dia*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)), alpha=0.4,
@@ -53,7 +53,7 @@ func_temp <- function(output_moulinette,
      xmax = as.Date(min(as.mondate(sub_df_meteo2$fecha0)) - 2.2), 
      ymin = 20, 
      ymax = 20
-   )+
+   ) +
    
    annotation_custom(
      grob = linesGrob(arrow=arrow(type="open", length=unit(2,"mm")), gp=gpar(col="red", lwd=3)), 
@@ -86,17 +86,17 @@ func_temp <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Latencia larga", gp=gpar(col="darkgreen", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.1), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.1), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.1), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.1), 
      ymin = 0*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia),
      ymax = 4.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia) 
 
-   )+
+   ) +
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="darkgreen", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
      ymin = 0*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia), 
      ymax = 4.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
    )+
@@ -106,8 +106,8 @@ func_temp <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Latencia media", gp=gpar(col="orange", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.1), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.1), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.1), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.1), 
      ymin = 5.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia),
      ymax = 9.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
      
@@ -115,8 +115,8 @@ func_temp <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="orange", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
      ymin = 5.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia), 
      ymax = 9.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
    )+
@@ -127,8 +127,8 @@ func_temp <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Latencia breve", gp=gpar(col="red", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.1), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.1), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.1), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.1), 
      ymin = 10.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia),
      ymax = 16*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
      
@@ -136,8 +136,8 @@ func_temp <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="red", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
      ymin = 10.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia), 
      ymax = 16*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
    )+
@@ -159,7 +159,7 @@ func_temp <- function(output_moulinette,
                                        color="black",
                                        face = "bold"
                                        ),
-     plot.margin = margin(0.1, 2, 0, 2, "cm"), # top, right, bottom, left
+     plot.margin = margin(0.1, 2.5, 0, 2.5, "cm"), # top, right, bottom, left
      legend.position = "bottom"
      
    )
