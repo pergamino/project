@@ -15,7 +15,6 @@ library(shinyBS)
 library(bsplus)
 library(collapsibleTree)
 
-
 source("0.1-archivo_epidemio.R")
 source("0.1-archivo_meteo.R")
 source("0.2-moulinette_inoculum.R")
@@ -25,9 +24,9 @@ source("3-pronostico_trace.R")
 source("4.1-plot_pronostico2.R")
 # source("4.2-plot_moulinette_meteo_trace.R")
 source("4.3-infoBox_alerta.R")
-source("4.6-plot_precip.r")
-source("4.6-plot_temp.r")
-source("4.6-plot_epid.r")
+source("4.6-plot_precip.R")
+source("4.6-plot_temp.R")
+source("4.6-plot_epid.R")
 
 ui <- dashboardPage(
   header <-
