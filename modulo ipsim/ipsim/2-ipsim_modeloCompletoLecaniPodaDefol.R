@@ -61,7 +61,7 @@ func_ipsim <- function(output_moulinette,
   df14 <- read.table("data_internes/tablas_dexi/14-defoliacion.dat",h=T)
   df15 <- read.table("data_internes/tablas_dexi/15-efecto_del_fruto_sobre_la_defoliacion.dat",h=T)
   df16 <- read.table("data_internes/tablas_dexi/16-aparicion_de_las_hojas.dat",h=T)
-  df17 <- read.table("data_internes/tablas_dexi/17-interaccion_fruto_clima_nutricion_sobre_el_crecimiento_vegetativo.dat",h=T)
+  df17 <- read.table("data_internes/tablas_dexi/17-Interaccion_fruto_clima_nutricion_sobre_el_crecimiento_vegetativo.dat",h=T)
   df18 <- read.table("data_internes/tablas_dexi/18-interaccion_fruto_clima_sobre_el_crecimiento_vegetativo.dat",h=T)
   df19 <- read.table("data_internes/tablas_dexi/19-efecto_del_fruto_sobre_el_crecimiento_vegetativo.dat",h=T)
   
