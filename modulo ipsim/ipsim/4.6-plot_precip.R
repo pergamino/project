@@ -312,7 +312,7 @@ func_precip <- function(output_moulinette,
                                        color="black",
                                        face = "bold",size=8
                                        ),
-     plot.margin = margin(0.1, 3.5, 0, 2.0, "cm"), # top, right, bottom, left
+     plot.margin = margin(0.1, 3.5, 0, 3.0, "cm"), # top, right, bottom, left
      legend.position = "bottom"
      
    )

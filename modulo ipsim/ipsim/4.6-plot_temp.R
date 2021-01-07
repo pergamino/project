@@ -160,7 +160,7 @@ func_temp <- function(output_moulinette,
                                        color="black",
                                        face = "bold",size=8
                                        ),
-     plot.margin = margin(0.1, 2.5, 0, 2.5, "cm"), # top, right, bottom, left
+     plot.margin = margin(0.1, 3, 0, 3, "cm"), # top, right, bottom, left
      legend.position = "bottom"
      
    )
