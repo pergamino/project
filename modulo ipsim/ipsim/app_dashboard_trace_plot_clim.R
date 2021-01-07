@@ -14,7 +14,7 @@ library(shinydashboard)
 library(shinyBS)
 library(bsplus)
 library(collapsibleTree)
-
+library(gridExtra)
 source("0.1-archivo_epidemio.R")
 source("0.1-archivo_meteo.R")
 source("0.2-moulinette_inoculum.R")
