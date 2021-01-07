@@ -111,8 +111,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Desfavorable ap. hojas", gp=gpar(col="red", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
      ymin = 0*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 4.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia) 
      
@@ -120,8 +120,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="red", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8),  
      ymin = 0*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 4.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -132,8 +132,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Moderadamente fav. ap. hojas", gp=gpar(col="orange", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
      ymin = 5.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 9.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
      
@@ -141,8 +141,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="orange", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8),  
      ymin = 5.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 9.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -153,8 +153,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Favorable ap. hojas", gp=gpar(col="darkgreen", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
      ymin = 10.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 16*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
      
@@ -162,8 +162,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="darkgreen", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 1.8),  
      ymin = 10.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 16*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -174,8 +174,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Infeccion baja", gp=gpar(col="darkgreen", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
      ymin = 0*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 2.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia) 
      
@@ -183,8 +183,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="darkgreen", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
      ymin = 0*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 2.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -195,8 +195,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Infeccion media", gp=gpar(col="orange", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
      ymin = 3.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 6.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
      
@@ -204,8 +204,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="orange", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
      ymin = 3.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 6.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -216,8 +216,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Infeccion alta", gp=gpar(col="red", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
      ymin = 7.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 16*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
      
@@ -225,8 +225,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="red", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
      ymin = 7.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 16*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -237,8 +237,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Lavado insuficiente", gp=gpar(col="red", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.5), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.5), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
      ymin = 0*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 2.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia) 
      
@@ -246,8 +246,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="red", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.2), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.2),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
      ymin = 0*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 2.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -258,8 +258,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Lavado regular", gp=gpar(col="orange", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.5), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.5), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
      ymin = 3.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 5.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
      
@@ -267,8 +267,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="orange", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.2), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.2),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
      ymin = 3.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 5.9*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -279,8 +279,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = grid::textGrob(label = "Lavado suficiente", gp=gpar(col="darkgreen", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.5), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.5), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3), 
      ymin = 6.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia),
      ymax = 16*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
      
@@ -288,8 +288,8 @@ func_precip <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="darkgreen", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.2), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 3.2),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.8),  
      ymin = 6.1*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia), 
      ymax = 16*max(sub_df_meteo2$precip)/max(sub_dia_lav$num_dia)
    )+
@@ -299,19 +299,20 @@ func_precip <- function(output_moulinette,
    theme_bw()+   
 
    theme(
+     text = element_text(size=8),
      panel.grid.minor = element_blank(),
      axis.title.y = element_text(angle = 0,
                                  vjust = 1,
                                  hjust = 1,
                                  color="blue",
-                                 face = "bold"),
+                                 face = "bold",size=8),
      axis.title.y.right = element_text(angle = 0,
                                        vjust = 1,
                                        hjust = 0,
                                        color="black",
-                                       face = "bold"
+                                       face = "bold",size=8
                                        ),
-     plot.margin = margin(0.1, 2.9, 0, 2.9, "cm"), # top, right, bottom, left
+     plot.margin = margin(0.1, 3.5, 0, 2.0, "cm"), # top, right, bottom, left
      legend.position = "bottom"
      
    )
