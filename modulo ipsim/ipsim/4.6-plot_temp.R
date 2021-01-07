@@ -86,8 +86,8 @@ func_temp <- function(output_moulinette,
    
   annotation_custom(
     grob = grid::textGrob(label = "Latencia larga", gp=gpar(col="darkgreen", cex=1), rot=-90),
-    xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
-    xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+    xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+    xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
     ymin = 0*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia),
     ymax = 4.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia) 
 
@@ -95,8 +95,8 @@ func_temp <- function(output_moulinette,
    
   annotation_custom(
      grob = linesGrob(gp=gpar(col="darkgreen", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
      ymin = 0*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia), 
      ymax = 4.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
   ) +
@@ -106,8 +106,8 @@ func_temp <- function(output_moulinette,
    
   annotation_custom(
      grob = grid::textGrob(label = "Latencia media", gp=gpar(col="orange", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
      ymin = 5.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia),
      ymax = 9.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
      
@@ -115,8 +115,8 @@ func_temp <- function(output_moulinette,
    
   annotation_custom(
      grob = linesGrob(gp=gpar(col="orange", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
      ymin = 5.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia), 
      ymax = 9.9*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
    ) +
@@ -127,8 +127,8 @@ func_temp <- function(output_moulinette,
    
   annotation_custom(
      grob = grid::textGrob(label = "Latencia breve", gp=gpar(col="red", cex=1), rot=-90),
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.5), 
      ymin = 10.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia),
      ymax = 16*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
      
@@ -136,8 +136,8 @@ func_temp <- function(output_moulinette,
    
    annotation_custom(
      grob = linesGrob(gp=gpar(col="red", lwd=3)), 
-     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2), 
-     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2),  
+     xmin = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3), 
+     xmax = as.Date(max(as.mondate(sub_df_meteo2$fecha0)) + 2.3),  
      ymin = 10.1*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia), 
      ymax = 16*max(sub_df_meteo2$tmean)/max(sub_dia_lat$num_dia)
    )+
