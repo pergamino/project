@@ -465,7 +465,7 @@ ui <- dashboardPage(
                              column(width = 9,
                                     box(title="Temperatura y eficacia de la latencia",width=12,style="overflow:auto;",
                                         plotOutput("plot_temp")),
-                                    box(title="Precipitaciones y eficacia de la aparicion de las hojas, la infeccion y el lavado de las esporas",width=12,style="overflow:auto;",
+                                    box(title="Precipitaciones y eficacia de la aparicion de las hojas, la infeccion y el lavado de las esporas",width=12,style="overflow:auto;height:600px;",
                                         plotOutput("plot_precip"))
                              )
                              ))
