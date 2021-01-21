@@ -403,7 +403,7 @@ ui <- dashboardPage(
               solidHeader = T,
               img(
                 src = "Fig1.png",
-                style="height:100%;"
+                style="width:100%;"
               )
           )
         )
@@ -418,7 +418,7 @@ ui <- dashboardPage(
             solidHeader = T,
             img(
               src = "Fig2.png",
-              style="height:100%;"
+              style="width:100%;"
             )
             )
         ),

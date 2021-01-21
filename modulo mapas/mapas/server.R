@@ -85,6 +85,25 @@ server <- function(input, output) {
     runjs(paste("$('#informe').attr('href','https://admin.redpergamino.net/files/",urlInforme(),"')",sep=""))
   })
   
+  dataModal <- function(failed = FALSE) {
+    modalDialog(
+      title = "Guía de uso",
+      size = "l",
+      fluidRow(
+        column(width=12,
+               HTML("<embed src='guia_para_el_uso_de_mapalerta.pdf' type='application/pdf' internalinstanceid='44' title='' width='100%' height='890'>")      
+        )
+      ),
+      footer = tagList(
+        modalButton("Cerrar")
+      )
+    )
+  }
+  
+  observeEvent(input$show, {
+    showModal(dataModal())
+  })
+  
   output$areasplot2 <- renderPlot({
     areaespecifica1 <- subset(areas,mes==input$selMes & anio==input$selAnio & periodo==1 & catvariedad==1)
     areaespecifica1$color <- factor(areaespecifica1$color,levels=c("#00b2f3", "#63fd2c", "#fffc00","#fabf00","#fd0100"))
