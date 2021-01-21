@@ -1,4 +1,3 @@
-Documentacion
 Modulo-MiRoya es una pagina que presenta el modelo de simulación "MiRoya_Dynacof".
 Este pagina oferece :
 Guía de usuario
