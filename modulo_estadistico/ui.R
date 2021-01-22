@@ -40,7 +40,7 @@ shinyUI(
                          icon = icon("download")
                 )
                 ),
-                tags$div(style="padding:15px;",span( icon("info"), a(id="ayuda","Información",target="blank_", href="aspectos_tecnicos.pdf")))
+                tags$div(style="padding:15px;",actionLink("show", "Información", style="margin:20px;"))
             ),
         
         # Cuerpo del dashboard --------------------------------------------------------------
@@ -269,10 +269,7 @@ shinyUI(
                                     width = 5,
                                     align = "center",
                                     fluidRow(
-                                        titlePanel(tags$blockquote("Documento técnico del modelo",
-                                                                   style = "font-size: 70%"
-                                        )),
-                                        downloadButton("downloadData", "Descargar Documento")
+                                        
                                     )
                                     
                                 )

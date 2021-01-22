@@ -35,6 +35,24 @@ source("03_llamados.R")
 
 shinyServer(function(input, output, session) {
 
+  dataModal <- function(failed = FALSE) {
+    modalDialog(
+      title = "Guía de uso",
+      size = "l",
+      fluidRow(
+        column(width=12,
+               HTML("<embed src='aspectos_tecnicos.pdf' type='application/pdf' internalinstanceid='44' title='' width='100%' height='890'>")      
+        )
+      ),
+      footer = tagList(
+        modalButton("Cerrar")
+      )
+    )
+  }
+  
+  observeEvent(input$show, {
+    showModal(dataModal())
+  })
 
   observeEvent(input$ejecutar, {
     
@@ -846,7 +864,6 @@ shinyServer(function(input, output, session) {
       file.copy("datos/guia.pdf", file)
     }
   )
-
 
   })
 
