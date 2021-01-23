@@ -46,12 +46,12 @@ ui <- fluidPage(
                              tabName = "App2",
                              icon = icon('hashtag'))
         ),
-        menuItem("Análisis Sin Datos", tabName = "SinDatos", icon = icon("th")),
+        menuItem("Análisis Sin Datos", tabName = "SinDatos", icon = icon("th"))
         
         
-        menuItem("Información del modelo",tabName = "info",icon = icon("file"))
-      )
-      
+        #menuItem("Información del modelo",tabName = "info",icon = icon("file"))
+      ),
+      tags$div(style="padding:15px;text-align:center;",actionLink("show", "Ver guía de uso", style="margin:20px;"))
     ),
     
     
@@ -314,6 +314,25 @@ server <- function(session, input, output) {
       return(NULL)
     
     read.csv(inFile_epid$datapath, header = T)
+  })
+  
+  dataModal <- function(failed = FALSE) {
+    modalDialog(
+      title = "Guía de uso",
+      size = "l",
+      fluidRow(
+        column(width=12,
+               HTML("<embed src='guia.pdf' type='application/pdf' internalinstanceid='44' title='' width='100%' height='890'>")      
+        )
+      ),
+      footer = tagList(
+        modalButton("Cerrar")
+      )
+    )
+  }
+  
+  observeEvent(input$show, {
+    showModal(dataModal())
   })
   
   
