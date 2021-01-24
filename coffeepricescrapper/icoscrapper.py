@@ -47,7 +47,7 @@ for line in lines:
         print(_robmilds)
     i = i + 1
 
-pwurl = "https://localhost:5001"
+pwurl = "https://admin.redpergamino.net"
 pwtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlnaWxhbmNpYUBwZXJnYW1pbm93ZWIuY29tIiwiZXhwIjoxNjA3OTEzMDIwLCJpc3MiOiJwZXJnYW1pbm93ZWIiLCJhdWQiOiJQZXJnYW1pbm9BcHBVc2VycyJ9.45UrFmDHyleelPDwAQT1EVra2E2C3cNo1iPGxZzK0ME"
 pwrefreshtoken = "8dsFx47x63xhFcaV7+Q8X/nNRoiUz1afR/BUalCoytQ="
 resultrefresh = requests.post(pwurl + "/api/authentication/refresh", verify=False, json={"OldToken":pwtoken,"RefreshToken":pwrefreshtoken}, headers={"Content-Type":"application/json"})
