@@ -13,7 +13,7 @@ firstday = get_first_day(d,d_years=0,d_months=-1)
 lastday = get_last_day(firstday)
 range = firstday.strftime("%Y/%m/%d") + " - " + lastday.strftime("%Y/%m/%d")
 ccurl = "https://dev.coffeecloudapp.com"
-pwurl = "https://localhost:5001"
+pwurl = "https://admin.redpergamino.net"
 cctoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicGVyZ2FtaW5vQGNvZmZlZWNsb3VkYXBwLmNvbSIsImV4cCI6MTYwNzgxMTk4OCwiaXNzIjoiQ29mZmVlQ2xvdWRBcHAiLCJhdWQiOiJDb2ZmZUNsb3VkQXBwVXNlcnMifQ.KHBfWSbEY3YYbIjjRp7i-6InQffctYdM1hk3DE1_Cfw"
 pwtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlnaWxhbmNpYUBwZXJnYW1pbm93ZWIuY29tIiwiZXhwIjoxNjA3OTEzMDIwLCJpc3MiOiJwZXJnYW1pbm93ZWIiLCJhdWQiOiJQZXJnYW1pbm9BcHBVc2VycyJ9.45UrFmDHyleelPDwAQT1EVra2E2C3cNo1iPGxZzK0ME"
 ccrefreshtoken = "3mX8CI4bE+JNKwNqQoBhCPiluSJ8ZZxMpNw+sSwTeF8="
