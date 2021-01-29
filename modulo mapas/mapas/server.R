@@ -74,7 +74,7 @@ server <- function(input, output) {
   
   urlInforme <- reactive({
     urlinforme <- filter(cabeceras,anio==input$selAnio & mes==input$selMes)$archivo
-    if(is.na(urlinforme))
+    if(is.null(urlinforme))
       hide(id = "informe", anim = TRUE)
     else 
       show(id = "informe", anim = TRUE)
