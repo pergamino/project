@@ -25,7 +25,7 @@ if resultrefresh.status_code == 200:
         "Authorization": "Bearer " + ntoken,
         "Content-Type": "application/json"
     }
-    resultdata = requests.post(ccurl + "/get-datos-evaluaciones-pergamino", json={"range":range}, verify=False, headers=h)
+    resultdata = requests.post(ccurl + "/get-datos-evaluaciones-pergamino", json={"range":range}, verify=True, headers=h)
     data = resultdata.json()
     elements = data[0]
     for item in elements:
