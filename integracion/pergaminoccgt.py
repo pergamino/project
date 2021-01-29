@@ -19,7 +19,7 @@ pwtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2Fw
 ccrefreshtoken = "3mX8CI4bE+JNKwNqQoBhCPiluSJ8ZZxMpNw+sSwTeF8="
 pwrefreshtoken = "8dsFx47x63xhFcaV7+Q8X/nNRoiUz1afR/BUalCoytQ="
 resultrefresh = requests.post(ccurl + "/api/authentication/refresh", verify=True, json={"OldToken":cctoken,"RefreshToken":ccrefreshtoken}, headers={"Content-Type":"application/json"})
-if resultrefresh == 200:
+if resultrefresh.status_code == 200:
     ntoken = resultrefresh.text
     h = {
         "Authorization": "Bearer " + ntoken,
@@ -31,7 +31,7 @@ if resultrefresh == 200:
     for item in elements:
         item["pais"] = "GT"
     resultrefresh = requests.post(pwurl + "/api/authentication/refresh", verify=True, json={"OldToken":pwtoken,"RefreshToken":pwrefreshtoken}, headers={"Content-Type":"application/json"})
-    if resultrefresh == 200:
+    if resultrefresh.status_code == 200:
         ntoken = resultrefresh.text
         h = {
             "Authorization": "Bearer " + ntoken,
