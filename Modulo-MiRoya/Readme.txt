@@ -6,3 +6,4 @@ Guía de usuario
   - Instalación y configuración del modelo: Instalacion de MiRoya-DynaCof.pdf 
       (https://docs.google.com/document/d/10EcWSSYgbH9FWK5OqCio1YgfBlcJS1dITUgemayLsMA/edit?usp=sharing)
   - Uso de MiRoya
+Y Archivos R para ejecutar simulaciones
