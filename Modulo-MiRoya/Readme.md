@@ -9,7 +9,7 @@ Este pagina oferece :
       https://vimeo.com/508424457                                                 o  
       https://youtu.be/D7UvZCKfv-A 
       
-      [<img alt="video" src="videoObjetivoMiRoya.png" style="width: 5%; height: 5%">]https://youtu.be/D7UvZCKfv-A
+      <img alt="video" src="videoObjetivoMiRoya.png" style="width: 5%; height: 5%">
       
   - Sobre MiRoya (descripcion del modelo conceptual, autores,...): 
       **DescripcionMiRoya.pdf**
