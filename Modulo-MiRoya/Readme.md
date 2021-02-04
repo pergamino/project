@@ -1,5 +1,6 @@
-# Modulo-MiRoya es una pagina que presenta el modelo de simulación "MiRoya_Dynacof".
+# Modulo-MiRoya: el modelo de simulación "MiRoya_Dynacof".
 
+<img alt="openSource" src="openSource.png" style="width: 5%; height: 5%">
 Este pagina oferece :
 ## Guías de usuario
   - Video de introduccion que explica el objetivo de MiRoya: 
@@ -32,3 +33,4 @@ Este pagina oferece :
   Está también disponible en el sitio http://cormas.cirad.fr 
     <br>
 ## Archivos *Smalltalk* para ejecutar MiRoya
+<img alt="Smalltalk" src="cormas.png" style="width: 5%; height: 5%">
