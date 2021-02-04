@@ -20,10 +20,10 @@ Este pagina oferece :
     **GuíaUsuarioModelo_MiRoya.pdf**
       (https://docs.google.com/document/d/1R2HFJIzu0FBC03I4sdNyVd46LxXLc9KWcmflsATmnSc/edit?usp=sharing)
       
-## Archivos R para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
+## Archivos *R* para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
 
-```R-MiRoya_DynaCof.zip
-```
+`R-MiRoya_DynaCof.zip`
+
 
 ## La plataforma CORMAS: 
 
@@ -31,4 +31,4 @@ Este pagina oferece :
     <br>
   Está también disponible en el sitio http://cormas.cirad.fr 
     <br>
-## Archivos Smalltalk para ejecutar MiRoya
+## Archivos *Smalltalk* para ejecutar MiRoya
