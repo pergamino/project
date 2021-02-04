@@ -4,12 +4,12 @@ Este pagina oferece :
 ## Guías de usuario
   - Video de introduccion que explica el objetivo de MiRoya: 
       <img alt="CORMAS" src="videoObjetivoMiRoya.png" style="width: 5%; height: 5%">
-      https://www.dropbox.com/s/buex3bzspw1epcy/ObjetivoMiRoya.avi?dl=0   o  
-    <br>
-      https://vimeo.com/508424457   o  
-    <br>
+      https://www.dropbox.com/s/buex3bzspw1epcy/ObjetivoMiRoya.avi?dl=0           o  
+ 
+      https://vimeo.com/508424457                                                 o  
+  
       https://youtu.be/D7UvZCKfv-A 
-    <br>
+
   - Sobre MiRoya (descripcion del modelo conceptual, autores,...): DescripcionMiRoya.pdf
       (https://docs.google.com/document/d/1FqfNjFibNa-D-UMh9fB-AZciLiN7587fYLxRWzsE1Is/edit?usp=sharing) 
     <br>
