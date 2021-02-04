@@ -5,9 +5,7 @@ Este pagina oferece :
   - Video de introduccion que explica el objetivo de MiRoya: 
       <img alt="CORMAS" src="videoObjetivoMiRoya.png" style="width: 5%; height: 5%">
       https://www.dropbox.com/s/buex3bzspw1epcy/ObjetivoMiRoya.avi?dl=0           o  
- 
       https://vimeo.com/508424457                                                 o  
-  
       https://youtu.be/D7UvZCKfv-A 
 
   - Sobre MiRoya (descripcion del modelo conceptual, autores,...): DescripcionMiRoya.pdf
