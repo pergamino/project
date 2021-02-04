@@ -20,7 +20,9 @@ Este pagina oferece :
       (https://docs.google.com/document/d/1R2HFJIzu0FBC03I4sdNyVd46LxXLc9KWcmflsATmnSc/edit?usp=sharing)
       
 ## Archivos R para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
+ffff
 ## La plataforma CORMAS: 
+
   Ver el archivo: cormas2020_package.zip 
     <br>
   Está también disponible en el sitio http://cormas.cirad.fr 
