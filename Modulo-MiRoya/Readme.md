@@ -7,7 +7,7 @@ Este pagina oferece :
       https://vimeo.com/508424457                                                 o  
       https://youtu.be/D7UvZCKfv-A        
       
-      [<img alt="CORMAS" src="videoObjetivoMiRoya.png" style="width: 5%; height: 5%">](https://youtu.be/D7UvZCKfv-A)
+      [<img alt="video" src="videoObjetivoMiRoya.png" style="width: 5%; height: 5%">](https://youtu.be/D7UvZCKfv-A)
   - Sobre MiRoya (descripcion del modelo conceptual, autores,...): 
       **DescripcionMiRoya.pdf**
       (https://docs.google.com/document/d/1FqfNjFibNa-D-UMh9fB-AZciLiN7587fYLxRWzsE1Is/edit?usp=sharing) 
@@ -22,7 +22,7 @@ Este pagina oferece :
       
 ## Archivos *R* para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
 
-`R-MiRoya_DynaCof.zip`
+`R-MiRoya_DynaCof.zip`  <img alt="R" src="R.png" style="width: 5%; height: 5%">
 
 
 ## La plataforma CORMAS: 
