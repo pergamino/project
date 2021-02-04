@@ -22,7 +22,7 @@ Este pagina oferece :
       
 ## Archivos R para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
 
-```llll.
+```R-MiRoya_DynaCof.zip
 ```
 
 ## La plataforma CORMAS: 
