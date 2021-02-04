@@ -4,6 +4,12 @@ Este pagina oferece :
 ## Guías de usuario
   - Video de introduccion que explica el objetivo de MiRoya: 
       <img alt="CORMAS" src="videoObjetivoMiRoya.png" style="width: 5%; height: 5%">
+      ```bash
+mkdir mydir
+cd mydir
+curl https://get.pharo.org | bash
+./pharo Pharo.image eval "Metacello new onWarningLog; repository: 'github://cormas/cormas/repository'; baseline: 'Cormas'; load. Smalltalk snapshot: true andQuit: true"
+```
       https://www.dropbox.com/s/buex3bzspw1epcy/ObjetivoMiRoya.avi?dl=0   o
       https://vimeo.com/508424457   o
       https://youtu.be/D7UvZCKfv-A
