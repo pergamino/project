@@ -34,5 +34,7 @@ Este pagina oferece :
     <br>
   Está también disponible en el sitio http://cormas.cirad.fr 
     <br>
-## Archivos *Smalltalk* para ejecutar MiRoya
 <img alt="Smalltalk" src="cormas.png" style="width: 5%; height: 5%">
+
+## Archivos *Smalltalk* para ejecutar MiRoya
+
