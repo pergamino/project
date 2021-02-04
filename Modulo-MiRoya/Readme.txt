@@ -2,6 +2,22 @@ Modulo-MiRoya es una pagina que presenta el modelo de simulación "MiRoya_Dynaco
 Este pagina oferece :
 - Guías de usuario
   - Video de introduccion que explica el objetivo de MiRoya: <img alt="CORMAS" src="videoObjetivoMiRoya.png" style="width: 15%; height: 15%">
+  
+  <p align="center"><img alt="CORMAS" src="/videoObjetivoMiRoya.png" style="width: 15%; height: 15%">
+<h1 align="center">CORMAS</h1>
+  <p align="center">
+    COmmon pool Ressources and Multi-Agent Simulations
+    <br>
+    <a href="https://github.com/cormas/cormas/wiki"><strong>Explore the docs »</strong></a>
+    <br>
+    <br>
+    <a href="https://github.com/cormas/cormas/issues/new?labels=Type%3A+Defect">Report a defect</a>
+    |
+    <a href="https://github.com/cormas/cormas/issues/new?labels=Type%3A+Feature">Request feature</a>
+  </p>
+</p>
+  
+  
       https://www.dropbox.com/s/buex3bzspw1epcy/ObjetivoMiRoya.avi?dl=0   o
       https://vimeo.com/508424457
   - Sobre MiRoya (descripcion del modelo conceptual, autores,...): DescripcionMiRoya.pdf
