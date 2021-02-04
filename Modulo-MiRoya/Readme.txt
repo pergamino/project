@@ -1,7 +1,7 @@
 Modulo-MiRoya es una pagina que presenta el modelo de simulación "MiRoya_Dynacof".
 Este pagina oferece :
 - Guías de usuario
-  - Video de introduccion que explica el objetivo de MiRoya: 
+  - Video de introduccion que explica el objetivo de MiRoya: <img alt="CORMAS" src="videoObjetivoMiRoya.png" style="width: 15%; height: 15%">
       https://www.dropbox.com/s/buex3bzspw1epcy/ObjetivoMiRoya.avi?dl=0   o
       https://vimeo.com/508424457
   - Sobre MiRoya (descripcion del modelo conceptual, autores,...): DescripcionMiRoya.pdf
