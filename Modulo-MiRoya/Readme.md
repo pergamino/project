@@ -2,6 +2,7 @@
 
 <img alt="openSource" src="openSource.png" style="width: 5%; height: 5%">
 Este pagina oferece :
+
 ## Guías de usuario
   - Video de introduccion que explica el objetivo de MiRoya: 
       https://www.dropbox.com/s/buex3bzspw1epcy/ObjetivoMiRoya.avi?dl=0           o  
