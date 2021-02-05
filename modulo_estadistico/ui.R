@@ -355,8 +355,8 @@ shinyUI(
                         tags$iframe(
                             src = "https://admin.redpergamino.net/clima", 
                             width = "100%",
-                            height = 1200,
-                            scrolling = 'no',
+                            height = "1200",
+                            scrolling = 'auto',
                             id = 'frame',
                         )
                     )
