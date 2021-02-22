@@ -17,11 +17,11 @@ library(collapsibleTree)
 library(gridExtra)
 source("0.1-archivo_epidemio.R")
 source("0.1-archivo_meteo.R")
-source("0.2-moulinette_inoculum.R")
+source("0.2-moulinette_inoculum_indiv.R")
 source("1-moulinette_meteo_display.R")
-source("2-ipsim_modeloCompletoLecaniPodaDefol.R")
-source("3-pronostico_trace.R")
-source("4.1-plot_pronostico2.R")
+source("2-ipsim_modeloCompletoLecaniPodaDefol_indiv2.R")
+source("3-pronostico_trace_indiv2.R")
+source("4.1-plot_pronostico2_indiv.R")
 # source("4.2-plot_moulinette_meteo_trace.R")
 source("4.3-infoBox_alerta.R")
 source("4.6-plot_precip.R")
@@ -493,13 +493,14 @@ ui <- dashboardPage(
             column(width = 6,
             box(title="Riesgo de crecimiento de la roya",width=12,
               plotOutput("plot_alerta"),
-              textOutput("txt_alerta")),
+              textOutput("txt_alerta")
+              ) #,
 
-            infoBoxOutput("progressBox"),
+            # infoBoxOutput("progressBox"),
             # box(title="Principales procesos involucrados en el calculo del riesgo",width=12,
             #     plotOutput("plot_meteo")) 
               ),
-          tags$style("#progressBox {width:500px;}")
+          # tags$style("#progressBox {width:500px;}")
           
         )
       ),
@@ -816,7 +817,7 @@ ui <- dashboardPage(
     output$plot_alerta <- renderPlot({
       func_plot(
         df_prono(),
-        df_epid_new(),
+        # df_epid_new(),
         Input_fecha_flo(),
         Input_fecha_ini_cosecha(),
         Input_fecha_fin_cosecha()
@@ -846,27 +847,34 @@ ui <- dashboardPage(
                    Input_fecha_fin_cosecha())
     })
     
+    # output$txt_alerta <- renderText({
+    #   "Las letras en rojo significan:
+    #    AF : La incidencia va aumentar fuertemente el proximo mes,
+    #    A : La incidencia va aumentar el proximo mes,
+    #    E : La incidencia es estable o va aumentar levemente el proximo mes,
+    #    B : La inciencia va bajar el proximo mes"
+    # })
+    
+    
     output$txt_alerta <- renderText({
-      "Las letras en rojo significan:
-       AF : La incidencia va aumentar fuertemente el proximo mes,
-       A : La incidencia va aumentar el proximo mes,
-       E : La incidencia es estable o va aumentar levemente el proximo mes,
-       B : La inciencia va bajar el proximo mes"
+      "El boxplot blanco representa los datos del monitoreo y el 
+      boxplot rojo representa el pronóstico de la incidencia 30 días 
+      después del ultimo monitoreo. "
     })
     
     
-    output$progressBox <- renderInfoBox({
-      infoBox(
-        title=paste("Mes en curso:", df_infoBox()$nombre_mes_en_curso), 
-        value=HTML(paste(df_infoBox()$incidencia_va,"el próximo mes",
-                         br(),
-                         "Color de alerta del mes en curso:", df_infoBox()$col_alerta_del_mes,
-                         br(),
-                         "Color de alerta del proximo mes:", df_infoBox()$col_alerta_proximo_mes)),
-        icon = icon("list"),
-        color = "purple"
-      )
-    })
+    # output$progressBox <- renderInfoBox({
+    #   infoBox(
+    #     title=paste("Mes en curso:", df_infoBox()$nombre_mes_en_curso), 
+    #     value=HTML(paste(df_infoBox()$incidencia_va,"el próximo mes",
+    #                      br(),
+    #                      "Color de alerta del mes en curso:", df_infoBox()$col_alerta_del_mes,
+    #                      br(),
+    #                      "Color de alerta del proximo mes:", df_infoBox()$col_alerta_proximo_mes)),
+    #     icon = icon("list"),
+    #     color = "purple"
+    #   )
+    # })
     
     
     output$plot_temp <- renderPlot(width=900,height=340,{
