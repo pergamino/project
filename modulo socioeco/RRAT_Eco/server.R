@@ -8,17 +8,50 @@ server <- function(input, output, session) {
     }
   })
   
-  selSistemaProduccion <- reactiveVal()
-  
-  selSistemaProduccion0 <- reactive({
+  selTipoProductor <- reactive({
     if(is.null(importSistemaProd())){
-      filter(varsocioeco,region==input$selRegion)
+      filter(tipoproductor,cod_pais==filter(paises,pais==input$selPais)$cod_pais)$tipoproductor 
     }
   })
   
+  selSistemaProduccion <- reactiveVal()
+  
+  observeEvent(input$selecFromDB, {
+    showModal(dataModal())
+  })
+  
+  dataModal <- function(failed = FALSE) {
+    modalDialog(
+      title = "Seleccionar perfiles productivos desde Base de Datos",
+      size = "m",
+      fluidRow(
+        column(width=12,
+               selectInput("selPerfil","Perfil productivo",varsocioeco$perfil,selected = NULL,multiple = FALSE,
+                           selectize = TRUE, width = NULL, size = NULL
+               )    
+        )
+      ),
+      footer = tagList(
+        modalButton("Cerrar")
+      )
+    )
+  }
+  
+  #selSistemaProduccion0 <- reactive({
+  #  if(is.null(importSistemaProd())){
+  #    filter(varsocioeco,perfil==input$selPerfil)
+  #  }
+  #})
+  
   observe({
     if(is.null(importSistemaProd())){
-      selSistemaProduccion(filter(varsocioeco,region==input$selRegion))
+      if(!is.null(input$selPerfil)) {
+        selSistemaProduccion(filter(varsocioeco,perfil==input$selPerfil))
+        updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==input$selPerfil)$pais)
+        updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region)
+        updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod)
+        runjs("$('#selPais').prop('disabled',true)")
+      }
     }
   })
   
@@ -54,6 +87,13 @@ server <- function(input, output, session) {
                       choices = selRegiones())
       }
     })
+  
+  observe({
+    if(is.null(importSistemaProd())){
+      updateSelectInput(session, "tiTipoProductor",
+                        choices = selTipoProductor())
+    }
+  })
   
   observe({
     updateNumericInput(session,"niAlt",value=selSistemaProduccion()$altitud)
@@ -566,47 +606,51 @@ server <- function(input, output, session) {
   ### Descargas y Subidas ###
   output$sistemaDescargar <- downloadHandler(
     filename <- function(){
-      paste("sistemaproductivo.RData")
+      paste(input$selPais,"_",input$selRegion,"_",Sys.Date(),".RData",sep="")
     },
     
     content = function(file) {
-      sistemaProductivo <- sp0()
+      sp <- sp0()
+      rh <- DfRoyaHist()
+      mo <- moi()
+      sistemaProductivo <- list(sp,rh,mo)
+      names(sistemaProductivo) <- c("sp","rh","mo")
       save(sistemaProductivo, file = file)
     }
   )
   
-  output$sistemaDescargar <- downloadHandler(
-    filename <- function(){
-      paste("sistemaproductivo.RData")
-    },
+  #output$sistemaDescargar <- downloadHandler(
+  #  filename <- function(){
+  #    paste("sistemaproductivo.RData")
+  #  },
     
-    content = function(file) {
-      sistemaProductivo <- sp0()
-      save(sistemaProductivo, file = file)
-    }
-  )
+  #  content = function(file) {
+  #    sistemaProductivo <- sp0()
+  #    save(sistemaProductivo, file = file)
+  #  }
+  #)
   
-  output$royaDescargar <- downloadHandler(
-    filename <- function(){
-      paste("royahistorica.RData")
-    },
+  #output$royaDescargar <- downloadHandler(
+  #  filename <- function(){
+  #    paste("royahistorica.RData")
+  #  },
     
-    content = function(file) {
-      royaHistorica <- DfRoyaHist()
-      save(royaHistorica, file = file)
-    }
-  )
+  #  content = function(file) {
+  #    royaHistorica <- DfRoyaHist()
+  #    save(royaHistorica, file = file)
+  #  }
+  #)
   
-  output$moDescargar <- downloadHandler(
-    filename <- function(){
-      paste("manoDeObra.RData")
-    },
+  #output$moDescargar <- downloadHandler(
+  #  filename <- function(){
+  #    paste("manoDeObra.RData")
+  #  },
     
-    content = function(file) {
-      manoDeObra <- moi()
-      save(manoDeObra, file = file)
-    }
-  )
+  #  content = function(file) {
+  #    manoDeObra <- moi()
+  #    save(manoDeObra, file = file)
+  #  }
+  #)
   
   importSistemaProd <- reactiveVal()
   
@@ -617,48 +661,68 @@ server <- function(input, output, session) {
     e = new.env()
     name <- load(file, envir = e)
     data <- e[[name]]
-    data <- data.frame(data)
-    names(data) <- c("pais","region","tipoprod","altitud","numfamilias","tamanofamilia","ingresosotros","gastosalimfamilia","ingresominsost","areaprod","preciocafe","rendimientoesperado","nivelmanejo","costo1tratamientoroya","costosindirectos","nivelcostoinsumos","costosprodotros","numpeonesperm","salariopeon","dqmocosecha","salariojornal","mofamiliar","dmmofamiliar","preciotierra","salariominciudad","salariominrural","canastabasicapp")
-    importSistemaProd(data)
-    updateSelectInput(session,"selPais",selected=data[1]$pais)
-    updateSelectInput(session,"selRegion",choices=filter(regiones,idpais==filter(paises,pais==data[1]$pais)$cod_extra)$rrat5,selected=data[2]$region)
-    selSistemaProduccion(data)
-  })
-  
-  observe({
-    if ( is.null(input$royaUpload)) return(NULL)
-    inFile <- input$royaUpload
-    file <- inFile$datapath
-    e = new.env()
-    name <- load(file, envir = e)
-    data <- e[[name]]
-    data <- data.frame(data)
-    DfRoyaHist(data)
+    datasp <- data.frame(data$sp)
+    names(datasp) <- c("pais","region","tipoprod","altitud","numfamilias","tamanofamilia","ingresosotros","gastosalimfamilia","ingresominsost","areaprod","preciocafe","rendimientoesperado","nivelmanejo","costo1tratamientoroya","costosindirectos","nivelcostoinsumos","costosprodotros","numpeonesperm","salariopeon","dqmocosecha","salariojornal","mofamiliar","dmmofamiliar","preciotierra","salariominciudad","salariominrural","canastabasicapp")
+    importSistemaProd(datasp)
+    updateSelectInput(session,"selPais",selected=datasp[1]$pais)
+    updateSelectInput(session,"selRegion",choices=filter(regiones,idpais==filter(paises,pais==datasp[1]$pais)$cod_extra)$rrat5,selected=datasp[2]$region)
+    selSistemaProduccion(datasp)
+    
+    datarh <- data.frame(data$rh)
+    DfRoyaHist(datarh)
     output$hot <- renderExcel({
       colonnes <- data.frame(readOnly = c(TRUE, FALSE, FALSE), width = 100)
       excelTable(DfRoyaHist(), columns = colonnes)
     })
+    
+    datamo <- data.frame(data$mo)
+    updateNumericInput(session,"ningunMO",value=datamo["ninguno","mo"])
+    updateNumericInput(session,"minimoMO",value=datamo["minimo","mo"])
+    updateNumericInput(session,"bajoMO",value=datamo["bajo","mo"])
+    updateNumericInput(session,"medioMO",value=datamo["medio","mo"])
+    updateNumericInput(session,"altoMO",value=datamo["alto","mo"])
+    
+    updateNumericInput(session,"ningunCI",value=datamo["ninguno","ci"])
+    updateNumericInput(session,"minimoCI",value=datamo["minimo","ci"])
+    updateNumericInput(session,"bajoCI",value=datamo["bajo","ci"])
+    updateNumericInput(session,"medioCI",value=datamo["medio","ci"])
+    updateNumericInput(session,"altoCI",value=datamo["alto","ci"])
   })
   
-  observe({
-    if ( is.null(input$moUpload)) return(NULL)
-    inFile <- input$moUpload
-    file <- inFile$datapath
-    e = new.env()
-    name <- load(file, envir = e)
-    data <- e[[name]]
-    data <- data.frame(data)
-    updateNumericInput(session,"ningunMO",value=data["ninguno","mo"])
-    updateNumericInput(session,"minimoMO",value=data["minimo","mo"])
-    updateNumericInput(session,"bajoMO",value=data["bajo","mo"])
-    updateNumericInput(session,"medioMO",value=data["medio","mo"])
-    updateNumericInput(session,"altoMO",value=data["alto","mo"])
+  #observe({
+  #  if ( is.null(input$royaUpload)) return(NULL)
+  #  inFile <- input$royaUpload
+  #  file <- inFile$datapath
+  #  e = new.env()
+  #  name <- load(file, envir = e)
+  #  data <- e[[name]]
+  #  data <- data.frame(data)
+  #  DfRoyaHist(data)
+  #  output$hot <- renderExcel({
+  #    colonnes <- data.frame(readOnly = c(TRUE, FALSE, FALSE), width = 100)
+  #    excelTable(DfRoyaHist(), columns = colonnes)
+  #  })
+  #})
+  
+  #observe({
+  #  if ( is.null(input$moUpload)) return(NULL)
+  #  inFile <- input$moUpload
+  #  file <- inFile$datapath
+  #  e = new.env()
+  #  name <- load(file, envir = e)
+  #  data <- e[[name]]
+  #  data <- data.frame(data)
+  #  updateNumericInput(session,"ningunMO",value=data["ninguno","mo"])
+  #  updateNumericInput(session,"minimoMO",value=data["minimo","mo"])
+  #  updateNumericInput(session,"bajoMO",value=data["bajo","mo"])
+  #  updateNumericInput(session,"medioMO",value=data["medio","mo"])
+  #  updateNumericInput(session,"altoMO",value=data["alto","mo"])
     
-    updateNumericInput(session,"ningunCI",value=data["ninguno","ci"])
-    updateNumericInput(session,"minimoCI",value=data["minimo","ci"])
-    updateNumericInput(session,"bajoCI",value=data["bajo","ci"])
-    updateNumericInput(session,"medioCI",value=data["medio","ci"])
-    updateNumericInput(session,"altoCI",value=data["alto","ci"])
+  #  updateNumericInput(session,"ningunCI",value=data["ninguno","ci"])
+  #  updateNumericInput(session,"minimoCI",value=data["minimo","ci"])
+  #  updateNumericInput(session,"bajoCI",value=data["bajo","ci"])
+  #  updateNumericInput(session,"medioCI",value=data["medio","ci"])
+  #  updateNumericInput(session,"altoCI",value=data["alto","ci"])
     
-  })
+  #})
 }

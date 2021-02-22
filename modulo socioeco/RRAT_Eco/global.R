@@ -34,8 +34,11 @@ costomanejo <- dbGetQuery(con,sql)
 sql <- "select * from roya_historica order by region, nmes"
 royahistorica <- dbGetQuery(con,sql)
 
-sql <- "select * from valores_variables_socioeconomicas order by cod_pais, cod_region"
+sql <- "select pais || ' - ' || region || ' - ' || tipoprod as perfil, * from valores_variables_socioeconomicas order by cod_pais, cod_region"
 varsocioeco <- dbGetQuery(con,sql)
+
+sql <- "select * from tiposproductores order by idtipo"
+tipoproductor <- dbGetQuery(con,sql)
 
 dbDisconnect(con)
 

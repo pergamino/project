@@ -8,6 +8,19 @@ ui <- dashboardPage(
       menuItem("Roya historica", tabName = "royaHistorica", icon = icon("th")),
       menuItem("Mano de obra", tabName = "manoObra", icon = icon("th")),
       menuItem("Pronostico", tabName = "pronostico", icon = icon("th"))
+    ),
+    tags$div(
+      fluidRow(
+        column(width = 12,
+               actionButton("selecFromDB","Seleccionar perfiles",icon=icon("database"),style="margin-top:23px;color:#000;")         
+        ),
+        column(width = 12,
+               downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;color:#000;")         
+        ),
+        column(width = 12,
+               fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
+        )
+      )
     )
   ),
   
@@ -45,15 +58,15 @@ ui <- dashboardPage(
                              )
                              )
                       ),
-                      column(width = 4,
-                             fluidRow(
-                               column(width = 6,
-                                      downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")         
-                                      ),
-                               column(width = 6,
-                                      fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
-                                      )
-                             )
+                      column(width = 4#,
+                             #fluidRow(
+                             #   column(width = 6,
+                             #          downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")         
+                             #         ),
+                             #   column(width = 6,
+                             #          fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
+                             #          )
+                             #)
                       )
                     )
                 )
@@ -81,7 +94,7 @@ ui <- dashboardPage(
                                    ),
                                    #textInput("tiRegion",label="Región",value="REGION"),
                                    numericInput("niAlt", label = "Altitud promedio", value = NULL),
-                                   textInput("tiTipoProductor",label="Tipo de productor", value = NULL),
+                                   selectInput("tiTipoProductor",label="Tipo de productor", choices=tipoproductor$tipoproductor, selected = NULL, multiple=FALSE),
                                    numericInput("niNumFam", label = "Num. fam. de este tipo en la zona", value = NULL)
                             )
                         )
@@ -224,10 +237,10 @@ ui <- dashboardPage(
                              )
                       ),
                       column(width = 4,
-                             fluidRow(
-                              column(width=6,downloadButton("royaDescargar","Descargar datos de roya",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
-                              column(width=6,fileInput("royaUpload",label="Subir datos de roya",width="200px")),
-                             )
+                             #fluidRow(
+                             #  column(width=6,downloadButton("royaDescargar","Descargar datos de roya",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
+                             #  column(width=6,fileInput("royaUpload",label="Subir datos de roya",width="200px")),
+                             #)
                       )
                     )
                 )
@@ -276,10 +289,10 @@ ui <- dashboardPage(
                              )
                       ),
                       column(width = 4,
-                             fluidRow(
-                                column(width=6,downloadButton("moDescargar","Descargar datos Mano de Obra",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
-                                column(width=6,fileInput("moUpload",label="Subir datos de Mano de Obra",width="200px")),
-                             )
+                             #fluidRow(
+                             #    column(width=6,downloadButton("moDescargar","Descargar datos Mano de Obra",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
+                             #    column(width=6,fileInput("moUpload",label="Subir datos de Mano de Obra",width="200px")),
+                             #)
                       )
                     )
                 )
