@@ -187,7 +187,7 @@ server <- function(input, output, session) {
   DfRoyaHist <- reactiveVal()
   
   DfRoyaHist0 <- reactive({
-    if(nrow(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)>0)) {
+    if(nrow(filter(royahistorica,region==input$selRegion))>0) {
       DfRoyaHist(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo))    
       filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)  
     } else {
