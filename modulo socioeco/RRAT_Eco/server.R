@@ -1,4 +1,11 @@
 server <- function(input, output, session) {
+  selSistemaProduccion <- reactiveVal()
+  
+  # El de por defecto
+  selSistemaProduccion(filter(varsocioeco,perfil==varsocioeco$perfil[1]))
+  updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==varsocioeco$perfil[1])$pais)
+  updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==varsocioeco$perfil[1])$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$region)
+  updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$tipoprod)
   
   # Tabla Sistema de produccion
   
@@ -13,8 +20,6 @@ server <- function(input, output, session) {
       filter(tipoproductor,cod_pais==filter(paises,pais==input$selPais)$cod_pais)$tipoproductor 
     }
   })
-  
-  selSistemaProduccion <- reactiveVal()
   
   observeEvent(input$selecFromDB, {
     showModal(dataModal())
@@ -606,7 +611,7 @@ server <- function(input, output, session) {
   ### Descargas y Subidas ###
   output$sistemaDescargar <- downloadHandler(
     filename <- function(){
-      paste(input$selPais,"_",input$selRegion,"_",Sys.Date(),".RData",sep="")
+      str_replace_all(paste(input$selPais,"_",input$selRegion,"_",input$tiTipoProductor,"-",Sys.Date(),".RData",sep="")," ","_")
     },
     
     content = function(file) {
@@ -619,39 +624,7 @@ server <- function(input, output, session) {
     }
   )
   
-  #output$sistemaDescargar <- downloadHandler(
-  #  filename <- function(){
-  #    paste("sistemaproductivo.RData")
-  #  },
-    
-  #  content = function(file) {
-  #    sistemaProductivo <- sp0()
-  #    save(sistemaProductivo, file = file)
-  #  }
-  #)
-  
-  #output$royaDescargar <- downloadHandler(
-  #  filename <- function(){
-  #    paste("royahistorica.RData")
-  #  },
-    
-  #  content = function(file) {
-  #    royaHistorica <- DfRoyaHist()
-  #    save(royaHistorica, file = file)
-  #  }
-  #)
-  
-  #output$moDescargar <- downloadHandler(
-  #  filename <- function(){
-  #    paste("manoDeObra.RData")
-  #  },
-    
-  #  content = function(file) {
-  #    manoDeObra <- moi()
-  #    save(manoDeObra, file = file)
-  #  }
-  #)
-  
+
   importSistemaProd <- reactiveVal()
   
   observe({
@@ -689,40 +662,5 @@ server <- function(input, output, session) {
     updateNumericInput(session,"altoCI",value=datamo["alto","ci"])
   })
   
-  #observe({
-  #  if ( is.null(input$royaUpload)) return(NULL)
-  #  inFile <- input$royaUpload
-  #  file <- inFile$datapath
-  #  e = new.env()
-  #  name <- load(file, envir = e)
-  #  data <- e[[name]]
-  #  data <- data.frame(data)
-  #  DfRoyaHist(data)
-  #  output$hot <- renderExcel({
-  #    colonnes <- data.frame(readOnly = c(TRUE, FALSE, FALSE), width = 100)
-  #    excelTable(DfRoyaHist(), columns = colonnes)
-  #  })
-  #})
   
-  #observe({
-  #  if ( is.null(input$moUpload)) return(NULL)
-  #  inFile <- input$moUpload
-  #  file <- inFile$datapath
-  #  e = new.env()
-  #  name <- load(file, envir = e)
-  #  data <- e[[name]]
-  #  data <- data.frame(data)
-  #  updateNumericInput(session,"ningunMO",value=data["ninguno","mo"])
-  #  updateNumericInput(session,"minimoMO",value=data["minimo","mo"])
-  #  updateNumericInput(session,"bajoMO",value=data["bajo","mo"])
-  #  updateNumericInput(session,"medioMO",value=data["medio","mo"])
-  #  updateNumericInput(session,"altoMO",value=data["alto","mo"])
-    
-  #  updateNumericInput(session,"ningunCI",value=data["ninguno","ci"])
-  #  updateNumericInput(session,"minimoCI",value=data["minimo","ci"])
-  #  updateNumericInput(session,"bajoCI",value=data["bajo","ci"])
-  #  updateNumericInput(session,"medioCI",value=data["medio","ci"])
-  #  updateNumericInput(session,"altoCI",value=data["alto","ci"])
-    
-  #})
 }

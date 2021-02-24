@@ -12,13 +12,22 @@ ui <- dashboardPage(
     tags$div(
       fluidRow(
         column(width = 12,
-               actionButton("selecFromDB","Seleccionar perfiles",icon=icon("database"),style="margin-top:23px;color:#000;")         
+               tags$br(),
+               tags$br(),
+               tags$br(),
+               tags$div(HTML("<center>Base de datos Pergamino</center>")),
+               actionButton("selecFromDB","Cargar sistema productivo",icon=icon("database"),style="margin-top:23px;color:#000;"),
+               tags$hr()
         ),
         column(width = 12,
-               downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;color:#000;")         
+               tags$br(),
+               tags$br(),
+               tags$br(),
+               tags$div(HTML("<center>Desde computadora local</center>")),
+               downloadButton("sistemaDescargar","Guardar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;color:#000;")         
         ),
         column(width = 12,
-               fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
+               fileInput("sistemaUpload", label = "Cargar Sistema Productivo", width = "200px")         
         )
       )
     )
@@ -383,28 +392,36 @@ ui <- dashboardPage(
                     fluidRow(
                       column(width = 3,
                              box(title=tags$p(style = "font-size: 70%;","Mes de la observacion de roya"),color = "teal",background ="teal", 
-                                 width=20,height = 100,
+                                 width=20,height = 200,
                                  selectInput(inputId = "mesObs", label=NULL,
                                              choices=c("enero","febrero","marzo","abril","mayo","junio", "julio","agosto","setiembre","octubre","noviembre","diciembre"),width="200px")
                              ),
                              box(title=tags$p(style = "font-size: 70%;","Incidencia Roya en %"),color = "blue",background = "blue",
-                                 width=20,height = 100,
+                                 width=20,height = 200,
                                  numericInput("incObs",label=NULL,value=0,width="200px")
                              ),
-                             box(title=tags$p(style = "font-size: 70%;","Condiciones para crecimiento de Roya"),color = "olive",background = "olive",
-                                 width=20,height = 100,
-                                 selectInput(inputId = "condPro", label=NULL,
-                                             choices=c("desfavorable","normales", "favorable","muy favorables"),width="200px")
-                             ),
-                             box(title=tags$p(style = "font-size: 70%;","Pronóstico"),color = "orange",background = "orange",
-                                 width=20,height = 100,
-                                 selectInput(inputId = "pronostico", label=NULL,
-                                             choices=c("Año en curso","Año siguiente"),width="200px")
-                             )
+                             
                       ),
                       column(width=9,
                              plotOutput("plotVigilancia"),
+                             tags$br(),
+                             fluidRow(
+                               column(width=6,
+                                      box(title=tags$p(style = "font-size: 70%;","Condiciones para crecimiento de Roya"),color = "olive",background = "olive",
+                                          width=20,height = 100,
+                                          selectInput(inputId = "condPro", label=NULL,
+                                                      choices=c("desfavorable","normales", "favorable","muy favorables"),width="200px")
+                                      )    
+                               ),
+                               column(width=6,
+                                      box(title=tags$p(style = "font-size: 70%;","Pronóstico"),color = "orange",background = "orange",
+                                          width=20,height = 100,
+                                          selectInput(inputId = "pronostico", label=NULL,
+                                                      choices=c("Año en curso","Año siguiente"),width="200px")
+                                      )
+                                  )
                              )
+                        ),
                     ),
                 ),
                     fluidRow(
