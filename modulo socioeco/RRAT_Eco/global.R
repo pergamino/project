@@ -41,6 +41,8 @@ varsocioeco <- dbGetQuery(con,sql)
 sql <- "select * from tiposproductores order by idtipo"
 tipoproductor <- dbGetQuery(con,sql)
 
+nivel <- c('ninguno','minimo','bajo','medio','alto')
+
 dbDisconnect(con)
 
 

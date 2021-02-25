@@ -10,9 +10,9 @@ server <- function(input, output, session) {
   # Tabla Sistema de produccion
   
   selRegiones <- reactive({
-    if(is.null(importSistemaProd())){
+    #if(is.null(importSistemaProd())){
       filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5 
-    }
+    #}
   })
   
   selTipoProductor <- reactive({
@@ -37,10 +37,20 @@ server <- function(input, output, session) {
         )
       ),
       footer = tagList(
+        actionButton("Aplicar","Aplicar"),
         modalButton("Cerrar")
       )
     )
   }
+  
+  observeEvent(input$Aplicar,
+               {
+                 importSistemaProd <- reactiveVal()
+                 selSistemaProduccion(filter(varsocioeco,perfil==input$selPerfil))
+                 updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==input$selPerfil)$pais)
+                 updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==input$selPerfil)$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region)
+                 updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod)
+               })
   
   #selSistemaProduccion0 <- reactive({
   #  if(is.null(importSistemaProd())){
@@ -48,17 +58,17 @@ server <- function(input, output, session) {
   #  }
   #})
   
-  observe({
-    if(is.null(importSistemaProd())){
-      if(!is.null(input$selPerfil)) {
-        selSistemaProduccion(filter(varsocioeco,perfil==input$selPerfil))
-        updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==input$selPerfil)$pais)
-        updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region)
-        updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod)
-        runjs("$('#selPais').prop('disabled',true)")
-      }
-    }
-  })
+  #observe({
+  #  if(is.null(importSistemaProd())){
+  #    if(!is.null(input$selPerfil)) {
+  #      selSistemaProduccion(filter(varsocioeco,perfil==input$selPerfil))
+  #      updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==input$selPerfil)$pais)
+  #      updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region)
+  #      updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod)
+  #      runjs("$('#selPais').prop('disabled',true)")
+  #    }
+  #  }
+  #})
   
   costoManejoPais <- reactiveVal()
   
@@ -87,10 +97,10 @@ server <- function(input, output, session) {
   })
   
   observe({
-    if(is.null(importSistemaProd())){
+    #if(is.null(importSistemaProd())){
       updateSelectInput(session, "selRegion",
                       choices = selRegiones())
-      }
+      #}
     })
   
   observe({
@@ -628,6 +638,7 @@ server <- function(input, output, session) {
   importSistemaProd <- reactiveVal()
   
   observe({
+    print(is.null(input$sistemaUpload))
     if ( is.null(input$sistemaUpload)) return(NULL)
     inFile <- input$sistemaUpload
     file <- inFile$datapath
@@ -660,6 +671,7 @@ server <- function(input, output, session) {
     updateNumericInput(session,"bajoCI",value=datamo["bajo","ci"])
     updateNumericInput(session,"medioCI",value=datamo["medio","ci"])
     updateNumericInput(session,"altoCI",value=datamo["alto","ci"])
+    reset("sistemaUpload")
   })
   
   

@@ -146,7 +146,7 @@ ui <- dashboardPage(
                                   numericInput("niAreaProd", label = "Area de producción (ha)", value = NULL),
                                   numericInput("niRedimCafeOro", label = "Rendimiento (q/ha) café oro", value = NULL),
                                   numericInput("niPrecioVentaCafe", label = "Precio de venta del café ($/q)", value = NULL),
-                                  textInput("tiNivManejo",label = "Nivel de manejo",value=NULL)
+                                  selectInput("tiNivManejo",label = "Nivel de manejo",choices=nivel)
                            )
                          )
                        ),
@@ -161,7 +161,7 @@ ui <- dashboardPage(
                          fluidRow(
                            column(width = 12,
                                   numericInput("niCostoTratam", label = "Costo de 1 tratam. roya ($/ha)", value = NULL),
-                                  textInput("tiNivCostoInsum",label="Nivel de costos de insumos",value=NULL),
+                                  selectInput("tiNivCostoInsum",label="Nivel de costos de insumos",choices=nivel),
                                   numericInput("niCostoIndirect", label = "% Costos indirectos", value = NULL),
                                   numericInput("niOtroCostoProd", label = "Otros costos de producción ($/año)", value = NULL)
                               )

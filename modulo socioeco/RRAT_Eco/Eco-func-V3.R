@@ -142,56 +142,26 @@ costoTratamientoRoya <- function(sp,nci,mes,cond,estrategiaTratamiento="adaptati
 
 
 #je mélange un peu... systématique maintienst la rouille au niveau du mois en cours, adaptativo 
-#indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
-#  pronosticoRoya <- proRoya(txir,mes,inc,doPlot=F)
-#  estrategiaTratamiento <- ifelse(endsWith(escenario,"adaptativo"),"adaptativo",ifelse(endsWith(escenario,"sistematico"),"sistematico","ninguno"))
-#  if(escenario=="linea.base"){rendimientoEsperado <- sp$rendimiento.esperado; maxRoya <- maxRoyaHist(sp)}
-#  if(escenario=="tendencial") {maxRoya <- max(pronosticoRoya[[paste("irPro",cond,sep=".")]]); rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir)/200)}
-#  if(startsWith(escenario, "con.tratamiento.")) {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir)/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
+indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
+  pronosticoRoya <- proRoya(txir,mes,inc,doPlot=F)
+  estrategiaTratamiento <- ifelse(endsWith(escenario,"adaptativo"),"adaptativo",ifelse(endsWith(escenario,"sistematico"),"sistematico","ninguno"))
+  if(escenario=="linea.base"){rendimientoEsperado <- sp$rendimiento.esperado; maxRoya <- maxRoyaHist(sp)}
+  if(escenario=="tendencial") {maxRoya <- max(pronosticoRoya[[paste("irPro",cond,sep=".")]]); rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir)/200)}
+  if(startsWith(escenario, "con.tratamiento.")) {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir)/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
   
   #if(escenario=="con.tratamiento.sistematico") {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-(maxRoya-max(txir$ir))*anio/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
   #if(escenario=="con.tratamiento.adaptativo") {maxRoya <- max(pronosticoRoya[["irPro.d"]]); rendimientoEsperado <- sp$rendimiento.esperado*(1-(maxRoya-max(txir$ir))*anio/200)} #aqui la roya se queda al nivel donde esta hasta la cosecha...
 
-#  ingresosCafe <- ingresos.cafe(sp$area.prod, rendimientoEsperado, sp$precio.cafe)
-#  ingresosTotal <- ingresosCafe+sp$ingresos.otros
-#  num.jornales <- numJornales(sp,rendimientoEsperado,moi)
-#  costoTratamRoya <- ifelse(estrategiaTratamiento=="ninguno", 0,costoTratamientoRoya(sp,nci,mes,cond,estrategiaTratamiento))
-#  costosProdTot <- costos.prod.tot(sp, moi, nci, num.jornales)+costoTratamRoya
-  
-  #ahora los indicadores derivados-haremosla linea base y con manejo despues
-#  rentab.cafe <- ingresosCafe-costosProdTot
-#  margen <- margen(ingresosTotal,costosProdTot, sp$gastos.alim.familia)
-#  umbral <- margenminsost(sp$ingreso.min.sost,sp$gastos.alim.familia)
-#  valor.agregado <- margen+sp$gastos.alim.familia+num.jornales*sp$salario.jornal+sp$num.peones.perm*sp$salario.peon*12
-#  valor.agregado.R <- valor.agregado*sp$num.familias
-#  margen.alim.pp <- (margen+sp$gastos.alim.familia)/sp$tamano.familia
-#  san.pp <- margen.alim.pp/(sp$canasta.basica.pp*12)
-#  costo.op.jornal <- ifelse(margen.alim.pp > 0, sp$dm.mo.familiar*sp$salario.jornal*12/margen.alim.pp, Inf)
-#  costo.op.rural <- ifelse(margen.alim.pp > 0, sp$salario.min.rural*12/margen.alim.pp, Inf)
-#  costo.op.ciudad <- ifelse(margen.alim.pp > 0, sp$salario.min.ciudad*12/margen.alim.pp, Inf)
-#  precio.cafe.min.sost <- (sp$ingreso.min.sost-sp$ingresos.otros+costosProdTot)/(rendimientoEsperado*sp$area.prod)
-#  precio.cafe.min.prod <- costosProdTot/(rendimientoEsperado*sp$area.prod)
-#  costo.op.tierra <- sp$precio.tierra*0.03-rentab.cafe/sp$area.prod
-#  punto.equilibrio <- (sp$precio.tierra*0.03+costosProdTot/sp$area.prod)/rendimientoEsperado #cuanto hay que vender el cafe para que costo.op.tierra=0
-#  periodo <- switch(mes,sp$periodo.1,sp$periodo.2,sp$periodo.3,sp$periodo.4,sp$periodo.5,sp$periodo.6,sp$periodo.7,sp$periodo.8,sp$periodo.9,sp$periodo.10,sp$periodo.11,sp$periodo.12)
-#  data.frame(cbind(pais=as.character(sp$pais), zona=as.character(sp$zona), tipo.prod=as.character(sp$tipo.prod), periodo, umbral, maxRoya, rendimientoEsperado, ingresosCafe,costosProdTot, estrategiaTratamiento, costoTratamRoya, rentab.cafe, num.jornales, ingresosTotal, margen,
-#        valor.agregado,valor.agregado.R,margen.alim.pp,san.pp,costo.op.jornal,costo.op.rural,costo.op.ciudad,precio.cafe.min.prod,
-#        precio.cafe.min.sost,costo.op.tierra,punto.equilibrio))
-#}
-
-indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
-  pronosticoRoya <- proRoya(txir,mes,inc,doPlot=F)
-  estrategiaTratamiento <- ifelse(endsWith(escenario,"adaptativo"),"adaptativo",ifelse(endsWith(escenario,"sistematico"),"sistematico","ninguno"))
-  if(escenario=="linea.base"){rendimientoEsperado <- sp$rendimiento.esperado; maxRoya <- max(txir$ir[4:12])}
-  if(escenario=="tendencial") {maxRoya <- max(pronosticoRoya[[paste("irPro",cond,sep=".")]][4:12]); rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir[4:12])/200)}
-  if(startsWith(escenario, "con.tratamiento.")) {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir[4:12])/200)}
   ingresosCafe <- ingresos.cafe(sp$area.prod, rendimientoEsperado, sp$precio.cafe)
   ingresosTotal <- ingresosCafe+sp$ingresos.otros
   num.jornales <- numJornales(sp,rendimientoEsperado,moi)
   costoTratamRoya <- ifelse(estrategiaTratamiento=="ninguno", 0,costoTratamientoRoya(sp,nci,mes,cond,estrategiaTratamiento))
   costosProdTot <- costos.prod.tot(sp, moi, nci, num.jornales)+costoTratamRoya
+  
+  #ahora los indicadores derivados-haremosla linea base y con manejo despues
   rentab.cafe <- ingresosCafe-costosProdTot
   margen <- margen(ingresosTotal,costosProdTot, sp$gastos.alim.familia)
+  umbral <- margenminsost(sp$ingreso.min.sost,sp$gastos.alim.familia)
   valor.agregado <- margen+sp$gastos.alim.familia+num.jornales*sp$salario.jornal+sp$num.peones.perm*sp$salario.peon*12
   valor.agregado.R <- valor.agregado*sp$num.familias
   margen.alim.pp <- (margen+sp$gastos.alim.familia)/sp$tamano.familia
@@ -202,15 +172,45 @@ indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
   precio.cafe.min.sost <- (sp$ingreso.min.sost-sp$ingresos.otros+costosProdTot)/(rendimientoEsperado*sp$area.prod)
   precio.cafe.min.prod <- costosProdTot/(rendimientoEsperado*sp$area.prod)
   costo.op.tierra <- sp$precio.tierra*0.03-rentab.cafe/sp$area.prod
-  punto.equilibrio <- (sp$precio.tierra*0.03+costosProdTot/sp$area.prod)/rendimientoEsperado
-  data.frame(pais=as.character(sp$pais),zona=as.character(sp$zona),tipo.prod=as.character(sp$tipo.prod),num.familias=sp$num.familias,
-             maxRoya, rendimientoEsperado, ingresosCafe,costosProdTot,
-             costoTratamRoya, rentab.cafe, num.jornales,
-             ingresosTotal, margen,valor.agregado,valor.agregado.R,
-             margen.alim.pp,san.pp,costo.op.jornal,costo.op.rural,
-             costo.op.ciudad,precio.cafe.min.prod,
-             precio.cafe.min.sost,costo.op.tierra,punto.equilibrio)
+  punto.equilibrio <- (sp$precio.tierra*0.03+costosProdTot/sp$area.prod)/rendimientoEsperado #cuanto hay que vender el cafe para que costo.op.tierra=0
+  periodo <- switch(mes,sp$periodo.1,sp$periodo.2,sp$periodo.3,sp$periodo.4,sp$periodo.5,sp$periodo.6,sp$periodo.7,sp$periodo.8,sp$periodo.9,sp$periodo.10,sp$periodo.11,sp$periodo.12)
+  data.frame(cbind(pais=as.character(sp$pais), zona=as.character(sp$zona), tipo.prod=as.character(sp$tipo.prod), periodo, umbral, maxRoya, rendimientoEsperado, ingresosCafe,costosProdTot, estrategiaTratamiento, costoTratamRoya, rentab.cafe, num.jornales, ingresosTotal, margen,
+        valor.agregado,valor.agregado.R,margen.alim.pp,san.pp,costo.op.jornal,costo.op.rural,costo.op.ciudad,precio.cafe.min.prod,
+        precio.cafe.min.sost,costo.op.tierra,punto.equilibrio))
 }
+
+#indicEco <- function(sp,moi,nci,txir,mes,inc,cond,anio, escenario="tendencial"){
+#  pronosticoRoya <- proRoya(txir,mes,inc,doPlot=F)
+#  estrategiaTratamiento <- ifelse(endsWith(escenario,"adaptativo"),"adaptativo",ifelse(endsWith(escenario,"sistematico"),"sistematico","ninguno"))
+#  if(escenario=="linea.base"){rendimientoEsperado <- sp$rendimiento.esperado; maxRoya <- max(txir$ir[4:12])}
+#  if(escenario=="tendencial") {maxRoya <- max(pronosticoRoya[[paste("irPro",cond,sep=".")]][4:12]); rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir[4:12])/200)}
+#  if(startsWith(escenario, "con.tratamiento.")) {maxRoya <- inc; rendimientoEsperado <- sp$rendimiento.esperado*(1-maxRoya*anio/200)/(1-max(txir$ir[4:12])/200)}
+#  ingresosCafe <- ingresos.cafe(sp$area.prod, rendimientoEsperado, sp$precio.cafe)
+#  ingresosTotal <- ingresosCafe+sp$ingresos.otros
+#  num.jornales <- numJornales(sp,rendimientoEsperado,moi)
+#  costoTratamRoya <- ifelse(estrategiaTratamiento=="ninguno", 0,costoTratamientoRoya(sp,nci,mes,cond,estrategiaTratamiento))
+#  costosProdTot <- costos.prod.tot(sp, moi, nci, num.jornales)+costoTratamRoya
+#  rentab.cafe <- ingresosCafe-costosProdTot
+#  margen <- margen(ingresosTotal,costosProdTot, sp$gastos.alim.familia)
+#  valor.agregado <- margen+sp$gastos.alim.familia+num.jornales*sp$salario.jornal+sp$num.peones.perm*sp$salario.peon*12
+#  valor.agregado.R <- valor.agregado*sp$num.familias
+#  margen.alim.pp <- (margen+sp$gastos.alim.familia)/sp$tamano.familia
+#  san.pp <- margen.alim.pp/(sp$canasta.basica.pp*12)
+#  costo.op.jornal <- ifelse(margen.alim.pp > 0, sp$dm.mo.familiar*sp$salario.jornal*12/margen.alim.pp, Inf)
+#  costo.op.rural <- ifelse(margen.alim.pp > 0, sp$salario.min.rural*12/margen.alim.pp, Inf)
+#  costo.op.ciudad <- ifelse(margen.alim.pp > 0, sp$salario.min.ciudad*12/margen.alim.pp, Inf)
+#  precio.cafe.min.sost <- (sp$ingreso.min.sost-sp$ingresos.otros+costosProdTot)/(rendimientoEsperado*sp$area.prod)
+#  precio.cafe.min.prod <- costosProdTot/(rendimientoEsperado*sp$area.prod)
+#  costo.op.tierra <- sp$precio.tierra*0.03-rentab.cafe/sp$area.prod
+#  punto.equilibrio <- (sp$precio.tierra*0.03+costosProdTot/sp$area.prod)/rendimientoEsperado
+#  data.frame(pais=as.character(sp$pais),zona=as.character(sp$zona),tipo.prod=as.character(sp$tipo.prod),num.familias=sp$num.familias,
+#             maxRoya, rendimientoEsperado, ingresosCafe,costosProdTot,
+#             costoTratamRoya, rentab.cafe, num.jornales,
+#             ingresosTotal, margen,valor.agregado,valor.agregado.R,
+#             margen.alim.pp,san.pp,costo.op.jornal,costo.op.rural,
+#             costo.op.ciudad,precio.cafe.min.prod,
+#             precio.cafe.min.sost,costo.op.tierra,punto.equilibrio)
+#}
 #calcular valores "sostenible" etc para los niveles a partir de los valores... o preparar una fuccion
 
 indicEcoAll <- function(sp,moi,nci,txir,mes,inc,cond,anio) {
