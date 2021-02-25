@@ -7,6 +7,7 @@ library(excelR)
 library(dplyr)
 library(RPostgreSQL)
 library(shinyjs)
+library(stringr)
 
 source("Eco-func-V3.R")
 

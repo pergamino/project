@@ -143,11 +143,11 @@ server <- function(input, output, session) {
   })
   
   output$box1 <- renderUI({
-    box(title=paste("Mano de obra manejo (dias-hombres/",unidadesPais()$unidadarea,")",sep=""), color = "light-blue",background = "light-blue", width=50,height = 100)
+    box(title=paste("Mano de obra para manejo de la finca por nivel de manejo (dias-hombres/",unidadesPais()$unidadarea,")",sep=""), color = "light-blue",background = "light-blue", width=50,height = 100)
   })
   
   output$box2 <- renderUI({
-    box(title=paste("Costos insumos nivel regular (",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadarea,")"), color = "light-blue",background = "light-blue", width=50,height = 100)
+    box(title=paste("Costo de insumos por nivel de manejo (",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadarea,")"), color = "light-blue",background = "light-blue", width=50,height = 100)
   })
   
   values <- reactiveValues()
