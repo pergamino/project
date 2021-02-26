@@ -159,7 +159,8 @@ runCompleteCycle <- function(stepInit, S2) {
       }
     }
   }
-  cat("OK. \n")
+  #cat("Step ", S2$Meteo$Date[stepInit], " OK. \n")
+  cat("Step ", stepInit, " OK. \n")
   
 # 4)  Change CM_Leaf in Dynacof
   #cat("Change CM_Leaf in Dynacof\n")
