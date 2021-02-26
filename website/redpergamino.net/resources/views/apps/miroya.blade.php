@@ -8,7 +8,7 @@
 
             <div class="section-title mt-5" data-aos="fade-up">
             <div>
-                <img src="..." class="img-thumbnail" alt="...">
+                <img  src="{{URL::asset('img/miroya_icon.png')}}" class="" alt="MIROYA" style="max-width: 100px;">
                 <h2>¿Qué es MiRoya?</h2>
             </div>
             <p class="text-center">
@@ -74,8 +74,9 @@
                 </div>
             </div>
             <div class="row" >
-                <div class="col-12">
-                    <img src="" alt="">
+                <div class="col-12 text-center">
+                    <img src="{{URL::asset('img/miroya_1.png')}}" alt="" style="max-width: 550px;">
+                    <p style="font-size: 13px;" class="mt-0 mb-3">Diagrama de las dos dinámicas acopladas</p>
                 </div>
             </div>
             <div class="row" >
@@ -110,11 +111,6 @@
                     </h3>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <img src="" alt="">
-                </div>
-            </div>
             <div class="row" >
                 <div class="col-12 pl-5">
                     <p>
@@ -132,7 +128,153 @@
                         hectárea. Dependiendo del clima y la época del año, crecen los cafetos y los hongos de la
                         roya. La siguiente figura muestra este patrón:
                     </p>
-                    <img src="" alt="">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img src="{{URL::asset('img/miroya2.png')}}" alt="" class="my-3" style="max-width: 550px;">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pricing ">
+        <div class="container" data-aos="fade-up">
+            <div class="row" >
+                <div class="col-12">
+                    <h3 class="my-2">
+                    Guías de usuario
+                    </h3>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-12 pl-5">
+                <ul class="text-left mt-5 ml-5">
+                        <li>
+                            <i class="bx bx-circle"></i>
+                            Video de introduccion que explica el objetivo de MiRoya:  
+                            <div class="embed-responsive embed-responsive-16by9 mt-3">
+                                <iframe width="450" height="300" src="https://www.youtube.com/embed/D7UvZCKfv-A"  style="border-radius:10px;"
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="bx bx-circle"></i>
+                            Sobre MiRoya
+                            <div class="ml-5 mt-2">
+                                <a href="https://docs.google.com/document/d/1FqfNjFibNa-D-UMh9fB-AZciLiN7587fYLxRWzsE1Is/edit?usp=sharing" target="_blank"
+                                class="btn btn-primary active btn-sm" role="button" aria-pressed="true"><i class="bx bxs-file-pdf text-light"></i>DescripcionMiRoya.pdf</a>
+                            </div>
+                                                  
+                        </li>
+                        <li>
+                            <i class="bx bx-circle"></i>
+                            Instalación y configuración del modelo   
+                            <div class="ml-5 mt-2">
+                                <a href="https://docs.google.com/document/d/10EcWSSYgbH9FWK5OqCio1YgfBlcJS1dITUgemayLsMA/edit?usp=sharing" target="_blank"
+                                class="btn btn-primary active btn-sm" role="button" aria-pressed="true"><i class="bx bxs-file-pdf text-light"></i>MiRoya-DynaCof.pdf</a>
+                            </div>                 
+                        </li>
+                        <li>
+                            <i class="bx bx-circle"></i>
+                            Uso de MiRoya     
+                            <div class="ml-5 mt-2">
+                                <a href="https://docs.google.com/document/d/1R2HFJIzu0FBC03I4sdNyVd46LxXLc9KWcmflsATmnSc/edit?usp=sharing" target="_blank"
+                                class="btn btn-primary active btn-sm" role="button" aria-pressed="true"><i class="bx bxs-file-pdf text-light"></i>GuíaUsuarioModelo_MiRoya.pdf </a>
+                            </div>                  
+                        </li>
+                    </ul>
+                </div>
+            </div>            
+        </div>
+    </section>
+    <section class="pricing section-bg">
+        <div class="container" data-aos="fade-up">
+            <div class="row" >
+                <div class="col-12">
+                    <h3 class="my-2">
+                    Archivos R para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
+                    </h3>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-12 text-center">
+                    <div class="ml-5 mt-2">
+                        <a href="https://github.com/pergamino/project/blob/master/Modulo-MiRoya/R-MiRoya_DynaCof.zip" target="_blank"
+                        class="btn btn-primary active btn-sm mb-2" role="button" aria-pressed="true"><i class="bx bxs-file-archive text-light"></i>R-MiRoya_DynaCof.zip</a>
+                        <img  src="{{URL::asset('img/RLogo.png')}}" class="ml-3 mb-0" alt="MIROYA" style="max-width: 100px;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5" >
+                <div class="col-12">
+                    <h3 class="my-2">
+                    La plataforma CORMAS:
+                    </h3>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-12 text-center">
+                    <div class="ml-5 mt-2">
+                        <a href="https://github.com/pergamino/project/blob/master/Modulo-MiRoya/cormas2020_package.zip" target="_blank"
+                        class="btn btn-primary active btn-sm mb-2" role="button" aria-pressed="true"><i class="bx bxs-file-archive text-light"></i>cormas2020_package.zip</a>
+                        <img  src="{{URL::asset('img/RLogo.png')}}" class="ml-3 mb-0" alt="MIROYA" style="max-width: 100px;">
+                        <p>También disponible en: <a href="http://cormas.cirad.fr" target="_blank">http://cormas.cirad.fr"</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5" >
+                <div class="col-12">
+                    <h3 class="my-2">
+                        Archivos Smalltalk para ejecutar MiRoya
+                    </h3>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-12 text-center">
+                    <div class="ml-5 mt-2">
+                        <a href="https://github.com/pergamino/project/blob/master/Modulo-MiRoya/cormas2020_package.zip" target="_blank"
+                        class="btn btn-primary active btn-sm mb-2" role="button" aria-pressed="true"><i class="bx bxs-file-archive text-light"></i>cormas2020_package.zip</a>
+                        <img  src="{{URL::asset('img/RLogo.png')}}" class="ml-3 mb-0" alt="MIROYA" style="max-width: 100px;">
+                        <p class="mt-2">También disponible en: <a href="http://cormas.cirad.fr" target="_blank">http://cormas.cirad.fr"</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5" >
+                <div class="col-12">
+                    <h3 class="my-2">
+                        Autores del Modelo
+                    </h3>
+                    <h5>
+                        En el marco del proyecto PROCAGICA, el diseño de este modelo requirió un largo trabajo
+                        en el que participaron varias personas:
+                    </h5>
+                    <ul class="mt-2 text-left ml-5 mt-3">
+                        <li>
+                            Jacques Avelino, CIRAD - CATIE
+                        </li>
+                        <li>
+                            Edwin Treminio, CATIE
+                        </li>
+                        <li>
+                            Pierre Bommel, CIRAD - CATIE
+                        </li>
+                        <li>
+                        Grégoire Leclerc, CIRAD - CATIE
+                        </li>
+                        <li>
+                        Natacha Motisi, CIRAD - CATIE
+                        </li>
+                        <li>
+                        Isabelle Merle, CIRAD - CATIE
+                        </li>
+                        <li>
+                        Rémi VEZY, CIRAD
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         </div>
