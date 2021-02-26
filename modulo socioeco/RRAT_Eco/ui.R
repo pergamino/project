@@ -8,6 +8,28 @@ ui <- dashboardPage(
       menuItem("Roya historica", tabName = "royaHistorica", icon = icon("th")),
       menuItem("Mano de obra", tabName = "manoObra", icon = icon("th")),
       menuItem("Pronostico", tabName = "pronostico", icon = icon("th"))
+    ),
+    tags$div(
+      fluidRow(
+        column(width = 12,
+               tags$br(),
+               tags$br(),
+               tags$br(),
+               tags$div(HTML("<center>Base de datos Pergamino</center>")),
+               actionButton("selecFromDB","Cargar sistema productivo",icon=icon("database"),style="margin-top:23px;color:#000;"),
+               tags$hr()
+        ),
+        column(width = 12,
+               tags$br(),
+               tags$br(),
+               tags$br(),
+               tags$div(HTML("<center>Desde computadora local</center>")),
+               downloadButton("sistemaDescargar","Guardar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;color:#000;")         
+        ),
+        column(width = 12,
+               fileInput("sistemaUpload", label = "Cargar Sistema Productivo", width = "200px")         
+        )
+      )
     )
   ),
   
@@ -45,15 +67,15 @@ ui <- dashboardPage(
                              )
                              )
                       ),
-                      column(width = 4,
-                             fluidRow(
-                               column(width = 6,
-                                      downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")         
-                                      ),
-                               column(width = 6,
-                                      fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
-                                      )
-                             )
+                      column(width = 4#,
+                             #fluidRow(
+                             #   column(width = 6,
+                             #          downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")         
+                             #         ),
+                             #   column(width = 6,
+                             #          fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
+                             #          )
+                             #)
                       )
                     )
                 )
@@ -81,7 +103,7 @@ ui <- dashboardPage(
                                    ),
                                    #textInput("tiRegion",label="Región",value="REGION"),
                                    numericInput("niAlt", label = "Altitud promedio", value = NULL),
-                                   textInput("tiTipoProductor",label="Tipo de productor", value = NULL),
+                                   selectInput("tiTipoProductor",label="Tipo de productor", choices=tipoproductor$tipoproductor, selected = NULL, multiple=FALSE),
                                    numericInput("niNumFam", label = "Num. fam. de este tipo en la zona", value = NULL)
                             )
                         )
@@ -124,7 +146,7 @@ ui <- dashboardPage(
                                   numericInput("niAreaProd", label = "Area de producción (ha)", value = NULL),
                                   numericInput("niRedimCafeOro", label = "Rendimiento (q/ha) café oro", value = NULL),
                                   numericInput("niPrecioVentaCafe", label = "Precio de venta del café ($/q)", value = NULL),
-                                  textInput("tiNivManejo",label = "Nivel de manejo",value=NULL)
+                                  selectInput("tiNivManejo",label = "Nivel de manejo",choices=nivel)
                            )
                          )
                        ),
@@ -139,7 +161,7 @@ ui <- dashboardPage(
                          fluidRow(
                            column(width = 12,
                                   numericInput("niCostoTratam", label = "Costo de 1 tratam. roya ($/ha)", value = NULL),
-                                  textInput("tiNivCostoInsum",label="Nivel de costos de insumos",value=NULL),
+                                  selectInput("tiNivCostoInsum",label="Nivel de costos de insumos",choices=nivel),
                                   numericInput("niCostoIndirect", label = "% Costos indirectos", value = NULL),
                                   numericInput("niOtroCostoProd", label = "Otros costos de producción ($/año)", value = NULL)
                               )
@@ -224,10 +246,10 @@ ui <- dashboardPage(
                              )
                       ),
                       column(width = 4,
-                             fluidRow(
-                              column(width=6,downloadButton("royaDescargar","Descargar datos de roya",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
-                              column(width=6,fileInput("royaUpload",label="Subir datos de roya",width="200px")),
-                             )
+                             #fluidRow(
+                             #  column(width=6,downloadButton("royaDescargar","Descargar datos de roya",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
+                             #  column(width=6,fileInput("royaUpload",label="Subir datos de roya",width="200px")),
+                             #)
                       )
                     )
                 )
@@ -276,10 +298,10 @@ ui <- dashboardPage(
                              )
                       ),
                       column(width = 4,
-                             fluidRow(
-                                column(width=6,downloadButton("moDescargar","Descargar datos Mano de Obra",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
-                                column(width=6,fileInput("moUpload",label="Subir datos de Mano de Obra",width="200px")),
-                             )
+                             #fluidRow(
+                             #    column(width=6,downloadButton("moDescargar","Descargar datos Mano de Obra",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")),
+                             #    column(width=6,fileInput("moUpload",label="Subir datos de Mano de Obra",width="200px")),
+                             #)
                       )
                     )
                 )
@@ -370,28 +392,36 @@ ui <- dashboardPage(
                     fluidRow(
                       column(width = 3,
                              box(title=tags$p(style = "font-size: 70%;","Mes de la observacion de roya"),color = "teal",background ="teal", 
-                                 width=20,height = 100,
+                                 width=20,height = 200,
                                  selectInput(inputId = "mesObs", label=NULL,
                                              choices=c("enero","febrero","marzo","abril","mayo","junio", "julio","agosto","setiembre","octubre","noviembre","diciembre"),width="200px")
                              ),
                              box(title=tags$p(style = "font-size: 70%;","Incidencia Roya en %"),color = "blue",background = "blue",
-                                 width=20,height = 100,
+                                 width=20,height = 200,
                                  numericInput("incObs",label=NULL,value=0,width="200px")
                              ),
-                             box(title=tags$p(style = "font-size: 70%;","Condiciones para crecimiento de Roya"),color = "olive",background = "olive",
-                                 width=20,height = 100,
-                                 selectInput(inputId = "condPro", label=NULL,
-                                             choices=c("desfavorable","normales", "favorable","muy favorables"),width="200px")
-                             ),
-                             box(title=tags$p(style = "font-size: 70%;","Pronóstico"),color = "orange",background = "orange",
-                                 width=20,height = 100,
-                                 selectInput(inputId = "pronostico", label=NULL,
-                                             choices=c("Año en curso","Año siguiente"),width="200px")
-                             )
+                             
                       ),
                       column(width=9,
                              plotOutput("plotVigilancia"),
+                             tags$br(),
+                             fluidRow(
+                               column(width=6,
+                                      box(title=tags$p(style = "font-size: 70%;","Condiciones para crecimiento de Roya"),color = "olive",background = "olive",
+                                          width=20,height = 100,
+                                          selectInput(inputId = "condPro", label=NULL,
+                                                      choices=c("desfavorable","normales", "favorable","muy favorables"),width="200px")
+                                      )    
+                               ),
+                               column(width=6,
+                                      box(title=tags$p(style = "font-size: 70%;","Pronóstico"),color = "orange",background = "orange",
+                                          width=20,height = 100,
+                                          selectInput(inputId = "pronostico", label=NULL,
+                                                      choices=c("Año en curso","Año siguiente"),width="200px")
+                                      )
+                                  )
                              )
+                        ),
                     ),
                 ),
                     fluidRow(
