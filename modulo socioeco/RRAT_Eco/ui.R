@@ -161,7 +161,7 @@ ui <- dashboardPage(
                          fluidRow(
                            column(width = 12,
                                   numericInput("niCostoTratam", label = "Costo de 1 tratam. roya ($/ha)", value = NULL),
-                                  selectInput("tiNivCostoInsum",label="Nivel de costos de insumos",choices=nivel),
+                                  selectInput("tiNivCostoInsum",label="Nivel de costos de insumos",choices=nivel2),
                                   numericInput("niCostoIndirect", label = "% Costos indirectos", value = NULL),
                                   numericInput("niOtroCostoProd", label = "Otros costos de producción ($/año)", value = NULL)
                               )

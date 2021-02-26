@@ -42,7 +42,7 @@ sql <- "select * from tiposproductores order by idtipo"
 tipoproductor <- dbGetQuery(con,sql)
 
 nivel <- c('ninguno','minimo','bajo','medio','alto')
-
+nivel2 <- c('bajo','regular','alto')
 dbDisconnect(con)
 
 

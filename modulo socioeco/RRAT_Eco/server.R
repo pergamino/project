@@ -1,4 +1,22 @@
 server <- function(input, output, session) {
+  con <- dbConnect(PostgreSQL(), dbname = "pergamino", user = "admin",
+                   host = "localhost",
+                   password = "%Rsecret#")
+  
+  sql <- "select * from costomanejo order by id"
+  costomanejo <- dbGetQuery(con,sql)
+  
+  sql <- "select * from roya_historica order by region, nmes"
+  royahistorica <- dbGetQuery(con,sql)
+  
+  sql <- "select pais || ' - ' || region || ' - ' || tipoprod as perfil, * from valores_variables_socioeconomicas order by cod_pais, cod_region"
+  varsocioeco <- dbGetQuery(con,sql)
+  
+  sql <- "select * from tiposproductores order by idtipo"
+  tipoproductor <- dbGetQuery(con,sql)
+  
+  dbDisconnect(con)
+  
   selSistemaProduccion <- reactiveVal()
   
   # El de por defecto
@@ -10,9 +28,9 @@ server <- function(input, output, session) {
   # Tabla Sistema de produccion
   
   selRegiones <- reactive({
-    #if(is.null(importSistemaProd())){
+    if(is.null(importSistemaProd())){
       filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5 
-    #}
+    }
   })
   
   selTipoProductor <- reactive({
@@ -638,7 +656,7 @@ server <- function(input, output, session) {
   importSistemaProd <- reactiveVal()
   
   observe({
-    print(is.null(input$sistemaUpload))
+    print(importSistemaProd())
     if ( is.null(input$sistemaUpload)) return(NULL)
     inFile <- input$sistemaUpload
     file <- inFile$datapath
@@ -672,6 +690,7 @@ server <- function(input, output, session) {
     updateNumericInput(session,"medioCI",value=datamo["medio","ci"])
     updateNumericInput(session,"altoCI",value=datamo["alto","ci"])
     reset("sistemaUpload")
+    importSistemaProd <- reactiveVal()
   })
   
   
