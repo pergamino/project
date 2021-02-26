@@ -2,8 +2,8 @@
 <section  class="portfolio">
       <div class="container">
 
-        <div class="section-title" data-aos="fade-up">
-          <h2>La plataforma Pergamino</h2>
+        <div class="section-title mt-5" data-aos="fade-up">
+          <h2 >La plataforma Pergamino</h2>
           <p class="left-text">"Pergamino" es la plataforma informática desarrollada durante el proyecto Procagica para tratar a los riesgos asociados a la roya del café. </p>
           <br>
           <p class="left-text">Pergamino ofrece varias herramientas y modelos desarrollados por los investigadores del proyecto.</p>

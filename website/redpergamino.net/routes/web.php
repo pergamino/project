@@ -32,4 +32,5 @@ Route::get('/app-mapas','IndexController@maps');
 Route::get('/app-centro-de-datos','IndexController@data');
 Route::get('/app-stadinc','IndexController@clrimodel');
 Route::get('/app-optiroya','IndexController@optimizacion');
+Route::get('/app-miroya','IndexController@miroya');
 Route::get('/app-seroya','IndexController@seroya');
