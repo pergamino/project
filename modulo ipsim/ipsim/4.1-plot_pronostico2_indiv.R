@@ -106,7 +106,7 @@ ggplot() +
                                       sortie_ipsim$incidencia_ipsim)))+
     labs(x = "Fecha de monitoreo")+
     scale_x_date(date_labels = "%d/%m/%y",
-                 breaks=unique(sortie_ipsim$Fecha_median))+
+                 breaks=c(unique(sortie_ipsim$Fecha_median),date_fin))+
 
     theme_bw()+
     theme(
