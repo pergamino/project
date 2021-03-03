@@ -287,4 +287,8 @@ class IndexController extends Controller
     public function seroya(){
         return view('apps.seroya');
     }
+    public function miroya(){
+        return view('apps.miroya');
+    }
+
 }

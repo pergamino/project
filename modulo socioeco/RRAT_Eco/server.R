@@ -1,4 +1,29 @@
 server <- function(input, output, session) {
+  con <- dbConnect(PostgreSQL(), dbname = "pergamino", user = "admin",
+                   host = "localhost",
+                   password = "%Rsecret#")
+  
+  sql <- "select * from costomanejo order by id"
+  costomanejo <- dbGetQuery(con,sql)
+  
+  sql <- "select * from roya_historica order by region, nmes"
+  royahistorica <- dbGetQuery(con,sql)
+  
+  sql <- "select pais || ' - ' || region || ' - ' || tipoprod as perfil, * from valores_variables_socioeconomicas order by cod_pais, cod_region"
+  varsocioeco <- dbGetQuery(con,sql)
+  
+  sql <- "select * from tiposproductores order by idtipo"
+  tipoproductor <- dbGetQuery(con,sql)
+  
+  dbDisconnect(con)
+  
+  selSistemaProduccion <- reactiveVal()
+  
+  # El de por defecto
+  selSistemaProduccion(filter(varsocioeco,perfil==varsocioeco$perfil[1]))
+  updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==varsocioeco$perfil[1])$pais)
+  updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==varsocioeco$perfil[1])$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$region)
+  updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$tipoprod)
   
   # Tabla Sistema de produccion
   
@@ -8,19 +33,60 @@ server <- function(input, output, session) {
     }
   })
   
-  selSistemaProduccion <- reactiveVal()
-  
-  selSistemaProduccion0 <- reactive({
+  selTipoProductor <- reactive({
     if(is.null(importSistemaProd())){
-      filter(varsocioeco,region==input$selRegion)
+      filter(tipoproductor,cod_pais==filter(paises,pais==input$selPais)$cod_pais)$tipoproductor 
     }
   })
   
-  observe({
-    if(is.null(importSistemaProd())){
-      selSistemaProduccion(filter(varsocioeco,region==input$selRegion))
-    }
+  observeEvent(input$selecFromDB, {
+    showModal(dataModal())
   })
+  
+  dataModal <- function(failed = FALSE) {
+    modalDialog(
+      title = "Seleccionar perfiles productivos desde Base de Datos",
+      size = "m",
+      fluidRow(
+        column(width=12,
+               selectInput("selPerfil","Perfil productivo",varsocioeco$perfil,selected = NULL,multiple = FALSE,
+                           selectize = TRUE, width = NULL, size = NULL
+               )    
+        )
+      ),
+      footer = tagList(
+        actionButton("Aplicar","Aplicar"),
+        modalButton("Cerrar")
+      )
+    )
+  }
+  
+  observeEvent(input$Aplicar,
+               {
+                 importSistemaProd <- reactiveVal()
+                 selSistemaProduccion(filter(varsocioeco,perfil==input$selPerfil))
+                 updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==input$selPerfil)$pais)
+                 updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==input$selPerfil)$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region)
+                 updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod)
+               })
+  
+  #selSistemaProduccion0 <- reactive({
+  #  if(is.null(importSistemaProd())){
+  #    filter(varsocioeco,perfil==input$selPerfil)
+  #  }
+  #})
+  
+  #observe({
+  #  if(is.null(importSistemaProd())){
+  #    if(!is.null(input$selPerfil)) {
+  #      selSistemaProduccion(filter(varsocioeco,perfil==input$selPerfil))
+  #      updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==input$selPerfil)$pais)
+  #      updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region)
+  #      updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod)
+  #      runjs("$('#selPais').prop('disabled',true)")
+  #    }
+  #  }
+  #})
   
   costoManejoPais <- reactiveVal()
   
@@ -49,11 +115,18 @@ server <- function(input, output, session) {
   })
   
   observe({
-    if(is.null(importSistemaProd())){
+    #if(is.null(importSistemaProd())){
       updateSelectInput(session, "selRegion",
                       choices = selRegiones())
-      }
+      #}
     })
+  
+  observe({
+    if(is.null(importSistemaProd())){
+      updateSelectInput(session, "tiTipoProductor",
+                        choices = selTipoProductor())
+    }
+  })
   
   observe({
     updateNumericInput(session,"niAlt",value=selSistemaProduccion()$altitud)
@@ -98,11 +171,11 @@ server <- function(input, output, session) {
   })
   
   output$box1 <- renderUI({
-    box(title=paste("Mano de obra manejo (dias-hombres/",unidadesPais()$unidadarea,")",sep=""), color = "light-blue",background = "light-blue", width=50,height = 100)
+    box(title=paste("Mano de obra para manejo de la finca por nivel de manejo (dias-hombres/",unidadesPais()$unidadarea,")",sep=""), color = "light-blue",background = "light-blue", width=50,height = 100)
   })
   
   output$box2 <- renderUI({
-    box(title=paste("Costos insumos nivel regular (",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadarea,")"), color = "light-blue",background = "light-blue", width=50,height = 100)
+    box(title=paste("Costo de insumos por nivel de manejo (",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadarea,")"), color = "light-blue",background = "light-blue", width=50,height = 100)
   })
   
   values <- reactiveValues()
@@ -147,7 +220,7 @@ server <- function(input, output, session) {
   DfRoyaHist <- reactiveVal()
   
   DfRoyaHist0 <- reactive({
-    if(nrow(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)>0)) {
+    if(nrow(filter(royahistorica,region==input$selRegion))>0) {
       DfRoyaHist(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo))    
       filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)  
     } else {
@@ -566,99 +639,59 @@ server <- function(input, output, session) {
   ### Descargas y Subidas ###
   output$sistemaDescargar <- downloadHandler(
     filename <- function(){
-      paste("sistemaproductivo.RData")
+      str_replace_all(paste(input$selPais,"_",input$selRegion,"_",input$tiTipoProductor,"-",Sys.Date(),".RData",sep="")," ","_")
     },
     
     content = function(file) {
-      sistemaProductivo <- sp0()
+      sp <- sp0()
+      rh <- DfRoyaHist()
+      mo <- moi()
+      sistemaProductivo <- list(sp,rh,mo)
+      names(sistemaProductivo) <- c("sp","rh","mo")
       save(sistemaProductivo, file = file)
     }
   )
   
-  output$sistemaDescargar <- downloadHandler(
-    filename <- function(){
-      paste("sistemaproductivo.RData")
-    },
-    
-    content = function(file) {
-      sistemaProductivo <- sp0()
-      save(sistemaProductivo, file = file)
-    }
-  )
-  
-  output$royaDescargar <- downloadHandler(
-    filename <- function(){
-      paste("royahistorica.RData")
-    },
-    
-    content = function(file) {
-      royaHistorica <- DfRoyaHist()
-      save(royaHistorica, file = file)
-    }
-  )
-  
-  output$moDescargar <- downloadHandler(
-    filename <- function(){
-      paste("manoDeObra.RData")
-    },
-    
-    content = function(file) {
-      manoDeObra <- moi()
-      save(manoDeObra, file = file)
-    }
-  )
-  
+
   importSistemaProd <- reactiveVal()
   
   observe({
+    print(importSistemaProd())
     if ( is.null(input$sistemaUpload)) return(NULL)
     inFile <- input$sistemaUpload
     file <- inFile$datapath
     e = new.env()
     name <- load(file, envir = e)
     data <- e[[name]]
-    data <- data.frame(data)
-    names(data) <- c("pais","region","tipoprod","altitud","numfamilias","tamanofamilia","ingresosotros","gastosalimfamilia","ingresominsost","areaprod","preciocafe","rendimientoesperado","nivelmanejo","costo1tratamientoroya","costosindirectos","nivelcostoinsumos","costosprodotros","numpeonesperm","salariopeon","dqmocosecha","salariojornal","mofamiliar","dmmofamiliar","preciotierra","salariominciudad","salariominrural","canastabasicapp")
-    importSistemaProd(data)
-    updateSelectInput(session,"selPais",selected=data[1]$pais)
-    updateSelectInput(session,"selRegion",choices=filter(regiones,idpais==filter(paises,pais==data[1]$pais)$cod_extra)$rrat5,selected=data[2]$region)
-    selSistemaProduccion(data)
-  })
-  
-  observe({
-    if ( is.null(input$royaUpload)) return(NULL)
-    inFile <- input$royaUpload
-    file <- inFile$datapath
-    e = new.env()
-    name <- load(file, envir = e)
-    data <- e[[name]]
-    data <- data.frame(data)
-    DfRoyaHist(data)
+    datasp <- data.frame(data$sp)
+    names(datasp) <- c("pais","region","tipoprod","altitud","numfamilias","tamanofamilia","ingresosotros","gastosalimfamilia","ingresominsost","areaprod","preciocafe","rendimientoesperado","nivelmanejo","costo1tratamientoroya","costosindirectos","nivelcostoinsumos","costosprodotros","numpeonesperm","salariopeon","dqmocosecha","salariojornal","mofamiliar","dmmofamiliar","preciotierra","salariominciudad","salariominrural","canastabasicapp")
+    importSistemaProd(datasp)
+    updateSelectInput(session,"selPais",selected=datasp[1]$pais)
+    updateSelectInput(session,"selRegion",choices=filter(regiones,idpais==filter(paises,pais==datasp[1]$pais)$cod_extra)$rrat5,selected=datasp[2]$region)
+    selSistemaProduccion(datasp)
+    
+    datarh <- data.frame(data$rh)
+    DfRoyaHist(datarh)
     output$hot <- renderExcel({
       colonnes <- data.frame(readOnly = c(TRUE, FALSE, FALSE), width = 100)
       excelTable(DfRoyaHist(), columns = colonnes)
     })
+    
+    datamo <- data.frame(data$mo)
+    updateNumericInput(session,"ningunMO",value=datamo["ninguno","mo"])
+    updateNumericInput(session,"minimoMO",value=datamo["minimo","mo"])
+    updateNumericInput(session,"bajoMO",value=datamo["bajo","mo"])
+    updateNumericInput(session,"medioMO",value=datamo["medio","mo"])
+    updateNumericInput(session,"altoMO",value=datamo["alto","mo"])
+    
+    updateNumericInput(session,"ningunCI",value=datamo["ninguno","ci"])
+    updateNumericInput(session,"minimoCI",value=datamo["minimo","ci"])
+    updateNumericInput(session,"bajoCI",value=datamo["bajo","ci"])
+    updateNumericInput(session,"medioCI",value=datamo["medio","ci"])
+    updateNumericInput(session,"altoCI",value=datamo["alto","ci"])
+    reset("sistemaUpload")
+    importSistemaProd <- reactiveVal()
   })
   
-  observe({
-    if ( is.null(input$moUpload)) return(NULL)
-    inFile <- input$moUpload
-    file <- inFile$datapath
-    e = new.env()
-    name <- load(file, envir = e)
-    data <- e[[name]]
-    data <- data.frame(data)
-    updateNumericInput(session,"ningunMO",value=data["ninguno","mo"])
-    updateNumericInput(session,"minimoMO",value=data["minimo","mo"])
-    updateNumericInput(session,"bajoMO",value=data["bajo","mo"])
-    updateNumericInput(session,"medioMO",value=data["medio","mo"])
-    updateNumericInput(session,"altoMO",value=data["alto","mo"])
-    
-    updateNumericInput(session,"ningunCI",value=data["ninguno","ci"])
-    updateNumericInput(session,"minimoCI",value=data["minimo","ci"])
-    updateNumericInput(session,"bajoCI",value=data["bajo","ci"])
-    updateNumericInput(session,"medioCI",value=data["medio","ci"])
-    updateNumericInput(session,"altoCI",value=data["alto","ci"])
-    
-  })
+  
 }

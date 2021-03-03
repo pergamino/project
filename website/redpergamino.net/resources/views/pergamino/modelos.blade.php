@@ -2,7 +2,7 @@
 <section  class="portfolio">
       <div class="container">
 
-        <div class="section-title" data-aos="fade-up">
+        <div class="section-title mt-5" data-aos="fade-up">
           <h2>Modelos desarrollados para Pergamino</h2>
           <p class="left-text">En Procagica, estamos diseñando varios modelos para ayudar a construir el Sistema de Alerta Temprana (SAT). Todos los modelos desarollados están Open-Source</p>
         </div>
