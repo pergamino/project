@@ -212,7 +212,8 @@ func_stadaman_app <- function() {
 
           dbDisconnect(con)   #disconnect from database
           
-          return(rs_insert_cabecera$correl)
+          #return(rs_insert_cabecera$correl)
+          return(69)
           
 
           
