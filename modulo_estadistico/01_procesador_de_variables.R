@@ -32,7 +32,7 @@ procesar_variables <- function() {
   
   amplitud_term_s_alta_reg <- temp_max_s_alta_reg - temp_min_sombra
   
-  
+  #print(mean(amplitud_termica))
   # Guardar datos -----------------------------------------------------------
   
   datos_proc_var <- cbind(datos, 
@@ -44,7 +44,7 @@ procesar_variables <- function() {
                           amplitud_term_s_baja,
                           amplitud_term_s_alta_irreg,
                           amplitud_term_s_alta_reg)
-  
+  #print(temp_min_sombra)
   saveRDS(datos_proc_var, file = "datos/01_datos_proc_var.RDS")
 }
 
