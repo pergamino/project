@@ -38,3 +38,4 @@ Este pagina oferece :
 
 ## Archivos *Smalltalk* para ejecutar MiRoya
 
+  Ver el archivo: **MiRoya_Dynacof_Smalltalk.zip** 
