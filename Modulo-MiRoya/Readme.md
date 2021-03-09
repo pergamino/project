@@ -20,7 +20,7 @@ Este pagina oferece :
       (https://docs.google.com/document/d/10EcWSSYgbH9FWK5OqCio1YgfBlcJS1dITUgemayLsMA/edit?usp=sharing) 
     <br>
   - Uso de MiRoya: 
-    **GuíaUsuarioModelo_MiRoya.pdf**
+    **GuíaUsuarioModeloMiRoya.pdf**
       (https://docs.google.com/document/d/1R2HFJIzu0FBC03I4sdNyVd46LxXLc9KWcmflsATmnSc/edit?usp=sharing)
       
 ## Archivos *R* para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
@@ -38,3 +38,4 @@ Este pagina oferece :
 
 ## Archivos *Smalltalk* para ejecutar MiRoya
 
+  Ver el archivo: **MiRoya_Dynacof_Smalltalk.zip** 

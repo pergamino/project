@@ -35,6 +35,7 @@ ui <- dashboardPage(
   
   
   body <- dashboardBody(
+    use_waiter(),
     useShinyjs(),
     tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "seroya.css")
@@ -67,15 +68,7 @@ ui <- dashboardPage(
                              )
                              )
                       ),
-                      column(width = 4#,
-                             #fluidRow(
-                             #   column(width = 6,
-                             #          downloadButton("sistemaDescargar","Descargar Sistema Productivo",icon=icon("arrow-alt-circle-down"),style="margin-top:23px;")         
-                             #         ),
-                             #   column(width = 6,
-                             #          fileInput("sistemaUpload", label = "Subir Sistema Productivo", width = "200px")         
-                             #          )
-                             #)
+                      column(width = 4
                       )
                     )
                 )
@@ -161,7 +154,7 @@ ui <- dashboardPage(
                          fluidRow(
                            column(width = 12,
                                   numericInput("niCostoTratam", label = "Costo de 1 tratam. roya ($/ha)", value = NULL),
-                                  selectInput("tiNivCostoInsum",label="Nivel de costos de insumos",choices=nivel),
+                                  selectInput("tiNivCostoInsum",label="Nivel de costos de insumos",choices=nivel2),
                                   numericInput("niCostoIndirect", label = "% Costos indirectos", value = NULL),
                                   numericInput("niOtroCostoProd", label = "Otros costos de producción ($/año)", value = NULL)
                               )
@@ -185,6 +178,7 @@ ui <- dashboardPage(
                          fluidRow(
                            column(width = 12,
                                   numericInput("niMumPeones", label = "Numero de peones permanentes", value = NULL),
+                                  numericInput("niSalarioPeon", label = "Salario mensual peon permanente", value = NULL),
                                   numericInput("niSalarDiaJornal", label = "Salario diario jornales ($/día)", value = NULL),
                                   numericInput("niCosecha", label = "Cosecha (días-hombre/q)", value = NULL),
                                   numericInput("niManoObraFam", label = "Mano de obra familiar (ETC)", value = NULL)

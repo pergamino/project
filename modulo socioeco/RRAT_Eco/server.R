@@ -1,22 +1,62 @@
 server <- function(input, output, session) {
+  waiting_screen <- tagList(
+    spin_flower(),
+    h4("Cargando datos desde Base de Datos Pergamino ...")
+  )
+  waiter_show(html = waiting_screen, color = "black")
+  con <- dbConnect(PostgreSQL(), dbname = "pergamino", user = "admin",
+                   host = "localhost",
+                   password = "%Rsecret#")
+  sql <- "select * from pais order by cod_pais"
+  paises <- dbGetQuery(con,sql)
+  
+  sql <- "select distinct rrat5, idpais from sat_regiones where rrat5 in (select nombre from region_alerta)"
+  regiones <- dbGetQuery(con,sql)
+  
+  sql <- "select * from unidades order by cod_unidad"
+  unidades <- dbGetQuery(con,sql)
+  
+  sql <- "select * from factorcosto order by id"
+  ncisql <- dbGetQuery(con,sql)
+  
+  nci <- matrix(ncisql$factor,nrow=3,ncol=1,dimnames=list(c("alto","regular","bajo"),"factor"))
+  
+  sql <- "select * from costomanejo order by id"
+  costomanejo <- dbGetQuery(con,sql)
+  
+  sql <- "select * from roya_historica order by region, nmes"
+  royahistorica <- dbGetQuery(con,sql)
+  
+  sql <- "select pais || ' - ' || region || ' - ' || tipoprod as perfil, * from valores_variables_socioeconomicas order by cod_pais, cod_region"
+  varsocioeco <- dbGetQuery(con,sql)
+  
+  sql <- "select * from tiposproductores order by idtipo"
+  tipoproductor <- dbGetQuery(con,sql)
+  
+  dbDisconnect(con)
+  
+  waiter_hide()
   selSistemaProduccion <- reactiveVal()
   
   # El de por defecto
   selSistemaProduccion(filter(varsocioeco,perfil==varsocioeco$perfil[1]))
+  
   updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==varsocioeco$perfil[1])$pais)
-  updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==varsocioeco$perfil[1])$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$region)
-  updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$tipoprod)
+  
+  delay(500,updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==varsocioeco$perfil[1])$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$region))
+  
+  delay(500,updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==varsocioeco$perfil[1])$tipoprod))
   
   # Tabla Sistema de produccion
   
   selRegiones <- reactive({
-    #if(is.null(importSistemaProd())){
+    if(is.null(importSistemaProd()) && !is.null(input$selPais)){
       filter(regiones,idpais==filter(paises,pais==input$selPais)$cod_extra)$rrat5 
-    #}
+    }
   })
   
   selTipoProductor <- reactive({
-    if(is.null(importSistemaProd())){
+    if(is.null(importSistemaProd()) && !is.null(input$selPais)){
       filter(tipoproductor,cod_pais==filter(paises,pais==input$selPais)$cod_pais)$tipoproductor 
     }
   })
@@ -48,8 +88,8 @@ server <- function(input, output, session) {
                  importSistemaProd <- reactiveVal()
                  selSistemaProduccion(filter(varsocioeco,perfil==input$selPerfil))
                  updateSelectInput(session,"selPais","País",paises$pais,selected = filter(varsocioeco,perfil==input$selPerfil)$pais)
-                 updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==input$selPerfil)$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region)
-                 updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod)
+                 delay(500,updateSelectInput(session,"selRegion","Región",filter(regiones,idpais==filter(paises,pais==filter(varsocioeco,perfil==input$selPerfil)$pais)$cod_extra)$rrat5,selected=filter(varsocioeco,perfil==input$selPerfil)$region))
+                 delay(500,updateSelectInput(session,"tiTipoProductor","Tipo de productor",tipoproductor$tipoproductor,selected=filter(varsocioeco,perfil==input$selPerfil)$tipoprod))
                })
   
   #selSistemaProduccion0 <- reactive({
@@ -127,7 +167,8 @@ server <- function(input, output, session) {
     updateNumericInput(session,"niCostoIndirect",value=selSistemaProduccion()$costosindirectos)
     updateNumericInput(session,"niOtroCostoProd",label=paste("Otros costos de producción (",unidadesPais()$unidaddinero,"/año)",sep=""),value=selSistemaProduccion()$costosprodotros)
     updateNumericInput(session,"niMumPeones",value=selSistemaProduccion()$numpeonesperm)
-    updateNumericInput(session,"niSalarDiaJornal",label=paste("Salario diario jornales (",unidadesPais()$unidaddinero,"/día)",sep=""),value=selSistemaProduccion()$salariopeon)
+    updateNumericInput(session,"niSalarioPeon",value=selSistemaProduccion()$salariopeon)
+    updateNumericInput(session,"niSalarDiaJornal",label=paste("Salario diario jornales (",unidadesPais()$unidaddinero,"/día)",sep=""),value=selSistemaProduccion()$salariojornal)
     updateNumericInput(session,"niCosecha",label=paste("Cosecha (días-hombre/",unidadesPais()$unidadmedidacafe,")",sep=""),value=selSistemaProduccion()$dqmocosecha)
     updateNumericInput(session,"niManoObraFam",value=selSistemaProduccion()$mofamiliar)
     updateNumericInput(session,"niCanastaBasica",label=paste("Canasta basica (",unidadesPais()$unidaddinero,"/mes/persona)",sep=""),value=selSistemaProduccion()$canastabasicapp)
@@ -206,7 +247,7 @@ server <- function(input, output, session) {
       DfRoyaHist(filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo))    
       filter(royahistorica,region==input$selRegion) %>% select("Mes"=mes,"Incidencia"=incidencia,"Periodo"=periodo)  
     } else {
-      t <- data.frame(Mes=1:12,Incidencia=c(0,0,0,0,0,0,0,0,0,0,0,0),Periodo=c(rep("despues_cosecha",2), rep("antes_cosecha",7),rep("cosecha",3)))
+      t <- data.frame(Mes=1:12,Incidencia=c(0,0,0,0,0,0,0,0,0,0,0,0),Periodo=c(rep("despues.cosecha",2), rep("antes.cosecha",7),rep("cosecha",3)))
       DfRoyaHist(t)
       t
     }
@@ -326,7 +367,7 @@ server <- function(input, output, session) {
                       nivel.costo.insumos=input$tiNivCostoInsum,
                       costos.prod.otros=input$niOtroCostoProd,
                       num.peones.perm=input$niMumPeones,
-                      salario.peon=input$niSueldoMinCampo,
+                      salario.peon=input$niSalarioPeon,
                       dq.mo.cosecha=input$niCosecha,
                       salario.jornal=input$niSalarDiaJornal,
                       mo.familiar=input$niManoObraFam,
@@ -361,7 +402,7 @@ server <- function(input, output, session) {
                       nivel.costo.insumos=input$tiNivCostoInsum,
                       costos.prod.otros=input$niOtroCostoProd,
                       num.peones.perm=input$niMumPeones,
-                      salario.peon=input$niSueldoMinCampo,
+                      salario.peon=input$niSalarioPeon,
                       dq.mo.cosecha=input$niCosecha,
                       salario.jornal=input$niSalarDiaJornal,
                       mo.familiar=input$niManoObraFam,
@@ -551,9 +592,9 @@ server <- function(input, output, session) {
       html("preciosostcafeBase",paste(round(as.numeric(as.character(indic.sp()["linea.base","precio.cafe.min.sost"])))," ",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadmedidacafe,sep=""))
       html("preciosostcafeTendencial",paste(round(as.numeric(as.character(indic.sp()["tendencial","precio.cafe.min.sost"])))," ",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadmedidacafe,sep=""))
       html("preciosostcafeManejo",paste(round(as.numeric(as.character(indic.sp()["con.tratamiento.adaptativo","precio.cafe.min.sost"])))," ",unidadesPais()$unidaddinero,"/",unidadesPais()$unidadmedidacafe,sep=""))
-      html("ingresosBase",paste(round(as.numeric(as.character(indic.sp()["linea.base","ingresosTotal"]))),unidadesPais()$unidaddinero,sep=" "))
-      html("ingresosTendencial",paste(round(as.numeric(as.character(indic.sp()["tendencial","ingresosTotal"]))),unidadesPais()$unidaddinero,sep=" "))
-      html("ingresosManejo",paste(round(as.numeric(as.character(indic.sp()["con.tratamiento.adaptativo","ingresosTotal"]))),unidadesPais()$unidaddinero,sep=" "))
+      html("ingresosBase",paste(round(as.numeric(as.character(indic.sp()["linea.base","ingresosCafe"]))),unidadesPais()$unidaddinero,sep=" "))
+      html("ingresosTendencial",paste(round(as.numeric(as.character(indic.sp()["tendencial","ingresosCafe"]))),unidadesPais()$unidaddinero,sep=" "))
+      html("ingresosManejo",paste(round(as.numeric(as.character(indic.sp()["con.tratamiento.adaptativo","ingresosCafe"]))),unidadesPais()$unidaddinero,sep=" "))
       html("valoragregadoBase",paste(round(as.numeric(as.character(indic.sp()["linea.base","valor.agregado"]))),unidadesPais()$unidaddinero,sep = " "))
       html("valoragregadoTendencial",paste(round(as.numeric(as.character(indic.sp()["tendencial","valor.agregado"]))),unidadesPais()$unidaddinero,sep = " "))
       html("valoragregadoManejo",paste(round(as.numeric(as.character(indic.sp()["con.tratamiento.adaptativo","valor.agregado"]))),unidadesPais()$unidaddinero,sep=" "))
@@ -638,7 +679,7 @@ server <- function(input, output, session) {
   importSistemaProd <- reactiveVal()
   
   observe({
-    print(is.null(input$sistemaUpload))
+    print(importSistemaProd())
     if ( is.null(input$sistemaUpload)) return(NULL)
     inFile <- input$sistemaUpload
     file <- inFile$datapath
@@ -649,7 +690,9 @@ server <- function(input, output, session) {
     names(datasp) <- c("pais","region","tipoprod","altitud","numfamilias","tamanofamilia","ingresosotros","gastosalimfamilia","ingresominsost","areaprod","preciocafe","rendimientoesperado","nivelmanejo","costo1tratamientoroya","costosindirectos","nivelcostoinsumos","costosprodotros","numpeonesperm","salariopeon","dqmocosecha","salariojornal","mofamiliar","dmmofamiliar","preciotierra","salariominciudad","salariominrural","canastabasicapp")
     importSistemaProd(datasp)
     updateSelectInput(session,"selPais",selected=datasp[1]$pais)
-    updateSelectInput(session,"selRegion",choices=filter(regiones,idpais==filter(paises,pais==datasp[1]$pais)$cod_extra)$rrat5,selected=datasp[2]$region)
+    
+    delay(500,updateSelectInput(session,"selRegion",choices=filter(regiones,idpais==filter(paises,pais==datasp[1]$pais)$cod_extra)$rrat5,selected=datasp[2]$region))
+    
     selSistemaProduccion(datasp)
     
     datarh <- data.frame(data$rh)
@@ -672,6 +715,7 @@ server <- function(input, output, session) {
     updateNumericInput(session,"medioCI",value=datamo["medio","ci"])
     updateNumericInput(session,"altoCI",value=datamo["alto","ci"])
     reset("sistemaUpload")
+    importSistemaProd <- reactiveVal()
   })
   
   

@@ -26,7 +26,7 @@ generar_datos <- function(input) {
                 
                 saveRDS(datos_crudos, file = "datos/00_datos_crudos.RDS")
                 
-                print(input$archivo_clima$datapath)
+                #print(input$archivo_clima$datapath)
                 
                 print("Modelo ejecutado con nuevos datos crudos de clima")
                 showNotification("Modelo ejecutado correctamente.",type = "message")
