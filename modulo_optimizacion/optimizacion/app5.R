@@ -1,6 +1,5 @@
 library(shiny)
 library(shinydashboard)
-library(shinydashboardPlus)
 library(shinycssloaders)
 library(tableHTML)
 library(dplyr)
@@ -111,13 +110,7 @@ ui <- fluidPage(
         menuItem("Análisis Sin Datos", tabName = "SinDatos", icon = icon("th"))
       
       ),
-      tags$div(style="padding:15px;text-align:center;",actionLink("show", "Ver guía de uso", style="margin:20px;")),
-      tags$div(style="width: 215px;color: white;text-align: center;padding: 15px;",
-               HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><b>Créditos:</b><br>Edwin Treminio, Edwin.Treminio@catie.ac.cr <br><br>
-              Sergio Vílchez, svilchez@catie.ac.cr <br>
-              Natacha Motisi, natacha.motisi@cirad.fr <br>
-              Fernando Casanoves, casanoves@catie.ac.cr <br>
-              Jacques Avelino,  jacques.avelino@cirad.fr "))
+      tags$div(style="padding:15px;text-align:center;",actionLink("show", "Ver guía de uso", style="margin:20px;"))
     ),
     
     
@@ -365,9 +358,12 @@ ui <- fluidPage(
                   )
                   
           )
+          
         )
       )
   )
+)
+
 
 dashboardPage(
   header,
