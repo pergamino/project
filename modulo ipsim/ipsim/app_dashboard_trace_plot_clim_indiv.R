@@ -366,8 +366,17 @@ ui <- dashboardPage(
     ),
       box(title = "Colores de alerta",status="warning",height=420,width=250,
           img(src = "colorAlertas.png",height=350,width=340)
-      )
-        )
+      ),
+    tags$div(style="width: 450px;color: white;text-align: center;padding: 15px;",
+             HTML("<br><br><b>Créditos:</b><br>Natacha Motisi, natacha.motisi@cirad.fr <br>
+                <br>
+                Jacques Avelino,  jacques.avelino@cirad.fr <br>
+                Pierre Bommel, pierre.bommel@cirad.fr <br>
+                Grégoire Leclerc, gregoire.leclerc@cirad.fr <br>
+                Eliseo Martinez, eliseo.martinez@gmail.com <br>
+                Isabelle Merle, isabelle.merle@protonmail.com
+                "))
+    )
   ),
   
   

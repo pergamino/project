@@ -30,7 +30,14 @@ ui <- dashboardPage(
                fileInput("sistemaUpload", label = "Cargar Sistema Productivo", width = "200px")         
         )
       )
-    )
+    ),
+    tags$div(style="width: 215px;color: white;text-align: center;padding: 15px;",
+             HTML("<br><br>Créditos:</b><br>Grégoire Leclerc, gregoire.leclerc@cirad.fr <br>
+                <br>
+                Jacques Avelino,  jacques.avelino@cirad.fr <br>
+                Natacha Motisi, natacha.motisi@cirad.fr <br>
+                Pierre Bommel, pierre.bommel@cirad.fr <br>
+                Eliseo Martinez, eliseo.martinez@gmail.com "))
   ),
   
   

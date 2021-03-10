@@ -16,7 +16,12 @@ sidebar<-dashboardSidebar(
     menuItem("Incidencia", tabName = "clri", icon = icon("viruses")),
     menuItem("Datos Modelo Clima",   tabName = "datos", icon = icon("download")),
     menuItem("Información", tabName = "info", icon = icon("info"))
-  )
+  ),
+  tags$div(style="width: 300px;color: white;text-align: center;padding: 15px;",
+           HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><b>Créditos:</b><br>Emmanuel Lasso Sambony, eglasso@unicauca.edu.co <br> 
+                    <br>
+                    Jacques Avelino,  jacques.avelino@cirad.fr <br>
+                    Elias de Melo, eliasdem@catie.ac.cr "))
 )
 
 
