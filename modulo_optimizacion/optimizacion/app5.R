@@ -246,15 +246,15 @@ ui <- fluidPage(
                         tabPanel(tags$b("Tamaño efectuado y necesario"),
                                  fluidRow(
                                    column(12,
-                                          box(title="Monitoreo actual",
-                                              background = "maroon",
+                                          box(title="Monitoreo necesario",
+                                              status = "primary", solidHeader = TRUE,
                                               width = 6,
                                               withSpinner(plotOutput("plot_monit_actual",height=500))
                                             
                                           ),
                                           
                                           box(title="Verifica que los monitoreos mensuales han sido eficientes o si requieren de complementarse con más parcelas",
-                                              background = "teal",
+                                              background = "purple",
                                               width = 6,
                                               bsButton("q3", label = "", icon = icon("question"), style = "info", size = "extra-small"),
                                               bsPopover(id = "q3",title ="Resultados",
@@ -299,7 +299,8 @@ ui <- fluidPage(
                                             value = 10),
                                width = 5,
                                
-                               # actionBttn("resultados",(h5("Mostrar resultados")),color = "primary", style = "jelly",block = FALSE ,size = "sm")),
+                               # actionBttn("resultados",(h5("Mostrar resultados")),color = "primary", style = "jelly",block = FALSE ,size = "sm")
+                               ),
                            
                            box(title = tags$b("Resultados"),tableOutput("out_sin_datos"),
                                width = 7)
