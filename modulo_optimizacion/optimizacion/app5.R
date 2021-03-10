@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+library(shinydashboardPlus)
 library(shinycssloaders)
 library(tableHTML)
 library(dplyr)
@@ -95,7 +96,13 @@ ui <- dashboardPage(
         menuItem("Análisis Sin Datos", tabName = "SinDatos", icon = icon("th"))
       
       ),
-      tags$div(style="padding:15px;text-align:center;",actionLink("show", "Ver guía de uso", style="margin:20px;"))
+      tags$div(style="padding:15px;text-align:center;",actionLink("show", "Ver guía de uso", style="margin:20px;")),
+      tags$div(style="position: fixed;left: 0;bottom: 0;width: 215px;color: white;text-align: center;padding: 15px;",
+               HTML("<b>Créditos:</b><br>Edwin Treminio, Edwin.Treminio@catie.ac.cr <br><br>
+              Sergio Vílchez, svilchez@catie.ac.cr <br>
+              Natacha Motisi, natacha.motisi@cirad.fr <br>
+              Fernando Casanoves, casanoves@catie.ac.cr <br>
+              Jacques Avelino,  jacques.avelino@cirad.fr "))
     ),
     
     
@@ -319,7 +326,6 @@ ui <- dashboardPage(
                   )
                   
           )
-          
         )
       )
   )
