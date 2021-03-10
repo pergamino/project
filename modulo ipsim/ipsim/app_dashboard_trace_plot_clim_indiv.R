@@ -374,7 +374,7 @@ ui <- dashboardPage(
                 Pierre Bommel, pierre.bommel@cirad.fr <br>
                 Grégoire Leclerc, gregoire.leclerc@cirad.fr <br>
                 Eliseo Martinez, eliseo.martinez@gmail.com <br>
-                Isabelle
+                Isabelle Merle, isabelle.merle@protonmail.com
                 "))
     )
   ),
