@@ -330,8 +330,6 @@ ui <- dashboardPage(
         )
       )
   )
-)
-
 
 #dashboardPage(
 #  header,
