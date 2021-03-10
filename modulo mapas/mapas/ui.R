@@ -32,7 +32,16 @@ sidebar <- dashboardSidebar(
   ),
   box(title = "Colores de alerta",status="warning",height=350,width=250,
   img(src = "colorAlertas.png",height=250,width=240)
-  )
+  ),
+  tags$div(style="width: 240px;color: white;text-align: center;padding: 15px;",
+           HTML("<br><br><b>Créditos:</b><br>Jacques Avelino,  jacques.avelino@cirad.fr <br>
+              <br>
+              Eliseo Martinez, eliseo.martinez@gmail.com <br>
+              Grégoire Leclerc, gregoire.leclerc@cirad.fr <br>
+              Natacha Motisi, natacha.motisi@cirad.fr <br>
+              Pierre Bommel, pierre.bommel@cirad.fr <br>
+              Guillaume Cornu guillaume.cornu@cirad.fr <br>
+              Sylvain Falala sylvain.falala@cirad.fr "))
 )
 
 ############    Body    ######################
