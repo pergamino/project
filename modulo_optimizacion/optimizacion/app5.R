@@ -64,7 +64,17 @@ Button_pop4 <- paste(tags$b("Las categorias de alturas se definen como siguiente
                      sep="<br>")
 
 
-ui <- dashboardPage(
+ui <- fluidPage(
+  
+  tags$head(
+    tags$style(HTML("
+      .shiny-output-error-validation {
+        color: darkblue;
+      }
+    "))
+  ),
+  
+  dashboardPage(
     
     header <- dashboardHeader(
       tags$li(class = "dropdown",
@@ -83,6 +93,11 @@ ui <- dashboardPage(
       sidebarMenu(
         
         menuItem("Análisis Con Datos", tabName = "ConDatos1", icon = icon("dashboard"),
+                 
+                 menuSubItem("Utilización de la aplicación ?",
+                             tabName = "usar_app",
+                             icon = icon("table")
+                 ),
                  
                  menuSubItem("Planificación anual",
                              tabName = "planif_anual",
@@ -106,7 +121,20 @@ ui <- dashboardPage(
         tabItems(
 
           # First tab content
-          tabItem(tabName = "ConDatos1",box(h3("Análisis de variables más importantes"))),
+          tabItem(tabName = "usar_app",
+                  h3("¿ Como usar la aplicación ?"),
+                  fluidRow(
+                            # box(status = "warning",
+                                # solidHeader = T,
+                                img(
+                                  src = "explicaciones_app.png",
+                                  height = 800,
+                                  width = 1200
+                                )
+                            # )
+                  )
+                                            
+                  ),
           
           # 2nd tab content
           tabItem(tabName = "planif_anual",
@@ -122,17 +150,21 @@ ui <- dashboardPage(
                         tabPanel(tags$b("Datos y parametros"),
                                  fluidRow(
                                    column(6,
-                                          box(h4("Carga datos historicós para la planificación anual"),
+                                          box(tags$p("Etapa 1. Carga datos historicós para la planificación anual",
+                                                     style = "font-size: 200%;"),
                                               color = "light-blue",background = "navy",width = 6,
-                                              fileInput("file_epid", label=h5("1. Ingresar un archivo CSV"),
+                                              fileInput("file_epid", label=h5("Ingresar un archivo CSV"),
                                                         accept = c(
                                                           "text/csv",
                                                           "text/comma-separated-values,text/plain",
                                                           ".csv")
-                                              )
+                                              ),
+                                              br(),
+                                              actionBttn("action1",(tags$p("Etapa 4. Iniciar el análisis",
+                                                                       style = "font-size: 150%;")),color = "success", style = "jelly",block = FALSE, size = "sm")
                                           ),
 
-                                          box(title = tags$p("Defina los parámetros siguientes",
+                                          box(title = tags$p("Etapa 2. Defina los parámetros siguientes",
                                                              style = "font-size: 150%;"),
                                               bsButton("q1", label = "", icon = icon("question"), style = "info", size = "extra-small"),
                                               bsPopover(id = "q1",title ="Parámetros",
@@ -155,7 +187,7 @@ ui <- dashboardPage(
 
                                    
                                           box(color = "yellow",background = "light-blue",width = 6,
-                                              title=tags$p("Defina el número de parcelas existentes en cada categoría de parcelas",
+                                              title=tags$p("Etapa 3. Defina el número de parcelas existentes en cada categoría de parcelas",
                                                            style = "font-size: 150%;"),
                                               bsButton("q4", label = "", icon = icon("question"), style = "info", size = "extra-small"),
                                               bsPopover(id = "q4",title ="Categorias de alturas",
@@ -182,7 +214,8 @@ ui <- dashboardPage(
                                  
                                  box(title=tags$b("Carga los graficos y los datos de planificación"),
                                    downloadButton("downPlotPlanificacion", "Carga grafico"),
-                                     downloadButton("downloadDataMetric","Carga datos planificación")),
+                                     downloadButton("downloadDataMetric","Carga datos planificación")
+                                   ),
                                  
                                  box(title=tags$b("Planificación anual del monitoreo"),background = "teal", width = 12,
                                      withSpinner(plotOutput("plot_planificacion",height=500))
@@ -212,26 +245,31 @@ ui <- dashboardPage(
                                  fluidRow(
                                    fluidRow(
                                      column(12 ,
-                                            box(h4("Carga datos"),color = "light-blue",
-                                                background = "navy",width = 4,height=350,
+                                            box(tags$p("Carga datos",
+                                                       style = "font-size: 200%;"),
+                                                color = "light-blue",
+                                                background = "navy",width = 4,height=400,
                                                
                                                 
                                                 fileInput("file_planif", 
-                                                          label=h5("1. Ingresar el archivo de planifcación anual (.csv)"),
+                                                          label=tags$p("1. Ingresar el archivo de planifcación anual (.csv)",
+                                                                       style = "font-size: 130%;"),
                                                           accept = c(
                                                             "text/csv",
                                                             "text/comma-separated-values,text/plain",
                                                             ".csv")),
                                                 
                                                 fileInput("file_epid2", 
-                                                          label=h5("2. Ingresar el archivo del monitoreo del mes en curso (.csv)"),
+                                                          label=tags$p("2. Ingresar el archivo del monitoreo del mes en curso (.csv)",
+                                                                       style = "font-size: 130%;"),
                                                           accept = c(
                                                             "text/csv",
                                                             "text/comma-separated-values,text/plain",
-                                                            ".csv"))
-                                                # ,
-                                                # br(),
-                                                # actionBttn("action2",(h5("Iniciar el análisis")),color = "success", style = "jelly",block = FALSE, size = "sm")
+                                                            ".csv")),
+                                                br(),
+                                                actionBttn("action2",(tags$p("3. Iniciar el análisis",
+                                                                             style = "font-size: 130%;")),
+                                                color = "success", style = "jelly",block = FALSE, size = "sm")
                                              
                                             )
                                           
@@ -327,27 +365,18 @@ ui <- dashboardPage(
 )
 
 
-#dashboardPage(
-#  header,
-#  sidebar,
-#  body
-#)
+dashboardPage(
+  header,
+  sidebar,
+  body
+)
 
 
 server <- function(session, input, output) {
   
   # Con datos -----------------------
-  data <-  reactive({
-    #req(input$file_epid)
-    
-    
-    inFile_epid <- input$file_epid
-    if (is.null(inFile_epid))
-      return(NULL)
-    
-    read.csv(inFile_epid$datapath, header = T)
-  })
   
+
   dataModal <- function(failed = FALSE) {
     modalDialog(
       title = "Guía de uso",
@@ -369,11 +398,22 @@ server <- function(session, input, output) {
   
 
   
+  data <-  reactive({
+    # req(input$file_epid)
+    inFile_epid <- input$file_epid
+    if (is.null(inFile_epid))
+      return(NULL)
+    
+    read.csv(inFile_epid$datapath, header = T)
+  })
+  
+  
   datos0 <-  reactive({
     func_prep_datos(data(),
                    input$num_detectabilidad)
   })
   
+ 
   comb_var1 <-  reactive({
     func_table_comb_var(datos0())
   })
@@ -381,6 +421,7 @@ server <- function(session, input, output) {
 
 
   output$comb_var1 <- renderUI({
+
     aa <- lapply(comb_var1()$FACTOR, function(i) {
       numericInput(paste0("num_",i),
                    h5(i),
@@ -392,14 +433,21 @@ server <- function(session, input, output) {
   
   
   df_Np1 <- reactive({
+    
+    # validate(
+    #   need(length(data()$Year)>0, "Su archivo no debe estar en el correcto formato "
+    #   )
+    # )
+    
     data.frame(FACTOR=comb_var1()$FACTOR,
                Np=sapply(comb_var1()$FACTOR,function(i)
                  input[[paste0("num_",i)]]))
   })
   
 
-  analyse_vgam <- reactive({
-    
+  analyse_vgam <-  eventReactive(input$action1,{
+  # analyse_vgam <- reactive({
+
     withProgress(message = 'Calculo en curso',
                  detail = 'Puede tomar un cafecito...', value = 0, {
                    TME(datos0(),
@@ -408,6 +456,15 @@ server <- function(session, input, output) {
                        input$num_TMF,
                        progress=TRUE)
                  })
+  })
+  
+  
+  #MENSAJE boton 2 
+  observeEvent(input$action1,{
+    showModal(modalDialog(
+      title = "Mensaje Importante",
+      "Antes de pasar a la pestaña Tamaño a realizar, necesita llenar las informaciones sobre los parametros"
+    ))
   })
   
   
@@ -427,6 +484,19 @@ server <- function(session, input, output) {
   
   
   output$plot_planificacion <- renderPlot({
+    
+    validate(
+      need(data() != "", "Para mostrar el gráfico vuelva a la pestaña Datos y parametros"
+           ),
+      need(data() != "", "1. Necesita seleccionar un archivo de monitoreo historicó"
+           ),
+      need(data() != "", "2. Llenar los parametros"
+           ),
+      need(data() != "",  "3. Pulse el botón Iniciar el análisis"
+           )
+    )
+    
+    
     func_plot_TME(df_metrica_all(),
                   input$metrica1)
   })
@@ -466,7 +536,8 @@ server <- function(session, input, output) {
  
   # Importer les donnees de planification
   
-  df_planif <-  reactive({ # eventReactive(input$action2,{
+  df_planif <-  eventReactive(input$action2,{
+  # df_planif <-  reactive({
     req(input$file_planif)
     
     inFile_planif <- input$file_planif
@@ -480,7 +551,8 @@ server <- function(session, input, output) {
   ##nuevo ingreso datos 
   # Importer les donnees de monitoreo de lannee en cours
   
-  df_epid2 <-  reactive({ # eventReactive(input$action2,{
+  df_epid2 <-  eventReactive(input$action2,{
+  # df_epid2 <-  reactive({ 
     req(input$file_epid2)
     
     inFile_epid2 <- input$file_epid2
@@ -493,13 +565,22 @@ server <- function(session, input, output) {
 
 
   
+  # #MENSAJE boton 2 
+  # observeEvent(input$action2, {
+  #   showModal(modalDialog(
+  #     title = "Mensaje Importante",
+  #     "Continuar a la siguiente pestaña ->"
+  #   ))
+  # })
+  
   #MENSAJE boton 2 
-  observeEvent(input$action2, {
+  observeEvent(input$action2,{
     showModal(modalDialog(
       title = "Mensaje Importante",
-      "Continuar a la siguiente pestaña ->"
+      "Continuar a la pestaña Tamaño efectuado y necesario"
     ))
   })
+  
   
   
   datos2 <-  reactive({
@@ -528,6 +609,14 @@ server <- function(session, input, output) {
   
   
   output$plot_monit_actual <- renderPlot({
+    
+    # validate(
+    #   need(df_epid2(), "Compruebe el formato de su archivo"
+    #   ),
+    #   need(df_planif(), "Compruebe el formato de su archivo"
+    #   )
+    # )
+    
     func_plot_TME_all(analyse_vgam2())
   })
   
@@ -550,6 +639,14 @@ server <- function(session, input, output) {
   })
   
   output$table_TM_sequencial <- renderUI({
+    
+    # validate(
+    #   need(df_epid2(), "Compruebe el formato de su archivo"
+    #   ),
+    #   need(df_planif(), "Compruebe el formato de su archivo"
+    #   )
+    # )
+    
     # table_output_list <- 
       lapply(1:length(funcListTable()), function(i) {
       try(
