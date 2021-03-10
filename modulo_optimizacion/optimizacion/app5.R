@@ -64,9 +64,7 @@ Button_pop4 <- paste(tags$b("Las categorias de alturas se definen como siguiente
                      sep="<br>")
 
 
-ui <- fluidPage(
-  
-  dashboardPage(
+ui <- dashboardPage(
     
     header <- dashboardHeader(
       tags$li(class = "dropdown",
@@ -329,11 +327,11 @@ ui <- fluidPage(
 )
 
 
-dashboardPage(
-  header,
-  sidebar,
-  body
-)
+#dashboardPage(
+#  header,
+#  sidebar,
+#  body
+#)
 
 
 server <- function(session, input, output) {
