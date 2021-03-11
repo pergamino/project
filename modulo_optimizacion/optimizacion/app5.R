@@ -11,13 +11,10 @@ library(shinyWidgets)
 source("1-func_prep_datos.R")
 source("2-names_func_table_comb_var.R")
 source("3-calcul_TM_con_datos.R")
-
 source("4-func_metrica.R")
 source("5-plot_TME.R")
-
 source("6-calcul_TM_sequentiel.R")
 source("7-plot_TME_all.R")
-
 
 # Sin datos
 source("0-calcul_TME_fijo_sin_datos.R")
@@ -99,11 +96,11 @@ ui <- fluidPage(
                              icon = icon("table")
                  ),
                  
-                 menuSubItem("Planificación anual",
+                 menuSubItem("A. Planificación anual",
                              tabName = "planif_anual",
                              icon = icon("table")
                              ),
-                 menuSubItem("Monitoreo del mes",
+                 menuSubItem("B. Monitoreo del mes",
                              tabName = "monit_mes",
                              icon = icon('hashtag'))
         ),
@@ -133,9 +130,10 @@ ui <- fluidPage(
                             # box(status = "warning",
                                 # solidHeader = T,
                                 img(
-                                  src = "explicaciones_app.png",
-                                  height = 800,
-                                  width = 1200
+                                  src = "explicaciones_app.png"
+                                  # ,
+                                  # height = 800,
+                                  # width = 1350
                                 )
                             # )
                   )
@@ -153,7 +151,7 @@ ui <- fluidPage(
 
                       tabsetPanel(
 
-                        tabPanel(tags$b("Datos y parametros"),
+                        tabPanel(tags$b("A1. Datos y parametros"),
                                  fluidRow(
                                    column(6,
                                           box(tags$p("Etapa 1. Carga datos historicós para la planificación anual",
@@ -206,7 +204,7 @@ ui <- fluidPage(
                                  )
                         ),
                         
-                        tabPanel(tags$b("Tamaño a realizar"),  
+                        tabPanel(tags$b("A2. Tamaño a realizar"),  
                                  box(title=tags$b("Elija las opciones de planificación"), background = "navy",
                                      
                                      bsButton("q2", label = "", icon = icon("question"), style = "info", size = "extra-small"),
@@ -220,7 +218,7 @@ ui <- fluidPage(
                                  
                                  box(title=tags$b("Carga los graficos y los datos de planificación"),
                                    downloadButton("downPlotPlanificacion", "Carga grafico"),
-                                     downloadButton("downloadDataMetric","Carga datos planificación")
+                                     downloadButton("downloadDataMetric"," Etapa 5. Carga datos de planificación")
                                    ),
                                  
                                  box(title=tags$b("Planificación anual del monitoreo"),background = "teal", width = 12,
@@ -247,18 +245,18 @@ ui <- fluidPage(
                       
                       tabsetPanel(
                         
-                        tabPanel(tags$b("Datos de planificación y del monitoreo del mes"),
+                        tabPanel(tags$b("B1. Datos de planificación y del monitoreo del mes"),
                                  fluidRow(
                                    fluidRow(
                                      column(12 ,
                                             box(tags$p("Carga datos",
                                                        style = "font-size: 200%;"),
                                                 color = "light-blue",
-                                                background = "navy",width = 4,height=400,
+                                                background = "navy",width = 4,height=450,
                                                
                                                 
                                                 fileInput("file_planif", 
-                                                          label=tags$p("1. Ingresar el archivo de planifcación anual (.csv)",
+                                                          label=tags$p("Etapa 1. Ingresar el archivo de planifcación anual (.csv)",
                                                                        style = "font-size: 130%;"),
                                                           accept = c(
                                                             "text/csv",
@@ -266,14 +264,14 @@ ui <- fluidPage(
                                                             ".csv")),
                                                 
                                                 fileInput("file_epid2", 
-                                                          label=tags$p("2. Ingresar el archivo del monitoreo del mes en curso (.csv)",
+                                                          label=tags$p("Etapa 2. Ingresar el archivo del monitoreo del mes en curso (.csv)",
                                                                        style = "font-size: 130%;"),
                                                           accept = c(
                                                             "text/csv",
                                                             "text/comma-separated-values,text/plain",
                                                             ".csv")),
                                                 br(),
-                                                actionBttn("action2",(tags$p("3. Iniciar el análisis",
+                                                actionBttn("action2",(tags$p("Etapa 3. Iniciar el análisis",
                                                                              style = "font-size: 130%;")),
                                                 color = "success", style = "jelly",block = FALSE, size = "sm")
                                              
@@ -285,7 +283,7 @@ ui <- fluidPage(
                         ),
                         
                         
-                        tabPanel(tags$b("Tamaño efectuado y necesario"),
+                        tabPanel(tags$b("B2. Tamaño efectuado y necesario"),
                                  fluidRow(
                                    column(12,
                                           box(title="Monitoreo necesario",
@@ -469,7 +467,7 @@ server <- function(session, input, output) {
   observeEvent(input$action1,{
     showModal(modalDialog(
       title = "Mensaje Importante",
-      "Antes de pasar a la pestaña Tamaño a realizar, necesita llenar las informaciones sobre los parametros"
+      "Antes de pasar a la pestaña A2. Tamaño a realizar, necesita llenar las informaciones sobre los parametros"
     ))
   })
   
@@ -583,7 +581,7 @@ server <- function(session, input, output) {
   observeEvent(input$action2,{
     showModal(modalDialog(
       title = "Mensaje Importante",
-      "Continuar a la pestaña Tamaño efectuado y necesario"
+      "Continuar a la pestaña B2. Tamaño efectuado y necesario"
     ))
   })
   
