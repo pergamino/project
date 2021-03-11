@@ -253,25 +253,25 @@
                     </h5>
                     <ul class="mt-2 text-left ml-5 mt-3">
                         <li>
-                            Jacques Avelino, CIRAD - CATIE
+                            Pierre Bommel, pierre.bommel@cirad.fr 
                         </li>
                         <li>
-                            Edwin Treminio, CATIE
+                            
                         </li>
                         <li>
-                            Pierre Bommel, CIRAD - CATIE
+                            Natacha Motisi, natacha.motisi@cirad.fr 
                         </li>
                         <li>
-                        Grégoire Leclerc, CIRAD - CATIE
+                            Jacques Avelino,  jacques.avelino@cirad.fr 
                         </li>
                         <li>
-                        Natacha Motisi, CIRAD - CATIE
+                            Grégoire Leclerc, gregoire.leclerc@cirad.fr 
                         </li>
                         <li>
-                        Isabelle Merle, CIRAD - CATIE
+                            Rémi Vezy  remi.vezy@cirad.fr
                         </li>
                         <li>
-                        Rémi VEZY, CIRAD
+                            Isabelle Merle isabelle.merle@protonmail.com 
                         </li>
                         
                     </ul>

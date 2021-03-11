@@ -42,10 +42,11 @@ shinyUI(
                 ),
                 tags$div(style="padding:15px;",actionLink("show", "Información", style="margin:20px;")),
                 tags$div(style="width: 215px;color: white;text-align: center;padding: 15px;",
-                     HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><b>Créditos:</b><br>Isabelle Merle, isabelle.merle@protonmail.com <br>
+                     HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><b>Créditos:</b><br>Isabelle Merle, isabelle.merle@protonmail.com <br>
                         <br>
                         Jacques Avelino,  jacques.avelino@cirad.fr  <br>
                         Fabienne Ribeyre, fabienne.ribeyre@cirad.fr <br>
+                        Natacha Motisi, natacha.motisi@cirad.fr <br>
                         Grupo Dabia, https://www.grupodabia.com/nosotros/ "))
             ),
         
