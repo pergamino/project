@@ -3,7 +3,7 @@
 <main id="main">
     <!-- ======= Features Section ======= -->
     <section id="services" class="services">
-        <iframe class="responsive-iframe    " src="https://www.redpergamino.net/clrimodel/" title="Centro de Datos"></iframe>
+        <iframe class="responsive-iframe" src="/clrimodel/" title="Modelo"></iframe>
     </section>
 </main><!-- End #main -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-THJ0900S2G"></script>
