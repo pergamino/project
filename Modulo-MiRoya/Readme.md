@@ -21,7 +21,12 @@ Este pagina oferece :
     <br>
   - Uso de MiRoya: 
     **GuíaUsuarioModeloMiRoya.pdf**
-      (https://docs.google.com/document/d/1R2HFJIzu0FBC03I4sdNyVd46LxXLc9KWcmflsATmnSc/edit?usp=sharing)
+      (https://docs.google.com/document/d/1R2HFJIzu0FBC03I4sdNyVd46LxXLc9KWcmflsATmnSc/edit?usp=sharing)  
+    <br>
+  - presentacion completa: 
+      **GuiaUsuarioModeloMiRoyaFull.pdf** 
+    <br> 
+      
       
 ## Archivos *R* para ejecutar simulaciones (DynaCof y MiRoya-DynaCof)
 
