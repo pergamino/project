@@ -30,7 +30,6 @@ func_stadaman_app <- function() {
     
     #realizar la consulta en la tabla datosmodeloclima
     datos_crudos <- dbGetQuery(con,consulta)
-    return(69)
     
     tryCatch(
       {
