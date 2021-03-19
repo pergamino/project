@@ -14,7 +14,7 @@ lat <<- -87.565
 lng <<- 14.1378
 
 func_stadaman_app <- function() {
-    return(69)
+    
     #create connection object
     con <- dbConnect(drv =PostgreSQL(), 
                      user="admin", 
@@ -30,7 +30,6 @@ func_stadaman_app <- function() {
     
     #realizar la consulta en la tabla datosmodeloclima
     datos_crudos <- dbGetQuery(con,consulta)
-    
     
     tryCatch(
       {
