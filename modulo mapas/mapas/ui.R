@@ -47,6 +47,7 @@ sidebar <- dashboardSidebar(
 ############    Body    ######################
 
 body <- dashboardBody(
+  use_waiter(),
   useShinyjs(),
   valueBoxOutput("approvalBox", width=12),
   fluidRow(

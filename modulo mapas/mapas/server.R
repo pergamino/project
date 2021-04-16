@@ -4,7 +4,152 @@
 
 
 server <- function(input, output) {
+  waiting_screen <- tagList(
+    spin_flower(),
+    h4("Cargando datos desde Base de Datos Pergamino ...")
+  )
+  waiter_show(html = waiting_screen, color = "black")
   
+  con <- dbConnect(PostgreSQL(), dbname = "pergamino", user = "admin",
+                   host = "localhost",
+                   password = "%Rsecret#")
+  
+  zonas <- st_read("CafeCardSHP/CafeRRAT5b.shp")
+  zonas <- st_simplify(zonas, preserveTopology = T, dTolerance = 1)
+  
+  sql <- "select
+a.nombre as RRAT5,
+b.periodo as Periodo,
+c.catvariedad as CATvariedad,
+UPPER(d.pais) as pais,
+z.incidencia_media as media,
+e.color as alertares,
+f.color as alertamed,
+g.color as alertasus,
+z.nregistros as n,
+z.mes,
+z.anio
+from region_alerta a
+inner join evaluacion_regional_roya_detalle z on a.cod_region = z.cod_region 
+inner join periodo_fenologia b on b.cod_periodo = z.cod_periodo
+inner join categoria_variedad c on c.cod_catvariedad = z.cod_catvariedad
+inner join pais d on d.cod_pais = z.cod_pais
+inner join (select cod_alerta, color from alertas) as e on e.cod_alerta = z.cod_alerta_res
+inner join (select cod_alerta, color from alertas) as f on f.cod_alerta = z.cod_alerta_med 
+inner join (select cod_alerta, color from alertas) as g on g.cod_alerta = z.cod_alerta_sus
+order by z.anio, z.mes asc"
+  
+  epid <- dbGetQuery(con,sql)
+  
+  sqlareas <- "select 
+case when periodo = 'Antes de cosecha' then 1 
+when periodo = 'Durante cosecha' then 2
+when periodo = 'Después de cosecha' then 3
+end as periodo,
+case when catvariedad = 'Susceptibles' then 1
+when catvariedad = 'Medianamente resistentes' then 2
+when catvariedad = 'Resistentes' then 3
+end as catvariedad,
+mes,
+anio,
+case when color = 'azul' then '#00b2f3'
+when color = 'verde' then '#63fd2c'
+when color = 'amarilla' then '#fffc00'
+when color = 'naranja' then '#fabf00'
+when color = 'rojo' then '#fd0100' end as color,
+case when color = 'azul' then 1
+when color = 'verde' then 2
+when color = 'amarilla' then 3
+when color = 'naranja' then 4
+when color = 'rojo' then 5 end as orden,
+areaalerta,
+porcentaje
+from alertas_porcentaje_areas order by periodo,catvariedad,mes,anio,orden"
+  
+  areas <- dbGetQuery(con,sqlareas)
+  
+  sql2 <- "select * from evaluacion_regional_roya order by anio, mes"
+  cabeceras <- dbGetQuery(con,sql2)
+  
+  dbDisconnect(con)
+  
+  epid$periodo2 <- ifelse(epid$periodo== "Antes de cosecha",
+                          "De la floración hasta la cosecha",
+                          ifelse(epid$periodo == "Durante cosecha",
+                                 "Durante de la cosecha",
+                                 "De la cosecha hasta la floración"))
+  
+  periodo_feno <- unique(factor(epid$periodo2))
+  defAnio <- max(epid$anio)
+  defMes <- max(filter(epid,anio==defAnio)$mes)
+  defVariedad <- ""
+  defFenologia <- ""
+  if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Susceptibles"))>0) {
+    defVariedad <- "Susceptibles"
+    if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Susceptibles" & periodo2 == "De la floración hasta la cosecha"))>0){
+      defFenologia <- "De la floración hasta la cosecha"
+    } else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Susceptibles" & periodo2 == "Durante de la cosecha"))>0) {
+      defFenologia <- "Durante de la cosecha"
+    } else {
+      defFenologia <- "De la cosecha hasta la floración"
+    }
+  } else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Medianamente resistentes"))>0) {
+    defVariedad <- "Medianamente resistentes"
+    if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Medianamente resistentes" & periodo2 == "De la floración hasta la cosecha"))>0){
+      defFenologia <- "De la floración hasta la cosecha"
+    } else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Medianamente resistentes" & periodo2 == "Durante de la cosecha"))>0) {
+      defFenologia <- "Durante de la cosecha"
+    } else {
+      defFenologia <- "De la cosecha hasta la floración"
+    }
+  } else {
+    defVariedad <- "Resistentes"
+    if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Resistentes" & periodo2 == "De la floración hasta la cosecha"))>0){
+      defFenologia <- "De la floración hasta la cosecha"
+    } else if(nrow(filter(epid,anio==defAnio & mes==defMes & catvariedad=="Resistentes" & periodo2 == "Durante de la cosecha"))>0) {
+      defFenologia <- "Durante de la cosecha"
+    } else {
+      defFenologia <- "De la cosecha hasta la floración"
+    }
+  }
+  
+  #print(defVariedad)
+  #print(defFenologia)
+  
+  #epid <- read.xlsx("dataEpid/allData.xlsx")
+  
+  epid$alerta[epid$alertares!=""] <- epid$alertares[epid$alertares!=""]
+  epid$alerta[epid$alertamed!=""] <- epid$alertamed[epid$alertamed!=""]
+  epid$alerta[epid$alertasus!=""] <- epid$alertasus[epid$alertasus!=""]
+  
+  epid$id <- paste0(epid$rrat5,epid$pais)
+  zonas$id <- paste0(zonas$RRAT5,zonas$PAIS)
+  
+  tabColors <- c("roja"="red","rojo"="red","naranja"="orange","amarillo"="yellow",
+                 "amarilla"="yellow","verde"="green","azul"="blue") 
+  
+  epid$alerta <- tabColors[trim(epid$alerta)]
+  
+  
+  variedad <- unique(factor(epid$catvariedad))
+  
+  
+  
+  
+  anios <- unique(factor(epid$anio))
+  
+  zonas <- st_transform(zonas,4326) # à la place de 4326 "+proj=longlat +datum=WGS84"
+  
+  bnd_zonas <- st_bbox(zonas)
+  
+  minMes <- 1
+  maxMes <- 12
+  
+  getMes <- function(mes)
+  {
+    switch(mes,"1" = "Enero", "2" = "Febrero","3" = "Marzo","4" = "Abril","5" = "Mayo","6" = "Junio","7" = "Julio","8" = "Agosto","9" = "Septiembre","10" = "Octubre","11" = "Noviembre","12" = "Diciembre")
+  }
+  waiter_hide()
   chooseSuscept <- reactive({
     subset(epid,catvariedad==input$nivSuscept & periodo2==input$feno & mes==input$selMes & anio==input$selAnio)
   })
