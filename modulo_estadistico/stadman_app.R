@@ -14,7 +14,8 @@ lat <<- -87.565
 lng <<- 14.1378
 
 func_stadaman_app <- function() {
-    
+
+
     #create connection object
     con <- dbConnect(drv =PostgreSQL(), 
                      user="admin", 
@@ -57,6 +58,7 @@ func_stadaman_app <- function() {
           data3 <- datos_pron_finales %>% filter(modelo %in% c("mod_aparicion_s_alta_irreg", "mod_esporulacion_s_alta_irreg", "mod_intensificacion_s_alta_irreg"))
           
           data4 <- datos_pron_finales %>% filter(modelo %in% c("mod_aparicion_s_alta_reg", "mod_esporulacion_s_alta_reg", "mod_intensificacion_s_alta_reg"))
+          
           
           #CABECERA 
           sql <- paste("insert into datalink_stadman_app(cod_lote) values(",args[3],") RETURNING correl;");
