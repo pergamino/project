@@ -57,6 +57,11 @@ ui <- dashboardPage(
           "¿Cómo se construye el modelo?",
           tabName = "tab3",
           icon = icon("list-alt")
+        ),
+        menuSubItem(
+          "Guía y Documentos",
+          tabName = "tab4",
+          icon = icon("list-alt")
         )
       ),
       
@@ -445,7 +450,19 @@ ui <- dashboardPage(
         )
       ),  
 
-        
+      tabItem(
+        tabName = "tab4",
+        HTML("<iframe width='560' height='315' src='https://www.youtube.com/embed/lJkScOi60tw' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"),       
+        HTML("<br><br><ul>"),
+        HTML("<li><a href='2021-03-08_guia_usario_ipsim_roya.pdf' target='blank_'>Guía de usuario</a></li>"),
+        HTML("<li><a href='1-datos_historicos.csv' target='blank_'>Datos Históricos (ejemplo)</a></li>"),
+        HTML("<li><a href='2-planificacion_anual_metricas.csv' target='blank_'>Planificación Anual (ejemplo)</a></li>"),
+        HTML("<li><a href='3-monitoreo_actual_03-2021_nueva_ronda.csv' target='blank_'>Monitoreo Actual  (ejemplo)</a></li>"),
+        HTML("<li><a href='clim_honduras_alt_media_03-06.csv' target='blank_'>Datos de Clima Observado Honduras  (ejemplo)</a></li>"),
+        HTML("<li><a href='epid_honduras_2017_alt_media_suscept_03-06.csv' target='blank_'>Datos epidemiológicos de Honduras  (ejemplo)</a></li>"),
+        HTML("<li><a href='https://github.com/pergamino/project/tree/master/modulo%20ipsim' target='blank_'>Repositorio</a></li>"),
+        HTML("</ul>"),
+      ),  
         tabItem(tabName = "datosCargadas",
                 fluidRow(
                   tabBox(

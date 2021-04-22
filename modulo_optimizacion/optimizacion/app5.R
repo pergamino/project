@@ -387,7 +387,11 @@ server <- function(session, input, output) {
       size = "l",
       fluidRow(
         column(width=12,
-               HTML("<embed src='guia.pdf' type='application/pdf' internalinstanceid='44' title='' width='100%' height='890'>")      
+               HTML("<center><iframe width='560' height='315' src='https://www.youtube.com/embed/kLzN64a4tAA' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe><iframe width='560' height='315' src='https://www.youtube.com/embed/S2yMOOMpr5Y' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></center>"),
+               HTML("<ul>"),
+               HTML("<li><a href='OPTIROYAV3.docx' target='blank_'>Manual técnico</a></li>"),
+               HTML("<li><a href='https://github.com/pergamino/project/tree/master/modulo_optimizacion' target='blank_'>Repositorio</a></li>"),
+               HTML("</ul>")
         )
       ),
       footer = tagList(

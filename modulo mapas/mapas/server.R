@@ -220,9 +220,9 @@ from alertas_porcentaje_areas order by periodo,catvariedad,mes,anio,orden"
   urlInforme <- reactive({
     urlinforme <- filter(cabeceras,anio==input$selAnio & mes==input$selMes)$archivo
     if(is.null(urlinforme))
-      hide(id = "informe", anim = TRUE)
+      shinyjs::hide(id = "informe", anim = TRUE)
     else 
-      show(id = "informe", anim = TRUE)
+      shinyjs::show(id = "informe", anim = TRUE)
     urlinforme
   })
   
@@ -236,7 +236,17 @@ from alertas_porcentaje_areas order by periodo,catvariedad,mes,anio,orden"
       size = "l",
       fluidRow(
         column(width=12,
-               HTML("<embed src='guia_para_el_uso_de_mapalerta.pdf' type='application/pdf' internalinstanceid='44' title='' width='100%' height='890'>")      
+               HTML("Tutorial sobre subida de datos:<br>"),
+               HTML("Parte I<br>"),
+               HTML("<iframe width='560' height='315' src='https://www.youtube.com/embed/JfppYUqXbB4' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"),
+               HTML("Parte II<br>"),
+               HTML("<iframe width='560' height='315' src='https://www.youtube.com/embed/1VQw7M6T9ls' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"),
+               HTML("Parte III<br>"),
+               HTML("<iframe width='560' height='315' src='https://www.youtube.com/embed/Xjemnsgjo1g' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"),
+               HTML("<br><ul>"),
+               HTML("<li><a href='guia_para_el_uso_de_mapalerta.docx'>Guía de uso</a></li>"),
+               HTML("<li><a href='https://github.com/pergamino/project/tree/master/modulo%20mapas'>Repositorio</a></li>"),
+               HTML("</ul>")
         )
       ),
       footer = tagList(

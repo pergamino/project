@@ -41,7 +41,11 @@ shinyServer(function(input, output, session) {
       size = "l",
       fluidRow(
         column(width=12,
-               HTML("<embed src='aspectos_tecnicos.pdf' type='application/pdf' internalinstanceid='44' title='' width='100%' height='890'>")      
+               HTML("<center><iframe width='560' height='315' src='https://www.youtube.com/embed/jiRP1--hFDY' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></center>"),
+               HTML("<br><br><ul>"),
+               HTML("<li><a href='https://www.sciencedirect.com/science/article/abs/pii/S0168169920309315' target='blank_'>Documento técnico del modelo</a></li>"),
+               HTML("<li><a href='https://github.com/pergamino/project/tree/master/modulo_estadistico' target='blank_'>Repositorio</a></li>"),
+               HTML("</ul>")
         )
       ),
       footer = tagList(

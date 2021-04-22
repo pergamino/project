@@ -7,7 +7,8 @@ ui <- dashboardPage(
       menuItem("Sistema de producción", tabName = "sistemaProd", icon = icon("th")),
       menuItem("Roya historica", tabName = "royaHistorica", icon = icon("th")),
       menuItem("Mano de obra", tabName = "manoObra", icon = icon("th")),
-      menuItem("Pronostico", tabName = "pronostico", icon = icon("th"))
+      menuItem("Pronostico", tabName = "pronostico", icon = icon("th")),
+      menuItem("Guía de uso", tabName = "guia", icon = icon("th"))
     ),
     tags$div(
       fluidRow(
@@ -590,8 +591,13 @@ ui <- dashboardPage(
                     )
                 ),
                 
-              )# fin fluidRow
-              
+              ),# fin fluidRow
+              tabItem(tabName = "guia",
+                      HTML("<iframe width='560' height='315' src='https://www.youtube.com/embed/hz9gYtu56-w' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"),
+                      HTML("<br><br><ul>"),
+                      HTML("<li><a href='https://github.com/pergamino/project/tree/master/modulo%20socioeco'>Repositorio</a></li>"),
+                      HTML("</ul>")
+                      )
       )# fin de tabItem Pronostico
       
       

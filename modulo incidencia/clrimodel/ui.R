@@ -160,7 +160,12 @@ body <- dashboardBody(
                   icon = icon("book-open"),width = 12,color='red'),
             ),
             
-            
+            h2("Guía de uso"),
+            HTML("<iframe width='560' height='315' src='https://www.youtube.com/embed/3-IpTPbYS1Y' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"),
+            HTML("<br><br><ul>"),
+            HTML("<li><a href='Guiadeusuarioparalosmodelosestadisticosdepronosticodelaroyav2.docx' target='blank_'>Documento Técnico del modelo</a></li>"),
+            HTML("<li><a href='https://github.com/pergamino/project/tree/master/modulo%20incidencia' target='blank_'>Repositorio</a></li>"),
+            HTML("</ul>")
     )
   ),
   
