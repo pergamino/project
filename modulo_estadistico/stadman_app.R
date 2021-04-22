@@ -14,7 +14,8 @@ lat <<- -87.565
 lng <<- 14.1378
 
 func_stadaman_app <- function() {
-  
+
+
     #create connection object
     con <- dbConnect(drv =PostgreSQL(), 
                      user="admin", 
