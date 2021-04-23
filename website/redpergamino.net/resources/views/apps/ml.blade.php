@@ -7,6 +7,9 @@
 </style>
 <section  class="portfolio">
       <div class="container">
+      <div class="section-title mt-5" data-aos="fade-up">
+          <h2 >La plataforma Pergamino: Machine Learning</h2>
+      </div>
         <center>
         <br>
         <br>

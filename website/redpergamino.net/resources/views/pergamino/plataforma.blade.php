@@ -26,7 +26,7 @@
           <br>
           <br>
           <br>
-          <div style="font-size:14pt;"><b>Móvil</b><br>
+          <h2><b>Móvil</h2><br><br><br>
           <ul class="list-unstyled">
           <li>
             <a href="/documentos/ManualdeUsuarioMovil.docx">Manual de usuario</a>
@@ -38,7 +38,7 @@
             <a href="https://www.youtube.com/watch?v=bt49M2PhJ4I">Ver video en YouTube</a>
           </li>
           </ul>
-          <h1>Web</h1><br>
+          <h2>Web</h2><br><br><br>
           <ul class="list-unstyled">
           <li>
           <a href="/documentos/ManualesdeUsuarioWeb.docx">Manual de Usuario</a>
