@@ -38,6 +38,8 @@
             <a href="https://www.youtube.com/watch?v=bt49M2PhJ4I">Ver video en YouTube</a>
           </li>
           </ul>
+          <br><br>
+          <br><br>
           <h2>Web</h2><br><br><br>
           <ul class="list-unstyled">
           <li>
@@ -51,8 +53,9 @@
           </li>
           </ul>
           <br>
-          <br>
-          <h3>Documentación de APIs</h3>
+          <br><br><br>
+          <h2>Documentación de APIs</h2>
+          <br><br><br><br>
           <ul class="list-unstyled">
           <li><a href="/documentos/API_Información_Evaluación_Regional.docx">API 1: API de Información y Evaluación Regional</a></li>
           <li><a href="/documentos/API_App_pergamino_2.8.1.docx">API 2: Para Pergamino App</a></li>
