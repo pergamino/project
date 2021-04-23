@@ -47,12 +47,16 @@
           <h2>Web</h2><br><br><br>
           <ul class="list-unstyled">
           <li>
+          <i class="bx bx-chevron-right"></i>
           <a href="/documentos/ManualesdeUsuarioWeb.docx">Manual de Usuario</a>
+          <br></br>
           </li>
           <li>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/L80YV17UiH0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <br><br>
           </li>
           <li>
+          <i class="bx bx-chevron-right"></i>
           <a href="https://www.youtube.com/watch?v=L80YV17UiH0&t=2s">Ver video en YouTube</a>
           </li>
           </ul>
@@ -61,11 +65,11 @@
           <h2>Documentación de APIs</h2>
           <br><br><br><br>
           <ul class="list-unstyled">
-          <li><a href="/documentos/API_Información_Evaluación_Regional.docx">API 1: API de Información y Evaluación Regional</a></li>
-          <li><a href="/documentos/API_App_pergamino_2.8.1.docx">API 2: Para Pergamino App</a></li>
-          <li><a href="/documentos/API_ResultadosEvaluación.docx">API 3: API para consultar información de la evaluación de roya personalizada</a></li>
-          <li><a href="/documentos/API_met_pergamino.docx">API 4: API para consultar y agregar datos meteorológicos en Pergamino</a></li>
-          <li><a href="/documentos/API_Datos_Modelo_Clima.docx">API 5: API para consultar datos del modelo de clima para una coordenada o área en específico</a></li>
+          <li><i class="bx bx-chevron-right"></i><a href="/documentos/API_Información_Evaluación_Regional.docx">API 1: API de Información y Evaluación Regional</a></li>
+          <li><i class="bx bx-chevron-right"></i><a href="/documentos/API_App_pergamino_2.8.1.docx">API 2: Para Pergamino App</a></li>
+          <li><i class="bx bx-chevron-right"></i><a href="/documentos/API_ResultadosEvaluación.docx">API 3: API para consultar información de la evaluación de roya personalizada</a></li>
+          <li><i class="bx bx-chevron-right"></i><a href="/documentos/API_met_pergamino.docx">API 4: API para consultar y agregar datos meteorológicos en Pergamino</a></li>
+          <li><i class="bx bx-chevron-right"></i><a href="/documentos/API_Datos_Modelo_Clima.docx">API 5: API para consultar datos del modelo de clima para una coordenada o área en específico</a></li>
           </ul>
           <br>
           <br>

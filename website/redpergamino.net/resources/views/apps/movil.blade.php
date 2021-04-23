@@ -18,8 +18,8 @@
       <br>
       <br>
       <ul class="list-unstyled">
-      <li><a href="https://play.google.com/store/apps/details?id=com.pergaminoapp">Ver en Google Play</a></li>
-      <li><a href="/documentos/ManualdeUsuarioMovil.docx">Manual de usuario</a></li>
+      <li><i class="bx bx-chevron-right"></i><a href="https://play.google.com/store/apps/details?id=com.pergaminoapp">Ver en Google Play</a></li>
+      <li><i class="bx bx-chevron-right"></i><a href="/documentos/ManualdeUsuarioMovil.docx">Manual de usuario</a></li>
       </ul>
       </center>
       </div>

@@ -20,8 +20,8 @@
       <br>
       <br>
       <ul class="list-unstyled">
-      <li><a href="/documentos/Modulo_de_aprendizaje_de_la_maquina.docx">Descripción y uso del modelo</a></li>
-      <li><a href="https://github.com/pergamino/project/tree/master/MachineLearning">Repositorio</a></li>
+      <li><i class="bx bx-chevron-right"></i><a href="/documentos/Modulo_de_aprendizaje_de_la_maquina.docx">Descripción y uso del modelo</a></li>
+      <li><i class="bx bx-chevron-right"></i><a href="https://github.com/pergamino/project/tree/master/MachineLearning">Repositorio</a></li>
       </ul>
         </center>
       </div>
