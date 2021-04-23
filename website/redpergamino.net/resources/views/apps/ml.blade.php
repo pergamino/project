@@ -1,3 +1,5 @@
+@include('shared.head')
+@include('shared.header')
 <section  class="portfolio">
       <div class="container">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/aXhY52HLu6s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -8,3 +10,4 @@
       </ul>
       </div>
 </section>
+@include('shared.footer')

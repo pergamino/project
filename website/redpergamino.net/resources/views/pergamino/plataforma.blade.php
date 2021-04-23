@@ -10,11 +10,15 @@
           <br>
           <p class="left-text" style="font-style: italic;">"Aumentar la capacidad de la región para diseñar e implementar políticas, programas y medidas para una mejor adaptación, capacidad de respuesta y resiliencia de la población más vulnerable, que vive en las zonas de producción de café de Centroamérica y República Dominicana, y que está expuesta a los efectos adversos del cambio y variabilidad climática".</p>
           <br>
+          <br>
+          <img src="{{ URL::asset('img/pergamino-overview.jpg') }}" alt="">
+          <br>
+          <br>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/L80YV17UiH0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <br>
           <br>
-          <h3>Móvil</h3><br>
-          <ul>
+          <h1>Móvil</h1><br>
+          <ul class="list-unstyled">
           <li>
             <a href="/documentos/ManualdeUsuarioMovil.docx">Manual de usuario</a>
           </li>
@@ -25,8 +29,8 @@
             <a href="https://www.youtube.com/watch?v=bt49M2PhJ4I">Ver video en YouTube</a>
           </li>
           </ul>
-          <h3>Web</h3><br>
-          <ul>
+          <h1>Web</h1><br>
+          <ul class="list-unstyled">
           <li>
           <a href="/documentos/ManualesdeUsuarioWeb.docx">Manual de Usuario</a>
           </li>
@@ -40,7 +44,7 @@
           <br>
           <br>
           <h3>Documentación de APIs</h3>
-          <ul>
+          <ul class="list-unstyled">
           <li><a href="/documentos/API_Información_Evaluación_Regional.docx">API 1: API de Información y Evaluación Regional</a></li>
           <li><a href="/documentos/API_App_pergamino_2.8.1.docx">API 2: Para Pergamino App</a></li>
           <li><a href="/documentos/API_ResultadosEvaluación.docx">API 3: API para consultar información de la evaluación de roya personalizada</a></li>
