@@ -2,7 +2,7 @@
 @include('shared.header')
 <style>
 .list-unstyled {
-	list-style: none;
+	list-style: none !important;
 }
 </style>
 <section  class="portfolio">
@@ -11,6 +11,8 @@
       <br><br>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/mE1AwKAyHTg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       
+      <br>
+      <br>
       <br>
       <ul class="list-unstyled">
       <li><a href="https://play.google.com/store/apps/details?id=com.pergaminoapp">Ver en Google Play</a></li>

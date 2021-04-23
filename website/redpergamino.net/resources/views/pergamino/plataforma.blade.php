@@ -1,7 +1,7 @@
 <!-- ======= PLATAFORMA Section ======= -->
 <style>
 .list-unstyled {
-	list-style: none;
+	list-style: none !important;
 }
 </style>
 <section  class="portfolio">
@@ -19,7 +19,11 @@
           <img src="{{ URL::asset('img/pergamino-overview.png') }}" alt="">
           <br>
           <br>
+          <br>
+          <br>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/L80YV17UiH0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <br>
+          <br>
           <br>
           <br>
           <div style="font-size:14pt;"><b>Móvil</b><br>

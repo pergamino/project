@@ -2,7 +2,7 @@
 @include('shared.header')
 <style>
 .list-unstyled {
-	list-style: none;
+	list-style: none !important;
 }
 </style>
 <section  class="portfolio">
@@ -10,7 +10,11 @@
         <center>
         <br>
         <br>
+        <br>
+        <br>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/aXhY52HLu6s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <br>
+      <br>
       <br>
       <ul class="list-unstyled">
       <li><a href="/documentos/Modulo_de_aprendizaje_de_la_maquina.docx">Descripción y uso del modelo</a></li>
