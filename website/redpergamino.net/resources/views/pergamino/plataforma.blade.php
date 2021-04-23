@@ -29,12 +29,16 @@
           <h2><b>Móvil</h2><br><br><br>
           <ul class="list-unstyled">
           <li>
+            <i class="bx bx-chevron-right"></i>
             <a href="/documentos/ManualdeUsuarioMovil.docx">Manual de usuario</a>
+            <br></br>
           </li>
           <li>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/bt49M2PhJ4I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <br><br>
           </li>
           <li>
+            <i class="bx bx-chevron-right"></i>
             <a href="https://www.youtube.com/watch?v=bt49M2PhJ4I">Ver video en YouTube</a>
           </li>
           </ul>
