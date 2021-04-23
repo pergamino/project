@@ -1,4 +1,9 @@
 <!-- ======= PLATAFORMA Section ======= -->
+<style>
+.list-unstyled {
+	list-style: none;
+}
+</style>
 <section  class="portfolio">
       <div class="container">
 
@@ -11,13 +16,13 @@
           <p class="left-text" style="font-style: italic;">"Aumentar la capacidad de la región para diseñar e implementar políticas, programas y medidas para una mejor adaptación, capacidad de respuesta y resiliencia de la población más vulnerable, que vive en las zonas de producción de café de Centroamérica y República Dominicana, y que está expuesta a los efectos adversos del cambio y variabilidad climática".</p>
           <br>
           <br>
-          <img src="{{ URL::asset('img/pergamino-overview.jpg') }}" alt="">
+          <img src="{{ URL::asset('img/pergamino-overview.png') }}" alt="">
           <br>
           <br>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/L80YV17UiH0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <br>
           <br>
-          <h1>Móvil</h1><br>
+          <div style="font-size:14pt;"><b>Móvil</b><br>
           <ul class="list-unstyled">
           <li>
             <a href="/documentos/ManualdeUsuarioMovil.docx">Manual de usuario</a>
