@@ -291,4 +291,12 @@ class IndexController extends Controller
         return view('apps.miroya');
     }
 
+    public function ml(){
+        return view('apps.ml');
+    }
+
+    public function movil(){
+        return view('apps.movil');
+    }
+
 }

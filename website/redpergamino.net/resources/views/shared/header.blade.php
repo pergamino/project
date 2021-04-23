@@ -25,7 +25,8 @@
                   <li><a href="/app-stadinc">STADINC</a></li>
                   <li><a href="/app-miroya">MIROYA</a></li>
                   <li><a href="/app-seroya">SEROYA</a></li>
-                  <li><a href="#">Aplicación Productor </a></li>
+                  <li><a href="/app-ml">MACHINE LEARNING</a></li>
+                  <li><a href="/app-movil">Aplicación Productor </a></li>
                 </ul>
               <li><a href="/documentos-cientificos">Documentos cientificos  </a></li>
               <li><a href="/memorias">Memorias</a></li>

@@ -34,3 +34,5 @@ Route::get('/app-stadinc','IndexController@clrimodel');
 Route::get('/app-optiroya','IndexController@optimizacion');
 Route::get('/app-miroya','IndexController@miroya');
 Route::get('/app-seroya','IndexController@seroya');
+Route::get('/app-ml','IndexController@ml');
+Route::get('/app-movil','IndexController@movil');
