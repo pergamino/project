@@ -121,7 +121,49 @@ class IndexController extends Controller
             'title'=>'Merle et al. 2020, Phytopathology',
             'description'=>'Unraveling the Complexity of Coffee Leaf Rust Behavior and Development in Different Coffea arabica Agroecosystems', 
             'url'=>'https://drive.google.com/file/d/1nQdJx0_pPMlKAF0jfYObAAl4NlbAkTfA/view', 
-            'thumb'=>'https://drive.google.com/thumbnail?id=1nQdJx0_pPMlKAF0jfYObAAl4NlbAkTfA&sz=w350-h220-p-k-nu']
+            'thumb'=>'https://drive.google.com/thumbnail?id=1nQdJx0_pPMlKAF0jfYObAAl4NlbAkTfA&sz=w350-h220-p-k-nu'],
+            [
+                'title'=>'Lasso et al., 2020 Computers and Electronics in Agriculture',
+                'description'=>'Discovering weather periods and crop properties favorable for coffee rust',
+                'url'=>'https://drive.google.com/file/d/1zab-AW8VNGruNJrsmL3LkBrz-eOdWDkr/view',
+                'thumb'=>'https://drive.google.com/thumbnail?id=1zab-AW8VNGruNJrsmL3LkBrz-eOdWDkr&sz=w350-h220-p-k-nu'
+            ],
+            [
+                'title'=>'Vílchez et al., 2020',
+                'description'=>'Validación del modelo de optimización de la vigilancia',
+                'url'=>'https://drive.google.com/file/d/182l6j8NEyxk0ArR_EjbkGgFBQYrdvIxx/view',
+                'thumb'=>'https://drive.google.com/thumbnail?id=182l6j8NEyxk0ArR_EjbkGgFBQYrdvIxx&sz=w350-h220-p-k-nu'
+            ],
+            [
+                'title'=>'Vezy et al. 2020 Environmental Modelling & Software',
+                'description'=>'DynACof: A model to study growth, yield and ecosystem services of coffee agroforestry systems',
+                'url'=>'https://www.sciencedirect.com/science/article/abs/pii/S1364815219305870',
+                'thumb'=>'https://ars.els-cdn.com/content/image/1-s2.0-S1364815219305870-fx1.jpg'
+            ],
+            [
+                'title'=>'Motisi et al., 2020',
+                'description'=>'Restitución de la encuesta sobre la evaluación del formalismo elegido en el modelo ExpeRoya',
+                'url'=>'https://drive.google.com/file/d/1buUXDsdLHFW6e_Nx-ikDgxAtQJDulwpA/view',
+                'thumb'=>'https://drive.google.com/thumbnail?id=1buUXDsdLHFW6e_Nx-ikDgxAtQJDulwpA&sz=w350-h220-p-k-nu'
+            ],
+            [
+                'title'=>'S. Vilchez, F. Casanoves, E. Treminio y J. Avelino. Agosto, 2020',
+                'description'=>'Mapeo de la incidencia de la roya del café basado en las condiciones climáticas: Efectos del cambio climático en la incidencia máxima de la roya del café en Centroamérica y República Dominicana',
+                'url'=>'https://drive.google.com/file/d/1GJe5rRLs1EsjiK8mtRkiz0AIZazSTXrs/view',
+                'thumb'=>'https://drive.google.com/thumbnail?id=1GJe5rRLs1EsjiK8mtRkiz0AIZazSTXrs&sz=w350-h220-p-k-nu'
+            ],
+            [
+                'title'=>'Lasso et al., 2020',
+                'description'=>'Discovering weather periods and crop properties favorable for coffee rust incidence from feature selection approaches',
+                'url'=>'https://drive.google.com/file/d/1NFBpy4ohfDTdU5-TF8-owKmZ7SsDfOuB/view',
+                'thumb'=>'https://drive.google.com/thumbnail?id=1NFBpy4ohfDTdU5-TF8-owKmZ7SsDfOuB&sz=w350-h220-p-k-nu'
+            ],
+            [
+                'title'=>'Merle et al., 2020',
+                'description'=>'Microclimate estimation under different coffee-based agroforestry systems using full-sun weather data and shade tree characteristics',
+                'url'=>'https://drive.google.com/file/d/1hEknRhiEVayxPkdBUadB-2LyZ6O08h6z/view',
+                'thumb'=>'https://drive.google.com/thumbnail?id=1hEknRhiEVayxPkdBUadB-2LyZ6O08h6z&sz=w350-h220-p-k-nu'
+            ]
         ];
         $cientificJson=json_encode($cientific);
         $cientific_main= json_decode($cientificJson,true);
