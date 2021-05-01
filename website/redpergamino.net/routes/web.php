@@ -22,7 +22,7 @@ Route::get('/modelos','IndexController@modelos');
 
 Route::get('/documentos-cientificos','IndexController@documentos');
 
-Route::get('/memorias','IndexController@memorias');
+Route::get('/estudiostecnicos','IndexController@EstudiosTecnicos');
 
 Route::get('/privacidad','IndexController@privacidad');
 //app

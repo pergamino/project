@@ -28,8 +28,8 @@
                   <li><a href="/app-ml">MACHINE LEARNING</a></li>
                   <li><a href="/app-movil">Aplicación Productor </a></li>
                 </ul>
-              <li><a href="/documentos-cientificos">Documentos cientificos  </a></li>
-              <li><a href="/memorias">Memorias</a></li>
+              <li><a href="/documentos-cientificos">Documentos científicos  </a></li>
+              <li><a href="/estudiostecnicos">Estudios Técnicos</a></li>
             </ul>
       </nav><!-- .nav-menu -->
     </div>

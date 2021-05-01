@@ -128,6 +128,36 @@ class IndexController extends Controller
         return view('documentos', compact('tesis_main','congresos_main','cientific_main'));
     }
 
+    public function EstudiosTecnicos()
+    {
+        $estudios = [[
+            'title' => 'Inventario de los sistemas automatizados actualmente en operación',
+            'descripcion' => '',
+            'url' => 'https://drive.google.com/file/d/1Z0AMyQJ66OweoF8DDUXWV5MF2f4E68m7/view',
+            'thumb' => 'https://drive.google.com/thumbnail?id=1Z0AMyQJ66OweoF8DDUXWV5MF2f4E68m7&sz=w350-h220-p-k-nu'
+        ],
+        [
+            'title' => 'Diseño de una plataforma para  los SAT Café nacionales',
+            'descripcion' => '',
+            'url' => 'https://drive.google.com/file/d/1hPFKU45vb6cZ3k3WnL99VFbkzVZ6hbtq/view',
+            'thumb' => 'https://drive.google.com/thumbnail?id=1hPFKU45vb6cZ3k3WnL99VFbkzVZ6hbtq&sz=w350-h220-p-k-nu'
+        ],
+        [
+            'title' => 'Estrategia de implementación del SAT Café',
+            'descripcion' => '',
+            'url' => 'https://drive.google.com/file/d/1T4RZUJipZUNBvSdFMLw0sH6INHOiI2np/view',
+            'thumb' => 'https://drive.google.com/thumbnail?id=1T4RZUJipZUNBvSdFMLw0sH6INHOiI2np&sz=w350-h220-p-k-nu'
+        ],
+        [
+            'title' => 'Curso Taller regional en gestion de riesgos, E. Lasso',
+            'descripcion' => '',
+            'url' => 'https://drive.google.com/file/d/1V1WnhD3SfqE0KNq2lhLyRFu4cz03LfQO/view',
+            'thumb' => 'https://drive.google.com/thumbnail?id=1V1WnhD3SfqE0KNq2lhLyRFu4cz03LfQO&sz=w350-h220-p-k-nu'
+        ],
+    ];
+        return view('estudiostecnicos',compact('estudios'));
+    }
+
     public function memorias(){
         $tesis =[[
             'title'=>'Memoria Nicaragua Octubre 2017',
